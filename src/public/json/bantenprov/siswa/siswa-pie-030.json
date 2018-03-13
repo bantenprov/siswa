@@ -1,0 +1,44 @@
+[
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Provinsi",
+      "name": "Banten",
+      "title": "Rasio Grup Kesenian Provinsi Banten",
+      "yyyy": "2018"
+    },
+    "series": [
+      {
+        "data": [
+          {"value":7.92,"name":"2010"},
+          {"value":7.95,"name":"2011"},
+          {"value":8.06,"name":"2012"},
+          {"value":8.17,"name":"2013"},
+          {"value":8.19,"name":"2014"},
+          {"value":8.27,"name":"2015"}
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Provinsi",
+      "name": "Banten",
+      "title": "Rasio Grup Kesenian Negara Indonesia",
+      "yyyy": "2018"
+    },
+    "series": [
+      {
+        "data": [
+          {"value":7.46,"name":"2010"},
+          {"value":7.52,"name":"2011"},
+          {"value":7.59,"name":"2012"},
+          {"value":7.61,"name":"2013"},
+          {"value":7.73,"name":"2014"},
+          {"value":7.84,"name":"2015"}
+        ]
+      }
+    ]
+  }
+]

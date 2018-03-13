@@ -1,0 +1,59 @@
+[
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Provinsi",
+      "name": "Banten",
+      "yyyy": "2011",
+      "title": "Rasio Grup Kesenian Provinsi Banten",
+      "data": [
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          7.92,
+          7.95,
+          8.06,
+          8.17,
+          8.19,
+          8.27
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Rasio Grup Kesenian Negara Indonesia",
+      "yyyy": "2011",
+      "data": [
+        "2010",
+        "2011",
+        "2012",
+        "2013",
+        "2014",
+        "2015"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          7.46,
+          7.52,
+          7.59,
+          7.61,
+          7.73,
+          7.84
+        ]
+      }
+    ]
+  }
+]

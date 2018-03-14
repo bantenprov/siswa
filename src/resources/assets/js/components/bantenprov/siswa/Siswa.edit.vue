@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <i class="fa fa-table" aria-hidden="true"></i> Add Rasio Grup Kesenian
+      <i class="fa fa-table" aria-hidden="true"></i> Edit Siswa
 
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">

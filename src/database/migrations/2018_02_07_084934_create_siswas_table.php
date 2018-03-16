@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Carbon\Carbon;
 
 class CreateSiswasTable extends Migration
 {
@@ -12,13 +13,30 @@ class CreateSiswasTable extends Migration
      */
 	public function up()
 	{
-		Schema::create('siswas', function(Blueprint $table) {
-			$table->increments('id');
-			$table->integer('pendaftaran_id');
-			$table->string('label', 255);
-			$table->string('description', 255)->nullable();
-			$table->timestamps();
-			$table->softDeletes();
+		Schema::create('siswas', function (Blueprint $table) {
+			 $table->increments('id');
+			 $table->bigInteger('nomor_un')->unique();
+			 $table->bigInteger('pendaftaran_id')->unique();
+			 $table->bigInteger('nik')->unique();
+			 $table->string('label');
+			 $table->string('nama_siswa')->nullable();
+			 $table->text('alamat_kk');
+			 //$table->integer('prov_id')->unsigned()->index();
+			 //$table->integer('kabkota_id')->index();
+			 //$table->integer('kecamatan_id')->index();
+			 //$table->integer('kelurahan_id')->index();
+			 $table->string('tempat_lahir');
+			 $table->date('tgl_lahir');
+			 $table->string('jenis_kelamin');
+			 $table->string('agama');
+			 //$table->integer('asal_sekolah_id')->unsigned()->index();
+			 $table->bigInteger('nisn')->unique();
+			 $table->string('tahun_lulus');
+			 //$table->integer('sekolah_tujuan_id')->unsigned()->index();
+			 $table->text('description');
+			 $table->integer('user_id')->unique();
+			 $table->timestamps();
+			 $table->softDeletes();
 		});
 	}
 

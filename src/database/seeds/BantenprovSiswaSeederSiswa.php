@@ -15,35 +15,27 @@ class BantenprovSiswaSeederSiswa extends Seeder
      * @return void
      */
 	public function run()
-	{
-        Model::unguard();
+    {
+        $faker = Faker::create();
 
-        $siswas = (object) [
-            (object) [
-                'pendaftaran_id' => '1',
-                'label' => 'Siswa 1',
-                'description' => 'Siswa satu'
-            ],
-            (object) [
-                'pendaftaran_id' => '2',
-                'label' => 'Siswa 2',
-                'description' => 'Siswa dua',
-            ]
-        ];
+        foreach (range(1,10) as $index) {
+            DB::table('siswas')->insert([
+                'nomor_un' => $faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
+                'pendaftaran_id' => $faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
+                'nik' => $faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
+                'label' => $faker->word,
+                'nama_siswa' => $faker->name,
+                'alamat_kk' => $faker->streetAddress,
+                'tempat_lahir' => $faker->cityPrefix,
+                'tgl_lahir' => $faker->date($format = 'Y-m-d', $max = 'now'),
+                'jenis_kelamin' => 'laki-laki',
+                'agama' => 'agama',
+                'nisn' => $faker->unique()->randomNumber($nbDigits = NULL, $strict = false),
+                'tahun_lulus' => '2017',
+                'description' => $faker->text($maxNbChars = 200),
+                'user_id'     => $faker->unique()->randomNumber($nbDigits = NULL, $strict = false)                            
 
-        foreach ($siswas as $siswa) {
-            $model = Siswa::updateOrCreate(
-                [
-                    'pendaftaran_id' => $siswa->pendaftaran_id,
-                ],
-                [
-                    'label' => $siswa->label,
-                ],
-                [
-                    'description' => $siswa->description,
-                ]
-            );
-            $model->save();
-        }
-	}
+            ]); 
+        }       
+    }
 }

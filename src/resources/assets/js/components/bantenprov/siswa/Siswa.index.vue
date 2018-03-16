@@ -92,21 +92,69 @@ export default {
           dataClass: 'right aligned'
         },
         {
+          name: 'nomor_un',
+          title: 'Nomor UN',
+          sortField: 'nomor_un',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'pendaftaran_id',
+          title: 'Pendaftaran',
+          sortField: 'pendaftaran_id',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'nik',
+          title: 'NIK',
+          sortField: 'nik',
+          titleClass: 'center aligned'
+        },
+        {
           name: 'label',
           title: 'Label',
           sortField: 'label',
           titleClass: 'center aligned'
         },
         {
-          name: 'pendaftaran.label',
-          title: 'Pendaftaran',
-          sortField: 'pendaftaran_id',
+          name: 'nama_siswa',
+          title: 'Nama Siswa',
+          sortField: 'nama_siswa',
           titleClass: 'center aligned'
         },
         {
-          name: 'description',
-          title: 'Description',
-          sortField: 'description',
+          name: 'alamat_kk',
+          title: 'Alamat KK',
+          sortField: 'alamat_kk',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'tempat_lahir',
+          title: 'Tempat Lahir',
+          sortField: 'tempat_lahir',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'jenis_kelamin',
+          title: 'Jenis Kelamin',
+          sortField: 'jenis_kelamin',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'agama',
+          title: 'Agama',
+          sortField: 'agama',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'nisn',
+          title: 'NISN',
+          sortField: 'nisn',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'user_id',
+          title: 'User Name',
+          sortField: 'user_id',
           titleClass: 'center aligned'
         },
         {

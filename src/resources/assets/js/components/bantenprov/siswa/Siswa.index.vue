@@ -6,7 +6,7 @@
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
           <button class="btn btn-primary btn-sm" role="button" @click="createRow">
-          	<i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </li>
       </ul>
@@ -134,6 +134,12 @@ export default {
           titleClass: 'center aligned'
         },
         {
+          name: 'tgl_lahir',
+          title: 'Tanggal Lahir',
+          sortField: 'tgl_lahir',
+          titleClass: 'center aligned'
+        },
+        {
           name: 'jenis_kelamin',
           title: 'Jenis Kelamin',
           sortField: 'jenis_kelamin',
@@ -155,6 +161,12 @@ export default {
           name: 'user_id',
           title: 'User Name',
           sortField: 'user_id',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'tahun_lulus',
+          title: 'Tahun Lulus',
+          sortField: 'tahun_lulus',
           titleClass: 'center aligned'
         },
         {

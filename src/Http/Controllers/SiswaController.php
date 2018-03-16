@@ -51,9 +51,9 @@ class SiswaController extends Controller
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
         $response = $query->paginate($perPage);
         
-        foreach($response as $pendaftaran){            
+        /*foreach($response as $pendaftaran){            
             array_set($response->data, 'pendaftaran_id', $pendaftaran->pendaftaran->label);           
-        }
+        }*/
         
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')

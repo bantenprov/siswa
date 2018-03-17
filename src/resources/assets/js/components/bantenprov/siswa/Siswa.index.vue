@@ -6,7 +6,7 @@
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
           <button class="btn btn-primary btn-sm" role="button" @click="createRow">
-          	<i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </li>
       </ul>
@@ -155,6 +155,12 @@ export default {
           name: 'nisn',
           title: 'NISN',
           sortField: 'nisn',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'tahun_lulus',
+          title: 'Tahun Lulus',
+          sortField: 'tahun_lulus',
           titleClass: 'center aligned'
         },
         {

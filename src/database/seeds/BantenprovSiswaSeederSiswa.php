@@ -2,8 +2,9 @@
 
 /* Require */
 use Illuminate\Database\Seeder;
-use Illuminate\Database\Eloquent\Model;
 use Faker\Factory as Faker;
+use Illuminate\Database\Eloquent\Model;
+// use Illuminate\Database\Eloquent\Model;
 
 /* Models */
 use Bantenprov\Siswa\Models\Bantenprov\Siswa\Siswa;
@@ -15,7 +16,7 @@ class BantenprovSiswaSeederSiswa extends Seeder
      *
      * @return void
      */
-	public function run()
+    public function run()
     {
         $faker = Faker::create();
 

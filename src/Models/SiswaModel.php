@@ -15,14 +15,14 @@ class SiswaModel extends Model
     *
     * @var string
     */
-    protected $table = 'siswa';
+    protected $table = 'siswas';
 
     /**
     * The attributes that are mass assignable.
     *
     * @var mixed
     */
-    protected $fillable = ['nomor_un','pendaftaran_id','nik','label','nama_siswa','alamat_kk','tempat_lahir','tgl_lahir','jenis_kelamin','agama','nisn','tahun_lulus','description','user_id'];
+    protected $fillable = ['nomor_un','nik','label','nama_siswa','alamat_kk','tempat_lahir','tgl_lahir','jenis_kelamin','agama','nisn','tahun_lulus','description','user_id'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,4 +30,10 @@ class SiswaModel extends Model
      * @var array
      */
     protected $hidden = [];
+
+        public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
+
 }

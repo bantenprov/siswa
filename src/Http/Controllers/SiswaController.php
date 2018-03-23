@@ -50,11 +50,11 @@ class SiswaController extends Controller
             });
         }
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
-        $response = $query->paginate($perPage);
+        $response = $query->with('user')->paginate($perPage);
         
-        foreach($response as $user){
+        /*foreach($response as $user){
             array_set($response->data, 'user', $user->user->name);
-        }
+        }*/
         
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')

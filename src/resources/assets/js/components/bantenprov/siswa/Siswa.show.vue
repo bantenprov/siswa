@@ -34,12 +34,6 @@
 
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Username :</b> {{ model.user.name}}
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
             <b>Nik :</b> {{ model.nik}}
           </div>
         </div>
@@ -95,12 +89,16 @@
 
       </vue-form>
     </div>
-  <div class="card-footer text-muted">
+     <div class="card-footer text-muted">
         <div class="row">
-          <div class="col-md-6">Dibuat : {{ model.created_at }}</div>
-          <div class="col-md-6 text-right">Diperbaiki : {{ model.updated_at }}</div>
+          <div class="col-md">
+            <b>Username :</b> {{ model.user.name }}
+          </div>
+          <div class="col-md">
+            <div class="col-md text-right">Dibuat : {{ model.created_at }}</div>
+            <div class="col-md text-right">Diperbaiki : {{ model.updated_at }}</div>
+          </div>
         </div>
-          
       </div>
   </div>
 </template>

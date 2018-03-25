@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <i class="fa fa-table" aria-hidden="true"></i> Show siswa {{ model.label }}
+      <i class="fa fa-table" aria-hidden="true"></i> siswa : {{ model.label }}
 
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
@@ -95,6 +95,13 @@
 
       </vue-form>
     </div>
+  <div class="card-footer text-muted">
+        <div class="row">
+          <div class="col-md-6">Dibuat : {{ model.created_at }}</div>
+          <div class="col-md-6 text-right">Diperbaiki : {{ model.updated_at }}</div>
+        </div>
+          
+      </div>
   </div>
 </template>
 
@@ -104,20 +111,22 @@ export default {
     axios.get('api/siswa/' + this.$route.params.id)
       .then(response => {
         if (response.data.status == true) {
-          this.model.label = response.data.siswa.label;
-          this.model.old_label = response.data.siswa.label;
-          this.model.description = response.data.siswa.description;
-          this.model.user = response.data.siswa.user;
-          this.model.nomor_un = response.data.siswa.nomor_un;
-          this.model.nik = response.data.siswa.nik;
-          this.model.nama_siswa = response.data.siswa.nama_siswa;
-          this.model.alamat_kk = response.data.siswa.alamat_kk;
-          this.model.tempat_lahir = response.data.siswa.tempat_lahir;
-          this.model.tgl_lahir = response.data.siswa.tgl_lahir;
-          this.model.jenis_kelamin = response.data.siswa.jenis_kelamin;
-          this.model.agama = response.data.siswa.agama;
-          this.model.nisn = response.data.siswa.nisn;
-          this.model.tahun_lulus = response.data.siswa.tahun_lulus;
+          this.model.label          = response.data.siswa.label;
+          this.model.old_label      = response.data.siswa.label;
+          this.model.description    = response.data.siswa.description;
+          this.model.user           = response.data.siswa.user;
+          this.model.nomor_un       = response.data.siswa.nomor_un;
+          this.model.nik            = response.data.siswa.nik;
+          this.model.nama_siswa     = response.data.siswa.nama_siswa;
+          this.model.alamat_kk      = response.data.siswa.alamat_kk;
+          this.model.tempat_lahir   = response.data.siswa.tempat_lahir;
+          this.model.tgl_lahir      = response.data.siswa.tgl_lahir;
+          this.model.jenis_kelamin  = response.data.siswa.jenis_kelamin;
+          this.model.agama          = response.data.siswa.agama;
+          this.model.nisn           = response.data.siswa.nisn;
+          this.model.tahun_lulus    = response.data.siswa.tahun_lulus;
+          this.model.created_at     = response.data.siswa.created_at;
+          this.model.updated_at     = response.data.siswa.updated_at;
         } else {
           alert('Failed');
         }
@@ -153,7 +162,9 @@ export default {
         jenis_kelamin: "",
         agama: "",
         nisn: "",
-        tahun_lulus: ""
+        tahun_lulus: "",
+        created_at: "",
+        updated_at: "",
 
       },
       user: []

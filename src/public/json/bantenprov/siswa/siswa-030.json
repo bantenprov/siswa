@@ -5,25 +5,38 @@
       "region": "Provinsi",
       "name": "Banten",
       "yyyy": "2011",
-      "title": "Rasio Grup Kesenian Provinsi Banten",
+      "title": "Jumlah Siswa Laki-laki Kabupaten Pandeglang",
       "data": [
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015"
+        "2017",
+        "2018"
       ]
     },
     "series": [
       {
         "data": [
-          7.92,
-          7.95,
-          8.06,
-          8.17,
-          8.19,
-          8.27
+          4345,
+          5789
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Provinsi",
+      "name": "Banten",
+      "yyyy": "2011",
+      "title": "Jumlah Siswa Perempuan Kabupaten Pandeglang",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          4345,
+          5789
         ]
       }
     ]
@@ -32,26 +45,278 @@
     "xAxis": {
       "type": "category",
       "region": "Negara",
-      "title": "Rasio Grup Kesenian Negara Indonesia",
+      "title": "Jumlah Siswa Laki-laki Kabupaten Lebak",
       "yyyy": "2011",
       "data": [
-        "2010",
-        "2011",
-        "2012",
-        "2013",
-        "2014",
-        "2015"
+        "2017",
+        "2018"
       ]
     },
     "series": [
       {
         "data": [
-          7.46,
-          7.52,
-          7.59,
-          7.61,
-          7.73,
-          7.84
+          5567,
+          5869
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kabupaten Lebak",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          5567,
+          5869
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Laki-laki Kabupaten Tangerang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          8208,
+          8223
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kabupaten Tangerang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          8208,
+          8223
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Laki-laki Kabupaten Serang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          6698,
+          6907
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kabupaten Serang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          6698,
+          6907
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Laki-laki Kota Tangerang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          10202,
+          10203
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kota Tangerang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          10202,
+          10203
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Laki-laki Kota Cilegon",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          9664,
+          9673
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kota Cilegon",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          9664,
+          9673
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Laki-laki Kota Serang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          8584,
+          8593 
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kota Serang",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          8584,
+          8593 
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Laki-laki Kota Tangerang Selatan",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          11563,
+          11572  
+        ]
+      }
+    ]
+  },
+  {
+    "xAxis": {
+      "type": "category",
+      "region": "Negara",
+      "title": "Jumlah Siswa Perempuan Kota Tangerang Selatan",
+      "yyyy": "2011",
+      "data": [
+        "2017",
+        "2018"
+      ]
+    },
+    "series": [
+      {
+        "data": [
+          11563,
+          11572  
         ]
       }
     ]

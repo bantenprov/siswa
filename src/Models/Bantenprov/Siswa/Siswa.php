@@ -25,4 +25,9 @@ class Siswa extends Model
     {
         return $this->belongsTo('Bantenprov\Pendaftaran\Models\Bantenprov\Pendaftaran\Pendaftaran','pendaftaran_id');
     }
+       public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
+
 }

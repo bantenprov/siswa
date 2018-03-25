@@ -98,9 +98,9 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'user.name',
-          title: 'Username',
-          sortField: 'user_id',
+          name: 'nama_siswa',
+          title: 'Nama Siswa',
+          sortField: 'nama_siswa',
           titleClass: 'center aligned'
         },
         {
@@ -113,12 +113,6 @@ export default {
           name: 'label',
           title: 'Label',
           sortField: 'label',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'nama_siswa',
-          title: 'Nama Siswa',
-          sortField: 'nama_siswa',
           titleClass: 'center aligned'
         },
         {
@@ -167,6 +161,12 @@ export default {
           name: 'tahun_lulus',
           title: 'Tahun Lulus',
           sortField: 'tahun_lulus',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'user.name',
+          title: 'Username',
+          sortField: 'user_id',
           titleClass: 'center aligned'
         },
         {

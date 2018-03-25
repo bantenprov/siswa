@@ -6,7 +6,7 @@
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
           <button class="btn btn-primary btn-sm" role="button" @click="createRow">
-            <i class="fa fa-plus" aria-hidden="true"></i>
+          	<i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </li>
       </ul>
@@ -98,51 +98,9 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'nama_siswa',
-          title: 'Nama Siswa',
-          sortField: 'nama_siswa',
-          titleClass: 'center aligned'
-        },
-        {
           name: 'nik',
           title: 'NIK',
           sortField: 'nik',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'label',
-          title: 'Label',
-          sortField: 'label',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'alamat_kk',
-          title: 'Alamat KK',
-          sortField: 'alamat_kk',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'tempat_lahir',
-          title: 'Tempat Lahir',
-          sortField: 'tempat_lahir',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'tgl_lahir',
-          title: 'Tanggal Lahir',
-          sortField: 'tgl_lahir',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'jenis_kelamin',
-          title: 'Jenis Kelamin',
-          sortField: 'jenis_kelamin',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'agama',
-          title: 'Agama',
-          sortField: 'agama',
           titleClass: 'center aligned'
         },
         {
@@ -152,15 +110,15 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'tahun_lulus',
-          title: 'Tahun Lulus',
-          sortField: 'tahun_lulus',
+          name: 'label',
+          title: 'Label',
+          sortField: 'label',
           titleClass: 'center aligned'
         },
         {
-          name: 'tahun_lulus',
-          title: 'Tahun Lulus',
-          sortField: 'tahun_lulus',
+          name: 'nama_siswa',
+          title: 'Nama Siswa',
+          sortField: 'nama_siswa',
           titleClass: 'center aligned'
         },
         {

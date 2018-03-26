@@ -45,8 +45,8 @@ class SiswaController extends Controller
         if ($request->exists('filter')) {
             $query->where(function($q) use($request) {
                 $value = "%{$request->filter}%";
-                $q->where('label', 'like', $value)
-                    ->orWhere('description', 'like', $value);
+                $q->where('nik', 'like', $value)
+                    ->orWhere('nama_siswa', 'like', $value);
             });
         }
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;

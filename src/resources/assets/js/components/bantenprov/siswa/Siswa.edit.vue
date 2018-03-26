@@ -172,18 +172,18 @@
         </div>
 
         <div class="form-row mt-4">
-					<div class="col-md">
-						<validate tag="div">
-						<label for="pendaftaran">Username</label>
-						<v-select name="user" v-model="model.user.name" :options="user" class="mb-4"></v-select>
+          <div class="col-md">
+            <validate tag="div">
+            <label for="user_id">Username</label>
+            <v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
 
-						<field-messages name="user" show="$invalid && $submitted" class="text-danger">
-							<small class="form-text text-success">Looks good!</small>
-							<small class="form-text text-danger" slot="required">Label is a required field</small>
-						</field-messages>
-						</validate>
-					</div>
-				</div>
+            <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Username is a required field</small>
+            </field-messages>
+            </validate>
+          </div>
+        </div>
 
         <div class="form-row mt-4">
           <div class="col-md">            
@@ -204,21 +204,22 @@ export default {
     axios.get('api/siswa/' + this.$route.params.id + '/edit')
       .then(response => {
         if (response.data.status == true) {
-          this.model.label = response.data.siswa.label;
-          this.model.old_label = response.data.siswa.label;
-          this.model.description = response.data.siswa.description;
-          this.model.user = response.data.siswa.user;
-
-          this.model.nomor_un = response.data.siswa.nomor_un;
-          this.model.nik = response.data.siswa.nik;
-          this.model.nama_siswa = response.data.siswa.nama_siswa;
-          this.model.alamat_kk = response.data.siswa.alamat_kk;
-          this.model.tempat_lahir = response.data.siswa.tempat_lahir;
-          this.model.tgl_lahir = response.data.siswa.tgl_lahir;
-          this.model.jenis_kelamin = response.data.siswa.jenis_kelamin;
-          this.model.agama = response.data.siswa.agama;
-          this.model.nisn = response.data.siswa.nisn;
-          this.model.tahun_lulus = response.data.siswa.tahun_lulus;
+          this.model.label            = response.data.siswa.label;
+          this.model.description      = response.data.siswa.description;
+          this.model.old_user_id      = response.data.siswa.user_id;
+          this.model.user             = response.data.user;
+          this.model.nomor_un         = response.data.siswa.nomor_un;
+          this.model.old_nomor_un     = response.data.siswa.nomor_un;
+          this.model.nik              = response.data.siswa.nik;
+          this.model.old_nik          = response.data.siswa.nik;
+          this.model.nama_siswa       = response.data.siswa.nama_siswa;
+          this.model.alamat_kk        = response.data.siswa.alamat_kk;
+          this.model.tempat_lahir     = response.data.siswa.tempat_lahir;
+          this.model.tgl_lahir        = response.data.siswa.tgl_lahir;
+          this.model.jenis_kelamin    = response.data.siswa.jenis_kelamin;
+          this.model.agama            = response.data.siswa.agama;
+          this.model.nisn             = response.data.siswa.nisn;
+          this.model.tahun_lulus      = response.data.siswa.tahun_lulus;
         } else {
           alert('Failed');
         }
@@ -255,6 +256,10 @@ export default {
         agama: "",
         nisn: "",
         tahun_lulus: "",
+        old_user_id: "",
+        old_nomor_un: "",
+        old_nik: "",
+        old_nisn: "",
       },
       user: []
     }
@@ -267,20 +272,22 @@ export default {
         return;
       } else {
         axios.put('api/siswa/' + this.$route.params.id, {
-            label: this.model.label,
-            description: this.model.description,
-            old_label: this.model.old_label,
-            user_id: this.model.user.id,
-            nomor_un: this.model.nomor_un,
-            nik:  this.model.nik,
-            nama_siswa: this.model.nama_siswa,
-            alamat_kk: this.model.alamat_kk,
-            tempat_lahir: this.model.tempat_lahir,
-            tgl_lahir: this.model.tgl_lahir,
-            jenis_kelamin: this.model.jenis_kelamin,
-            agama: this.model.agama,
-            nisn: this.model.nisn,
-            tahun_lulus: this.model.tahun_lulus,
+            label:          this.model.label,
+            description:    this.model.description,
+            user_id:        this.model.user.id,
+            old_user_id:    this.model.old_user_id,
+            nomor_un:       this.model.nomor_un,
+            old_nomor_un:   this.model.old_nomor_un,
+            nik:            this.model.nik,
+            old_nik:        this.model.old_nik,
+            nama_siswa:     this.model.nama_siswa,
+            alamat_kk:      this.model.alamat_kk,
+            tempat_lahir:   this.model.tempat_lahir,
+            tgl_lahir:      this.model.tgl_lahir,
+            jenis_kelamin:  this.model.jenis_kelamin,
+            agama:          this.model.agama,
+            nisn:           this.model.nisn,
+            tahun_lulus:    this.model.tahun_lulus,
 
 
           })

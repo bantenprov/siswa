@@ -109,16 +109,17 @@ export default {
           sortField: 'nisn',
           titleClass: 'center aligned'
         },
-        {
-          name: 'label',
-          title: 'Label',
-          sortField: 'label',
-          titleClass: 'center aligned'
-        },
+        
         {
           name: 'nama_siswa',
           title: 'Nama Siswa',
           sortField: 'nama_siswa',
+          titleClass: 'center aligned'
+        },
+        {
+          name: 'label',
+          title: 'Label',
+          sortField: 'label',
           titleClass: 'center aligned'
         },
         {

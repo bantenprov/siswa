@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <i class="fa fa-table" aria-hidden="true"></i> siswa : {{ model.label }}
+      <i class="fa fa-table" aria-hidden="true"></i> Add Siswa
 
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
@@ -16,83 +16,182 @@
       <vue-form class="form-horizontal form-validation" :state="state" @submit.prevent="onSubmit">
         <div class="form-row">
           <div class="col-md">
-            <b>Label :</b> {{ model.label }}
+            <validate tag="div">
+              <input class="form-control" v-model="model.label" required autofocus name="label" type="text" placeholder="Label">
+
+              <field-messages name="label" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
 
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Description :</b> {{ model.description}}
-          </div>
-        </div>
+            <validate tag="div">
+              <input class="form-control" v-model="model.description" required autofocus name="description" type="text" placeholder="Description">
 
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <b>Nomor UN :</b> {{ model.nomor_un}}
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <b>Username :</b> {{ model.user.name}}
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <b>Nik :</b> {{ model.nik}}
+              <field-messages name="description" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
         
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Nama Siswa :</b> {{ model.nama_siswa}}
-          </div>
-        </div>
+            <validate tag="div">
+              <input class="form-control" v-model="model.nomor_un" required autofocus name="nomor_un" type="text" placeholder="Nomor UN">
 
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <b>Alamat KK :</b> {{ model.alamat_kk}}
+              <field-messages name="description" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
         
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Tempat Lahir :</b> {{ model.tempat_lahir}}
+            <validate tag="div">
+              <input class="form-control" v-model="model.nik" required autofocus name="nik" type="text" placeholder="NIK">
+
+              <field-messages name="nik" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
 
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Tanggal Lahir :</b> {{ model.tgl_lahir}}
+            <validate tag="div">
+              <input class="form-control" v-model="model.nama_siswa" required autofocus name="nama_siswa" type="text" placeholder="Nama Siswa">
+
+              <field-messages name="nama_siswa" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <input class="form-control" v-model="model.alamat_kk" required autofocus name="alamat_kk" type="text" placeholder="Alamat KK">
+
+              <field-messages name="alamat_kk" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
         
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Jenis Kelamin :</b> {{ model.jenis_kelamin}}
+            <validate tag="div">
+              <input class="form-control" v-model="model.tempat_lahir" required autofocus name="tempat_lahir" type="text" placeholder="Tempat Lahir">
+
+              <field-messages name="tempat_lahir" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
 
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Agama :</b> {{ model.agama}}
+            <validate tag="div">
+              <input class="form-control" v-model="model.tgl_lahir" required autofocus name="tgl_lahir" type="text" placeholder="Tanggal Lahir">
+
+              <field-messages name="tgl_lahir" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
 
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>NISN :</b> {{ model.nisn}}
+            <validate tag="div">
+              <input class="form-control" v-model="model.jenis_kelamin" required autofocus name="jenis_kelamin" type="text" placeholder="Jenis Kelamin">
+
+              <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
 
         <div class="form-row mt-4">
           <div class="col-md">
-            <b>Tahun Lulus :</b> {{ model.tahun_lulus}}
+            <validate tag="div">
+              <input class="form-control" v-model="model.agama" required autofocus name="agama" type="text" placeholder="Agama">
+
+              <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
           </div>
         </div>
 
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <input class="form-control" v-model="model.nisn" required autofocus name="nisn" type="text" placeholder="NISN">
 
+              <field-messages name="nisn" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <input class="form-control" v-model="model.tahun_lulus" required autofocus name="tahun_lulus" type="text" placeholder="Tahun Lulus">
+
+              <field-messages name="tahun_lulus" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Label is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+					<div class="col-md">
+						<validate tag="div">
+						<label for="user_id">Username</label>
+						<v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
+
+						<field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
+							<small class="form-text text-success">Looks good!</small>
+							<small class="form-text text-danger" slot="required">Label is a required field</small>
+						</field-messages>
+						</validate>
+					</div>
+				</div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">            
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>            
+          </div>
+        </div>
+        
       </vue-form>
     </div>
   </div>
@@ -100,42 +199,16 @@
 
 <script>
 export default {
-  mounted() {
-    axios.get('api/siswa/' + this.$route.params.id)
-      .then(response => {
-        if (response.data.status == true) {
-          this.model.label = response.data.siswa.label;
-          this.model.old_label = response.data.siswa.label;
-          this.model.description = response.data.siswa.description;
-          this.model.user = response.data.siswa.user;
-          this.model.nomor_un = response.data.siswa.nomor_un;
-          this.model.nik = response.data.siswa.nik;
-          this.model.nama_siswa = response.data.siswa.nama_siswa;
-          this.model.alamat_kk = response.data.siswa.alamat_kk;
-          this.model.tempat_lahir = response.data.siswa.tempat_lahir;
-          this.model.tgl_lahir = response.data.siswa.tgl_lahir;
-          this.model.jenis_kelamin = response.data.siswa.jenis_kelamin;
-          this.model.agama = response.data.siswa.agama;
-          this.model.nisn = response.data.siswa.nisn;
-          this.model.tahun_lulus = response.data.siswa.tahun_lulus;
-        } else {
-          alert('Failed');
-        }
-      })
-      .catch(function(response) {
-        alert('Break');
-        window.location.href = '#/admin/siswa';
-      }),
-
-      axios.get('api/siswa/create')
-      .then(response => {           
-          response.data.user.forEach(element => {
-            this.user.push(element);
-          });
-      })
-      .catch(function(response) {
-        alert('Break');
-      })
+  mounted(){
+    axios.get('api/siswa/create')
+    .then(response => {           
+        response.data.user.forEach(element => {
+          this.user.push(element);
+        });
+    })
+    .catch(function(response) {
+      alert('Break');
+    });
   },
   data() {
     return {
@@ -143,7 +216,7 @@ export default {
       model: {
         label: "",
         description: "",
-        user_id: "",
+        user: "",
         nomor_un: "",
         nik: "",
         nama_siswa: "",
@@ -166,10 +239,9 @@ export default {
       if (this.state.$invalid) {
         return;
       } else {
-        axios.put('api/siswa/' + this.$route.params.id, {
+        axios.post('api/siswa', {
             label: this.model.label,
             description: this.model.description,
-            old_label: this.model.old_label,
             user_id: this.model.user.id,
             nomor_un: this.model.nomor_un,
             nik: this.model.nik,
@@ -180,8 +252,7 @@ export default {
             jenis_kelamin: this.model.jenis_kelamin,
             agama: this.model.agama,
             nisn: this.model.nisn,
-            tahun_lulus: this.model.tahun_lulus,
-
+            tahun_lulus: this.model.tahun_lulus
 
           })
           .then(response => {
@@ -202,18 +273,21 @@ export default {
       }
     },
     reset() {
-      axios.get('api/siswa/' + this.$route.params.id + '/edit')
-        .then(response => {
-          if (response.data.status == true) {
-            this.model.label = response.data.siswa.label;
-            this.model.description = response.data.siswa.description;
-          } else {
-            alert('Failed');
-          }
-        })
-        .catch(function(response) {
-          alert('Break ');
-        });
+      this.model = {
+          label: "",
+          description: "",
+          user: "",
+          nomor_un: "",
+          nik: "",
+          nama_siswa: "",
+          alamat_kk: "",
+          tempat_lahir: "",
+          tgl_lahir: "",
+          jenis_kelamin: "",
+          agama: "",
+          nisn: "",
+          tahun_lulus: "",  
+      };
     },
     back() {
       window.location = '#/admin/siswa';

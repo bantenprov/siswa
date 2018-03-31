@@ -87,11 +87,11 @@ class SiswaController extends Controller
     {
         $siswa = $this->siswa;
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required',
-            'label' => 'required|max:16|unique:siswas,label',
-            'description' => 'required',
-            'nomor_un'      => 'required',
-            'nik'           => 'required',
+            'user_id'       => 'required|unique:siswas,user_id',
+            'label'         => 'required',
+            'description'   => 'required',
+            'nomor_un'      => 'required|unique:siswas,nomor_un',
+            'nik'           => 'required|unique:siswas,nik',
             'nama_siswa'    => 'required',
             'alamat_kk'     => 'required',
             'tempat_lahir'  => 'required',
@@ -102,40 +102,40 @@ class SiswaController extends Controller
             'tahun_lulus'   => 'required',  
         ]);
         if($validator->fails()){
-            $check = $siswa->where('label',$request->label)->whereNull('deleted_at')->count();
+            $check = $siswa->where('user_id',$request->user_id)->orWhere('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->whereNull('deleted_at')->count();
             if ($check > 0) {
-                $response['message'] = 'Failed, label ' . $request->label . ' already exists';
+                $response['message'] = 'Failed, Username, nomor un, nik,  already exists';
             } else {
-                $siswa->user_id = $request->input('user_id');
-                $siswa->label = $request->input('label');
-                $siswa->description = $request->input('description');
-                $siswa->nomor_un = $request->input('nomor_un');
-                $siswa->nik = $request->input('nik');
-                $siswa->nama_siswa = $request->input('nama_siswa');
-                $siswa->alamat_kk = $request->input('alamat_kk');
-                $siswa->tempat_lahir = $request->input('tempat_lahir');
-                $siswa->tgl_lahir = $request->input('tgl_lahir');
-                $siswa->jenis_kelamin = $request->input('jenis_kelamin');
-                $siswa->agama = $request->input('agama');
-                $siswa->nisn = $request->input('nisn');
-                $siswa->tahun_lulus = $request->input('tahun_lulus');
+                $siswa->user_id         = $request->input('user_id');
+                $siswa->label           = $request->input('label');
+                $siswa->description     = $request->input('description');
+                $siswa->nomor_un        = $request->input('nomor_un');
+                $siswa->nik             = $request->input('nik');
+                $siswa->nama_siswa      = $request->input('nama_siswa');
+                $siswa->alamat_kk       = $request->input('alamat_kk');
+                $siswa->tempat_lahir    = $request->input('tempat_lahir');
+                $siswa->tgl_lahir       = $request->input('tgl_lahir');
+                $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
+                $siswa->agama           = $request->input('agama');
+                $siswa->nisn            = $request->input('nisn');
+                $siswa->tahun_lulus     = $request->input('tahun_lulus');
                 $siswa->save();
                 $response['message'] = 'success';
             }
         } else {
-                $siswa->user_id = $request->input('user_id');
-                $siswa->label = $request->input('label');
-                $siswa->description = $request->input('description');
-                $siswa->nomor_un = $request->input('nomor_un');
-                $siswa->nik = $request->input('nik');
-                $siswa->nama_siswa = $request->input('nama_siswa');
-                $siswa->alamat_kk = $request->input('alamat_kk');
-                $siswa->tempat_lahir = $request->input('tempat_lahir');
-                $siswa->tgl_lahir = $request->input('tgl_lahir');
-                $siswa->jenis_kelamin = $request->input('jenis_kelamin');
-                $siswa->agama = $request->input('agama');
-                $siswa->nisn = $request->input('nisn');
-                $siswa->tahun_lulus = $request->input('tahun_lulus');
+                $siswa->user_id         = $request->input('user_id');
+                $siswa->label           = $request->input('label');
+                $siswa->description     = $request->input('description');
+                $siswa->nomor_un        = $request->input('nomor_un');
+                $siswa->nik             = $request->input('nik');
+                $siswa->nama_siswa      = $request->input('nama_siswa');
+                $siswa->alamat_kk       = $request->input('alamat_kk');
+                $siswa->tempat_lahir    = $request->input('tempat_lahir');
+                $siswa->tgl_lahir       = $request->input('tgl_lahir');
+                $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
+                $siswa->agama           = $request->input('agama');
+                $siswa->nisn            = $request->input('nisn');
+                $siswa->tahun_lulus     = $request->input('tahun_lulus');
                 $siswa->save();
                 $response['message'] = 'success';
         }
@@ -173,7 +173,7 @@ class SiswaController extends Controller
     public function edit($id)
     {
         $siswa = $this->siswa->findOrFail($id);
-        //array_set($siswa->user, 'label', $siswa->user->name);
+        array_set($siswa->user, 'label', $siswa->user->name);
         //dd($siswa->user);
         $response['siswa'] = $siswa;
         $response['user'] = $siswa->user;
@@ -189,15 +189,16 @@ class SiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $response = array();
+        $message  = array();
         $siswa = $this->siswa->findOrFail($id);
-        if ($request->input('old_label') == $request->input('label'))
-        {
+            
             $validator = Validator::make($request->all(), [
-                'user_id'       => 'required',
+                'user_id'       => 'required|unique:siswas,user_id,'.$id,
                 'label'         => 'required',
                 'description'   => 'required',
-                'nomor_un'      => 'required',
-                'nik'           => 'required',
+                'nomor_un'      => 'required|unique:siswas,nomor_un,'.$id,
+                'nik'           => 'required|unique:siswas,nik,'.$id,
                 'nama_siswa'    => 'required',
                 'alamat_kk'     => 'required',
                 'tempat_lahir'  => 'required',
@@ -205,63 +206,61 @@ class SiswaController extends Controller
                 'jenis_kelamin' => 'required',
                 'agama'         => 'required',
                 'nisn'          => 'required',
-                'tahun_lulus'   => 'required', 
-            ]);
-        } else {
-            $validator = Validator::make($request->all(), [
-                'user_id'       => 'required',
-                'label'         => 'required',
-                'description'   => 'required',
-                'nomor_un'      => 'required',
-                'nik'           => 'required',
-                'nama_siswa'    => 'required',
-                'alamat_kk'     => 'required',
-                'tempat_lahir'  => 'required',
-                'tgl_lahir'     => 'required',
-                'jenis_kelamin' => 'required',
-                'agama'         => 'required',
-                'nisn'          => 'required',
-                'tahun_lulus'   => 'required', 
-            ]);
+                'tahun_lulus'   => 'required',
+
+                ]);
+
+                if($validator->fails()){
+
+                    foreach($validator->messages()->getMessages() as $key => $error){
+                        foreach($error AS $error_get) {
+                            array_push($message, $error_get);
+                        }                
+                    } 
+                
+                   
+                    $check_user     = $this->siswa->where('id','!=', $id)->where('user_id', $request->user_id);
+                    $check_nomor_un = $this->siswa->where('id','!=', $id)->where('nomor_un', $request->nomor_un);
+                    $check_nik      = $this->siswa->where('id','!=', $id)->where('nik', $request->nik);
+
+                    if($check_nomor_un->count() > 0 || $check_user->count() > 0 || $check_nik->count() > 0){
+                        $response['message'] = implode("\n",$message);
+
+                    }else{
+                         $siswa->user_id = $request->input('user_id');
+                        $siswa->label = $request->input('label');
+                        $siswa->description = $request->input('description');
+                        $siswa->nomor_un = $request->input('nomor_un');
+                        $siswa->nik = $request->input('nik');
+                        $siswa->nama_siswa = $request->input('nama_siswa');
+                        $siswa->alamat_kk = $request->input('alamat_kk');
+                        $siswa->tempat_lahir = $request->input('tempat_lahir');
+                        $siswa->tgl_lahir = $request->input('tgl_lahir');
+                        $siswa->jenis_kelamin = $request->input('jenis_kelamin');
+                        $siswa->agama = $request->input('agama');
+                        $siswa->nisn = $request->input('nisn');
+                        $siswa->tahun_lulus = $request->input('tahun_lulus');
+                        $siswa->save();
+                        $response['message'] = 'success';
+                    }
+             }else{
+                    $siswa->user_id = $request->input('user_id');
+                    $siswa->label = $request->input('label');
+                    $siswa->description = $request->input('description');
+                    $siswa->nomor_un = $request->input('nomor_un');
+                    $siswa->nik = $request->input('nik');
+                    $siswa->nama_siswa = $request->input('nama_siswa');
+                    $siswa->alamat_kk = $request->input('alamat_kk');
+                    $siswa->tempat_lahir = $request->input('tempat_lahir');
+                    $siswa->tgl_lahir = $request->input('tgl_lahir');
+                    $siswa->jenis_kelamin = $request->input('jenis_kelamin');
+                    $siswa->agama = $request->input('agama');
+                    $siswa->nisn = $request->input('nisn');
+                    $siswa->tahun_lulus = $request->input('tahun_lulus');
+                    $siswa->save();
+                    $response['message'] = 'success';
         }
-        if ($validator->fails()) {
-            $check = $siswa->where('label',$request->label)->whereNull('deleted_at')->count();
-            if ($check > 0) {
-                $response['message'] = 'Failed, label ' . $request->label . ' already exists1';
-            } else {
-                $siswa->label = $request->input('label');
-                $siswa->description = $request->input('description');
-                $siswa->user_id = $request->input('user_id');
-                $siswa->nomor_un = $request->input('nomor_un');
-                $siswa->nik = $request->input('nik');
-                $siswa->nama_siswa = $request->input('nama_siswa');
-                $siswa->alamat_kk = $request->input('alamat_kk');
-                $siswa->tempat_lahir = $request->input('tempat_lahir');
-                $siswa->tgl_lahir = $request->input('tgl_lahir');
-                $siswa->jenis_kelamin = $request->input('jenis_kelamin');
-                $siswa->agama = $request->input('agama');
-                $siswa->nisn = $request->input('nisn');
-                $siswa->tahun_lulus = $request->input('tahun_lulus');
-                $siswa->save();
-                $response['message'] = 'success';
-            }
-        } else {
-            $siswa->label = $request->input('label');
-            $siswa->description = $request->input('description');
-            $siswa->user_id = $request->input('user_id');
-            $siswa->nomor_un = $request->input('nomor_un');
-            $siswa->nik = $request->input('nik');
-            $siswa->nama_siswa = $request->input('nama_siswa');
-            $siswa->alamat_kk = $request->input('alamat_kk');
-            $siswa->tempat_lahir = $request->input('tempat_lahir');
-            $siswa->tgl_lahir = $request->input('tgl_lahir');
-            $siswa->jenis_kelamin = $request->input('jenis_kelamin');
-            $siswa->agama = $request->input('agama');
-            $siswa->nisn = $request->input('nisn');
-            $siswa->tahun_lulus = $request->input('tahun_lulus');
-            $siswa->save();
-            $response['message'] = 'success';
-        }
+
         $response['status'] = true;
         return response()->json($response);
     }

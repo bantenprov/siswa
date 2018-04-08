@@ -109,7 +109,6 @@ export default {
           sortField: 'nisn',
           titleClass: 'center aligned'
         },
-        
         {
           name: 'nama_siswa',
           title: 'Nama Siswa',
@@ -117,9 +116,9 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'label',
-          title: 'Label',
-          sortField: 'label',
+          name: 'sekolah.label',
+          title: 'sekolah Tujuan',
+          sortField: 'sekolah_id',
           titleClass: 'center aligned'
         },
         {
@@ -136,7 +135,7 @@ export default {
         },
       ],
       sortOrder: [{
-        field: 'label',
+        field: 'nomor_un',
         direction: 'asc'
       }],
       moreParams: {},

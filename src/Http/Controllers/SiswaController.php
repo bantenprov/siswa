@@ -7,7 +7,10 @@ use Bantenprov\Siswa\Facades\SiswaFacade;
 /* Models */
 use Bantenprov\Siswa\Models\Bantenprov\Siswa\Siswa;
 use Bantenprov\Pendaftaran\Models\Bantenprov\Pendaftaran\Pendaftaran;
+use Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah;
 use App\User;
+//use Laravolt\Indonesia\Facade\Indonesia;
+
 /* Etc */
 use Validator;
 /**
@@ -24,10 +27,13 @@ class SiswaController extends Controller
      * @return void
      */
     protected $user;
-    public function __construct(Siswa $siswa, User $user)
+    protected $sekolah;
+    
+    public function __construct(Siswa $siswa, User $user, Sekolah $sekolah)
     {
-        $this->siswa = $siswa;
-        $this->user = $user;
+        $this->siswa    = $siswa;
+        $this->sekolah  = $sekolah;
+        $this->user     = $user;
     }
     /**
      * Display a listing of the resource.
@@ -50,7 +56,7 @@ class SiswaController extends Controller
             });
         }
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
-        $response = $query->with('user')->paginate($perPage);
+        $response = $query->with('user')->with('sekolah')->paginate($perPage);
         
         /*foreach($response as $user){
             array_set($response->data, 'user', $user->user->name);
@@ -67,16 +73,47 @@ class SiswaController extends Controller
      */
     public function create()
     {        
-        $users = $this->user->all();
+        $users      = $this->user->all();
+        $sekolahs   = $this->sekolah->all();
+        $provinces   = \Indonesia::allProvinces();
+        $citys       = \Indonesia::allCities();
+        $districts   =\Indonesia::allDistricts();
+        $villages   = \Indonesia::allVillages();
 
         foreach($users as $user){
             array_set($user, 'label', $user->name);
         }
+
+        foreach($sekolahs as $sekolah){
+            array_set($sekolah, 'sekolah', $sekolah->label);
+        }
+
+        foreach($provinces as $province){
+            array_set($province, 'label', $province->name);
+        }
+
+        foreach($citys as $city){
+            array_set($city, 'label', $city->name);
+        }
+
+        foreach($districts as $district){
+            array_set($district, 'label', $district->name);
+        }
+
+        foreach($villages as $village){
+            array_set($village, 'label', $village->name);
+        }
         
-        $response['user'] = $users;
-        $response['status'] = true;
+        $response['sekolah']    = $sekolahs;
+        $response['user']       = $users;
+        $response['province']   = $provinces;
+        $response['city']       = $citys;
+        $response['district']   = $districts;
+        $response['village']    = $villages;
+        $response['status']     = true; 
         return response()->json($response);
     }
+
     /**
      * Display the specified resource.
      *
@@ -88,53 +125,65 @@ class SiswaController extends Controller
         $siswa = $this->siswa;
         $validator = Validator::make($request->all(), [
             'user_id'       => 'required|unique:siswas,user_id',
-            'label'         => 'required',
-            'description'   => 'required',
             'nomor_un'      => 'required|unique:siswas,nomor_un',
             'nik'           => 'required|unique:siswas,nik',
             'nama_siswa'    => 'required',
+            'no_kk'         => 'required|unique:siswas,no_kk',
             'alamat_kk'     => 'required',
+            'province_id'   => 'required',
+            'city_id'       => 'required',
+            'district_id'   => 'required',
+            'village_id'    => 'required',
             'tempat_lahir'  => 'required',
             'tgl_lahir'     => 'required',
             'jenis_kelamin' => 'required',
             'agama'         => 'required',
             'nisn'          => 'required',
+            'sekolah_id'    => 'required',
             'tahun_lulus'   => 'required',  
         ]);
         if($validator->fails()){
-            $check = $siswa->where('user_id',$request->user_id)->orWhere('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->whereNull('deleted_at')->count();
+            $check = $siswa->where('user_id',$request->user_id)->orWhere('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->orWhere('no_kk', $request->no_kk)->whereNull('deleted_at')->count();
             if ($check > 0) {
-                $response['message'] = 'Failed, Username, nomor un, nik,  already exists';
+                $response['message'] = 'Failed, Username, nomor un, nik, no kk  already exists';
             } else {
                 $siswa->user_id         = $request->input('user_id');
-                $siswa->label           = $request->input('label');
-                $siswa->description     = $request->input('description');
                 $siswa->nomor_un        = $request->input('nomor_un');
                 $siswa->nik             = $request->input('nik');
                 $siswa->nama_siswa      = $request->input('nama_siswa');
+                $siswa->no_kk           = $request->input('no_kk');
                 $siswa->alamat_kk       = $request->input('alamat_kk');
+                $siswa->province_id     = $request->input('province_id');
+                $siswa->city_id         = $request->input('city_id');
+                $siswa->district_id     = $request->input('district_id');
+                $siswa->village_id      = $request->input('village_id');
                 $siswa->tempat_lahir    = $request->input('tempat_lahir');
                 $siswa->tgl_lahir       = $request->input('tgl_lahir');
                 $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
                 $siswa->agama           = $request->input('agama');
                 $siswa->nisn            = $request->input('nisn');
+                $siswa->sekolah_id      = $request->input('sekolah_id');
                 $siswa->tahun_lulus     = $request->input('tahun_lulus');
                 $siswa->save();
                 $response['message'] = 'success';
             }
         } else {
                 $siswa->user_id         = $request->input('user_id');
-                $siswa->label           = $request->input('label');
-                $siswa->description     = $request->input('description');
                 $siswa->nomor_un        = $request->input('nomor_un');
                 $siswa->nik             = $request->input('nik');
                 $siswa->nama_siswa      = $request->input('nama_siswa');
+                $siswa->no_kk           = $request->input('no_kk');
                 $siswa->alamat_kk       = $request->input('alamat_kk');
+                $siswa->province_id     = $request->input('province_id');
+                $siswa->city_id         = $request->input('city_id');
+                $siswa->district_id     = $request->input('district_id');
+                $siswa->village_id      = $request->input('village_id');
                 $siswa->tempat_lahir    = $request->input('tempat_lahir');
                 $siswa->tgl_lahir       = $request->input('tgl_lahir');
                 $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
                 $siswa->agama           = $request->input('agama');
                 $siswa->nisn            = $request->input('nisn');
+                $siswa->sekolah_id      = $request->input('sekolah_id');
                 $siswa->tahun_lulus     = $request->input('tahun_lulus');
                 $siswa->save();
                 $response['message'] = 'success';
@@ -152,10 +201,14 @@ class SiswaController extends Controller
     {
         
         $siswa = $this->siswa->findOrFail($id);
+
                     
-        array_set($siswa, 'user', $siswa->user->name);           
+        array_set($siswa, 'user', $siswa->user->name);
+        array_set($siswa, 'sekolah', $siswa->sekolah->label);
+
         
         $response['siswa'] = $siswa;
+        $response['sekolah'] = $siswa; 
         $response['status'] = true;
 
         

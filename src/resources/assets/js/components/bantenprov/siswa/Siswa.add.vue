@@ -26,7 +26,7 @@
             </validate>
           </div>
         </div>
-        
+
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
@@ -78,7 +78,7 @@
             </validate>
           </div>
         </div>
-        
+
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
@@ -160,20 +160,6 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="user_id">Username</label>
-            <v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
-
-            <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">User is a required field</small>
-            </field-messages>
-            </validate>
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <validate tag="div">
             <label for="sekolah_id">Sekolah Tujuan</label>
             <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" class="mb-4"></v-select>
 
@@ -184,8 +170,6 @@
             </validate>
           </div>
         </div>
-
-
 
         <div class="form-row mt-4">
           <div class="col-md">
@@ -228,7 +212,7 @@
             </validate>
           </div>
         </div>
-        
+
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
@@ -242,15 +226,29 @@
             </validate>
           </div>
         </div>
-  
-        <div class="form-row mt-4">
-          <div class="col-md">            
-            <button type="submit" class="btn btn-primary">Submit</button>
 
-            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>            
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+            <label for="user_id">Username</label>
+            <v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
+
+            <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">User is a required field</small>
+            </field-messages>
+            </validate>
           </div>
         </div>
-        
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <button type="submit" class="btn btn-primary">Submit</button>
+
+            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>
+          </div>
+        </div>
+
       </vue-form>
     </div>
   </div>
@@ -260,7 +258,7 @@
 export default {
   mounted(){
     axios.get('api/siswa/create')
-    .then(response => {           
+    .then(response => {
         response.data.user.forEach(element => {
           this.user.push(element);
         });
@@ -307,7 +305,7 @@ export default {
         district: "",
         village: "",
 
- 
+
       },
       user: [],
       sekolah: [],
@@ -321,9 +319,9 @@ export default {
     this.province = [];
     this.city = [];
     this.district = [];
-    this.village = []; 
+    this.village = [];
     axios.get('api/siswa/create/'+this.model.province.id+'/state')
-    .then(response => {      
+    .then(response => {
       response.data.forEach(element => {
         //console.log(this.model.workflow.id);
         this.province.push(element);
@@ -335,7 +333,7 @@ export default {
     .catch(function(response) {
       alert('Break');
     });
-    
+
   },
   methods: {
     onSubmit: function() {
@@ -393,7 +391,7 @@ export default {
           jenis_kelamin: "",
           agama: "",
           nisn: "",
-          tahun_lulus: "",  
+          tahun_lulus: "",
       };
     },
     back() {

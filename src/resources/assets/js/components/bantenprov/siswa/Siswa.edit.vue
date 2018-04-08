@@ -186,13 +186,13 @@
         </div>
 
         <div class="form-row mt-4">
-          <div class="col-md">            
+          <div class="col-md">
             <button type="submit" class="btn btn-primary">Submit</button>
 
-            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>            
+            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>
           </div>
         </div>
-        
+
       </vue-form>
     </div>
   </div>
@@ -230,13 +230,18 @@ export default {
       }),
 
       axios.get('api/siswa/create')
-      .then(response => {           
-          response.data.user.forEach(element => {
-            this.user.push(element);
-          });
+      .then(response => {
+          if(response.data.user_special == true){
+            response.data.user.forEach(user_element => {
+              this.user.push(user_element);
+            });
+          }else{
+            this.user.push(response.data.user);
+          }
       })
       .catch(function(response) {
         alert('Break');
+        window.location = '#/admin/siswa';
       })
   },
   data() {

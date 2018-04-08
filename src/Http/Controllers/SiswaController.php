@@ -28,7 +28,7 @@ class SiswaController extends Controller
      */
     protected $user;
     protected $sekolah;
-    
+
     public function __construct(Siswa $siswa, User $user, Sekolah $sekolah)
     {
         $this->siswa    = $siswa;
@@ -57,11 +57,11 @@ class SiswaController extends Controller
         }
         $perPage = request()->has('per_page') ? (int) request()->per_page : null;
         $response = $query->with('user')->with('sekolah')->paginate($perPage);
-        
+
         /*foreach($response as $user){
             array_set($response->data, 'user', $user->user->name);
         }*/
-        
+
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'GET');
@@ -72,17 +72,35 @@ class SiswaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {        
-        $users      = $this->user->all();
+    {
+        $response = [];
+
         $sekolahs   = $this->sekolah->all();
         $provinces   = \Indonesia::allProvinces();
         $citys       = \Indonesia::allCities();
         $districts   =\Indonesia::allDistricts();
         $villages   = \Indonesia::allVillages();
+        $users_special = $this->user->all();
+        $users_standar = $this->user->find(\Auth::User()->id);
+        $current_user = \Auth::User();
 
-        foreach($users as $user){
-            array_set($user, 'label', $user->name);
+        $role_check = \Auth::User()->hasRole(['superadministrator','administrator']);
+
+        if($role_check){
+            $response['user_special'] = true;
+            foreach($users_special as $user){
+                array_set($user, 'label', $user->name);
+            }
+            $response['user'] = $users_special;
+        }else{
+            $response['user_special'] = false;
+            array_set($users_standar, 'label', $users_standar->name);
+            $response['user'] = $users_standar;
         }
+
+        array_set($current_user, 'label', $current_user->name);
+
+        $response['current_user'] = $current_user;
 
         foreach($sekolahs as $sekolah){
             array_set($sekolah, 'sekolah', $sekolah->label);
@@ -103,14 +121,13 @@ class SiswaController extends Controller
         foreach($villages as $village){
             array_set($village, 'label', $village->name);
         }
-        
+
         $response['sekolah']    = $sekolahs;
-        $response['user']       = $users;
         $response['province']   = $provinces;
         $response['city']       = $citys;
         $response['district']   = $districts;
         $response['village']    = $villages;
-        $response['status']     = true; 
+        $response['status']     = true;
         return response()->json($response);
     }
 
@@ -140,7 +157,7 @@ class SiswaController extends Controller
             'agama'         => 'required',
             'nisn'          => 'required',
             'sekolah_id'    => 'required',
-            'tahun_lulus'   => 'required',  
+            'tahun_lulus'   => 'required',
         ]);
         if($validator->fails()){
             $check = $siswa->where('user_id',$request->user_id)->orWhere('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->orWhere('no_kk', $request->no_kk)->whereNull('deleted_at')->count();
@@ -199,23 +216,23 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        
+
         $siswa = $this->siswa->findOrFail($id);
 
-                    
+
         array_set($siswa, 'user', $siswa->user->name);
         array_set($siswa, 'sekolah', $siswa->sekolah->label);
 
-        
+
         $response['siswa'] = $siswa;
-        $response['sekolah'] = $siswa; 
+        $response['sekolah'] = $siswa;
         $response['status'] = true;
 
-        
+
 
         return response()->json($response);
 
-        
+
     }
     /**
      * Show the form for editing the specified resource.
@@ -245,7 +262,7 @@ class SiswaController extends Controller
         $response = array();
         $message  = array();
         $siswa = $this->siswa->findOrFail($id);
-            
+
             $validator = Validator::make($request->all(), [
                 'user_id'       => 'required|unique:siswas,user_id,'.$id,
                 'label'         => 'required',
@@ -268,10 +285,10 @@ class SiswaController extends Controller
                     foreach($validator->messages()->getMessages() as $key => $error){
                         foreach($error AS $error_get) {
                             array_push($message, $error_get);
-                        }                
-                    } 
-                
-                   
+                        }
+                    }
+
+
                     $check_user     = $this->siswa->where('id','!=', $id)->where('user_id', $request->user_id);
                     $check_nomor_un = $this->siswa->where('id','!=', $id)->where('nomor_un', $request->nomor_un);
                     $check_nik      = $this->siswa->where('id','!=', $id)->where('nik', $request->nik);

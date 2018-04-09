@@ -18,37 +18,37 @@
           <dl class="row">
               <dt class="col-2">Nomor UN :</dt>
               <dd class="col-10">{{ model.nomor_un }}</dd>
-              
+
               <dt class="col-2">NIK :</dt>
-              <dd class="col-10">{{ model.nik }}</dd>      
+              <dd class="col-10">{{ model.nik }}</dd>
 
               <dt class="col-2">Nama Siswa :</dt>
-              <dd class="col-10">{{ model.nama_siswa }}</dd> 
-              
+              <dd class="col-10">{{ model.nama_siswa }}</dd>
+
               <dt class="col-2">Nomor KK :</dt>
               <dd class="col-10">{{ model.no_kk }}</dd>
 
               <dt class="col-2">Alamat KK :</dt>
-              <dd class="col-10">{{ model.alamat_kk }}</dd> 
-          
+              <dd class="col-10">{{ model.alamat_kk }}</dd>
+
               <dt class="col-2">Provinsi :</dt>
               <dd class="col-10">{{ model.province_id }}</dd>
-              
+
               <dt class="col-2">Kota :</dt>
-              <dd class="col-10">{{ model.city_id }}</dd>      
+              <dd class="col-10">{{ model.city_id }}</dd>
 
               <dt class="col-2">Kecamatan :</dt>
-              <dd class="col-10">{{ model.district_id }}</dd> 
-              
+              <dd class="col-10">{{ model.district_id }}</dd>
+
               <dt class="col-2">Desa :</dt>
               <dd class="col-10">{{ model.village_id }}</dd>
 
               <dt class="col-2">Tempat Lahir :</dt>
-              <dd class="col-10">{{ model.tempat_lahir }}</dd>      
+              <dd class="col-10">{{ model.tempat_lahir }}</dd>
 
               <dt class="col-2">Tanggal Lahir :</dt>
-              <dd class="col-10">{{ model.tgl_lahir }}</dd> 
-              
+              <dd class="col-10">{{ model.tgl_lahir }}</dd>
+
               <dt class="col-2">Jenis Kelamin :</dt>
               <dd class="col-10">{{ model.jenis_kelamin }}</dd>
 
@@ -62,7 +62,7 @@
               <dd class="col-10">{{ model.tahun_lulus }}</dd>
 
               <dt class="col-2">Sekolah Tujuan:</dt>
-              <dd class="col-10">{{ model.sekolah.label }}</dd> 
+              <dd class="col-10">{{ model.sekolah.label }}</dd>
           </dl>
         </div>
 
@@ -114,19 +114,6 @@ export default {
       .catch(function(response) {
         alert('Break');
         window.location.href = '#/admin/siswa';
-      }),
-
-      axios.get('api/siswa/create')
-      .then(response => {           
-          response.data.user.forEach(element => {
-            this.user.push(element);
-          });
-          response.data.sekolah.forEach(element => {
-            this.sekolah.push(element);
-          });
-      })
-      .catch(function(response) {
-        alert('Break');
       })
   },
   data() {
@@ -146,7 +133,7 @@ export default {
         jenis_kelamin: "",
         agama: "",
         nisn: "",
-        tahun_lulus: "",  
+        tahun_lulus: "",
         sekolah_id: "",
         created_at: "",
         updated_at: "",
@@ -158,47 +145,6 @@ export default {
     }
   },
   methods: {
-    onSubmit: function() {
-      let app = this;
-
-      if (this.state.$invalid) {
-        return;
-      } else {
-        axios.put('api/siswa/' + this.$route.params.id, {
-            label: this.model.label,
-            description: this.model.description,
-            old_label: this.model.old_label,
-            user_id: this.model.user.id,
-            nomor_un: this.model.nomor_un,
-            nik: this.model.nik,
-            nama_siswa: this.model.nama_siswa,
-            alamat_kk: this.model.alamat_kk,
-            tempat_lahir: this.model.tempat_lahir,
-            tgl_lahir: this.model.tgl_lahir,
-            jenis_kelamin: this.model.jenis_kelamin,
-            agama: this.model.agama,
-            nisn: this.model.nisn,
-            tahun_lulus: this.model.tahun_lulus,
-
-
-          })
-          .then(response => {
-            if (response.data.status == true) {
-              if(response.data.message == 'success'){
-                alert(response.data.message);
-                app.back();
-              }else{
-                alert(response.data.message);
-              }
-            } else {
-              alert(response.data.message);
-            }
-          })
-          .catch(function(response) {
-            alert('Break ' + response.data.message);
-          });
-      }
-    },
     reset() {
       axios.get('api/siswa/' + this.$route.params.id + '/edit')
         .then(response => {

@@ -9,7 +9,10 @@ use Bantenprov\Siswa\Models\Bantenprov\Siswa\Siswa;
 use Bantenprov\Pendaftaran\Models\Bantenprov\Pendaftaran\Pendaftaran;
 use Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah;
 use App\User;
-//use Laravolt\Indonesia\Facade\Indonesia;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Village;
 
 /* Etc */
 use Validator;
@@ -34,6 +37,10 @@ class SiswaController extends Controller
         $this->siswa    = $siswa;
         $this->sekolah  = $sekolah;
         $this->user     = $user;
+        $this->province = new Province;
+        $this->city     = new City;
+        $this->district = new District;
+        $this->village  = new Village;
     }
     /**
      * Display a listing of the resource.
@@ -71,18 +78,30 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $response = [];
 
-        $sekolahs   = $this->sekolah->all();
-        $provinces   = \Indonesia::allProvinces();
-        $citys       = \Indonesia::allCities();
-        $districts   =\Indonesia::allDistricts();
-        $villages   = \Indonesia::allVillages();
-        $users_special = $this->user->all();
-        $users_standar = $this->user->find(\Auth::User()->id);
-        $current_user = \Auth::User();
+        $sekolahs       = $this->sekolah->all();
+        $provinces      = \Indonesia::allProvinces();
+        if ($request->has('province_id')) {
+            $citys          = \Indonesia::findCity($request->input('province_id'));
+        } else {
+            $citys          = $this->city->getAttributes();
+        }
+        if ($request->has('city_id')) {
+            $districts      = \Indonesia::findDistrict($request->input('city_id'));
+        } else {
+            $districts      = $this->district->getAttributes();
+        }
+        if ($request->has('district_id')) {
+            $villages       = \Indonesia::findVillage($request->input('district_id'));
+        } else {
+            $villages       = $this->village->getAttributes();
+        }
+        $users_special  = $this->user->all();
+        $users_standar  = $this->user->find(\Auth::User()->id);
+        $current_user   = \Auth::User();
 
         $role_check = \Auth::User()->hasRole(['superadministrator','administrator']);
 

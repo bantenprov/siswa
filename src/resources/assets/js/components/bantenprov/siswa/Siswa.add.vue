@@ -171,7 +171,7 @@
           </div>
         </div>
 
-        <div class="form-row mt-4">
+        <!-- <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
             <label for="province_id">Provinsi</label>
@@ -183,9 +183,9 @@
             </field-messages>
             </validate>
           </div>
-        </div>
+        </div> -->
 
-        <div class="form-row mt-4">
+        <!-- <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
             <label for="city_id">Kabupaten</label>
@@ -197,9 +197,9 @@
             </field-messages>
             </validate>
           </div>
-        </div>
+        </div> -->
 
-        <div class="form-row mt-4">
+        <!-- <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
             <label for="district_id">Kota</label>
@@ -211,7 +211,7 @@
             </field-messages>
             </validate>
           </div>
-        </div>
+        </div> -->
 
         <div class="form-row mt-4">
           <div class="col-md">
@@ -265,15 +265,15 @@ export default {
         response.data.sekolah.forEach(element => {
           this.sekolah.push(element);
         });
-        response.data.province.forEach(element => {
-          this.province.push(element);
-        });
-        response.data.city.forEach(element => {
-          this.city.push(element);
-        });
-        response.data.district.forEach(element => {
-          this.district.push(element);
-        });
+        // response.data.province.forEach(element => {
+        //   this.province.push(element);
+        // });
+        // response.data.city.forEach(element => {
+        //   this.city.push(element);
+        // });
+        // response.data.district.forEach(element => {
+        //   this.district.push(element);
+        // });
         response.data.village.forEach(element => {
           this.village.push(element);
         });
@@ -284,6 +284,21 @@ export default {
         }else{
           this.user.push(response.data.user);
         }
+      } else {
+        alert('Failed');
+      }
+    })
+    .catch(function(response) {
+      alert('Break');
+      window.location = '#/admin/siswa';
+    });
+
+    axios.get('api/wilayah-indonesia/province/all-villages')
+    .then(response => {
+      if (response.data.status == true) {
+        response.data.village.forEach(element => {
+          this.village.push(element);
+        });
       } else {
         alert('Failed');
       }

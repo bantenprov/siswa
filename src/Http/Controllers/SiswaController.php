@@ -9,7 +9,10 @@ use Bantenprov\Siswa\Models\Bantenprov\Siswa\Siswa;
 use Bantenprov\Pendaftaran\Models\Bantenprov\Pendaftaran\Pendaftaran;
 use Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah;
 use App\User;
-//use Laravolt\Indonesia\Facade\Indonesia;
+use Laravolt\Indonesia\Models\Province;
+use Laravolt\Indonesia\Models\City;
+use Laravolt\Indonesia\Models\District;
+use Laravolt\Indonesia\Models\Village;
 
 /* Etc */
 use Validator;
@@ -34,6 +37,10 @@ class SiswaController extends Controller
         $this->siswa    = $siswa;
         $this->sekolah  = $sekolah;
         $this->user     = $user;
+        $this->province = new Province;
+        $this->city     = new City;
+        $this->district = new District;
+        $this->village  = new Village;
     }
     /**
      * Display a listing of the resource.
@@ -71,18 +78,31 @@ class SiswaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $response = [];
 
-        $sekolahs   = $this->sekolah->all();
-        $provinces   = \Indonesia::allProvinces();
-        $citys       = \Indonesia::allCities();
-        $districts   =\Indonesia::allDistricts();
-        $villages   = \Indonesia::allVillages();
-        $users_special = $this->user->all();
-        $users_standar = $this->user->find(\Auth::User()->id);
-        $current_user = \Auth::User();
+        $sekolahs       = $this->sekolah->all();
+        $provinces      = $this->province->getAttributes();
+        $citys          = $this->city->getAttributes();
+        $districts      = $this->district->getAttributes();
+        $villages       = $this->village->getAttributes();
+        $users_special  = $this->user->all();
+        $users_standar  = $this->user->find(\Auth::User()->id);
+        $current_user   = \Auth::User();
+
+        if ($request->has('no_kk') && strlen($request->input('no_kk')) == 16) {
+            $no_kk          = '3602142003170013';
+            $province_id    = substr($no_kk, 0, 2);
+            $city_id        = substr($no_kk, 2, 2);
+            $district_id    = substr($no_kk, 4, 2);
+            $village_id     = substr($no_kk, 6, 3);
+
+            $provinces      = \Indonesia::findProvince($province_id);
+            $citys          = \Indonesia::findCity($city_id);
+            $districts      = \Indonesia::findDistrict($district_id);
+            $villages       = \Indonesia::findVillage($village_id);
+        }
 
         $role_check = \Auth::User()->hasRole(['superadministrator','administrator']);
 

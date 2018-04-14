@@ -83,25 +83,26 @@ class SiswaController extends Controller
         $response = [];
 
         $sekolahs       = $this->sekolah->all();
-        $provinces      = \Indonesia::allProvinces();
-        if ($request->has('province_id')) {
-            $citys          = \Indonesia::findCity($request->input('province_id'));
-        } else {
-            $citys          = $this->city->getAttributes();
-        }
-        if ($request->has('city_id')) {
-            $districts      = \Indonesia::findDistrict($request->input('city_id'));
-        } else {
-            $districts      = $this->district->getAttributes();
-        }
-        if ($request->has('district_id')) {
-            $villages       = \Indonesia::findVillage($request->input('district_id'));
-        } else {
-            $villages       = $this->village->getAttributes();
-        }
+        $provinces      = $this->province->getAttributes();
+        $citys          = $this->city->getAttributes();
+        $districts      = $this->district->getAttributes();
+        $villages       = $this->village->getAttributes();
         $users_special  = $this->user->all();
         $users_standar  = $this->user->find(\Auth::User()->id);
         $current_user   = \Auth::User();
+
+        if ($request->has('no_kk') && strlen($request->input('no_kk')) == 16) {
+            $no_kk          = '3602142003170013';
+            $province_id    = substr($no_kk, 0, 2);
+            $city_id        = substr($no_kk, 2, 2);
+            $district_id    = substr($no_kk, 4, 2);
+            $village_id     = substr($no_kk, 6, 3);
+
+            $provinces      = \Indonesia::findProvince($province_id);
+            $citys          = \Indonesia::findCity($city_id);
+            $districts      = \Indonesia::findDistrict($district_id);
+            $villages       = \Indonesia::findVillage($village_id);
+        }
 
         $role_check = \Auth::User()->hasRole(['superadministrator','administrator']);
 

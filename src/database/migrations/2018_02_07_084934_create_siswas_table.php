@@ -1,4 +1,4 @@
-<?php
+\<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -21,10 +21,10 @@ class CreateSiswasTable extends Migration
 			 $table->string('nama_siswa');
 			 $table->bigInteger('no_kk');
 			 $table->text('alamat_kk');
-			 $table->integer('province_id')->nullable();
-			 $table->integer('city_id')->nullable();
-			 $table->integer('district_id')->nullable();
-			 $table->integer('village_id')->nullable();
+			 $table->string('province_id')->nullable();
+			 $table->string('city_id')->nullable();
+			 $table->string('district_id')->nullable();
+			 $table->string('village_id')->nullable();
 			 $table->string('tempat_lahir');
 			 $table->date('tgl_lahir');
 			 $table->string('jenis_kelamin');

@@ -79,7 +79,7 @@ class SiswaController extends Controller
         }
 
         $perPage    = request()->has('per_page') ? (int) request()->per_page : null;
-        $response   = $query->with('user')->with(['sekolah', 'province', 'city', 'district', 'village'])->paginate($perPage);
+        $response   = $query->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->paginate($perPage);
 
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')

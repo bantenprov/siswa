@@ -86,7 +86,42 @@
 import swal from 'sweetalert2';
 
 export default {
+  data() {
+    return {
+      state: {},
+      title: 'View Siswa',
+      model: {
+        nomor_un: "",
+        nik: "",
+        nama_siswa: "",
+        alamat_kk: "",
+        province_id: "",
+        city_id: "",
+        district_id: "",
+        village_id: "",
+        tempat_lahir: "",
+        tgl_lahir: "",
+        jenis_kelamin: "",
+        agama: "",
+        nisn: "",
+        tahun_lulus: "",
+        sekolah_id: "",
+        user_id: "",
+        created_at: "",
+        updated_at: "",
+
+        province: [],
+        city: [],
+        district: [],
+        village: [],
+        sekolah: [],
+        user: [],
+      },
+    }
+  },
   mounted() {
+    let app = this;
+
     axios.get('api/siswa/'+this.$route.params.id)
       .then(response => {
         if (response.data.status == true) {
@@ -115,12 +150,38 @@ export default {
           this.model.village        = response.data.siswa.village;
           this.model.sekolah        = response.data.siswa.sekolah;
           this.model.user           = response.data.siswa.user;
+
+          if (this.model.province === null) {
+            this.model.province = {"id": this.model.province_id,"name":""};
+          }
+
+          if (this.model.city === null) {
+            this.model.city = {"id": this.model.city_id,"name":""};
+          }
+
+          if (this.model.district === null) {
+            this.model.district = {"id": this.model.district_id,"name":""};
+          }
+
+          if (this.model.village === null) {
+            this.model.village = {"id": this.model.village_id,"name":""};
+          }
+
+          if (this.model.sekolah === null) {
+            this.model.sekolah = {"id": this.model.sekolah_id,"name":""};
+          }
+
+          if (this.model.user === null) {
+            this.model.user = {"id": this.model.user_id,"name":""};
+          }
         } else {
           swal(
             'Failed',
-            response.data.message,
+            'Oops... '+response.data.message,
             'error'
           );
+
+          app.back();
         }
       })
       .catch(function(response) {
@@ -129,40 +190,9 @@ export default {
           'Oops... Your page is not found.',
           'error'
         );
-        window.location.href = '#/admin/siswa';
+
+        app.back();
       })
-  },
-  data() {
-    return {
-      state: {},
-      title: 'Siswa',
-      model: {
-        nomor_un: "",
-        nik: "",
-        nama_siswa: "",
-        alamat_kk: "",
-        city_id: "",
-        district_id: "",
-        village_id: "",
-        tempat_lahir: "",
-        tgl_lahir: "",
-        jenis_kelamin: "",
-        agama: "",
-        nisn: "",
-        tahun_lulus: "",
-        sekolah_id: "",
-        user_id: "",
-        created_at: "",
-        updated_at: "",
-        province_id: "",
-      },
-      province:[],
-      city: [],
-      district: [],
-      village: [],
-      sekolah: [],
-      user: [],
-    }
   },
   methods: {
     back() {

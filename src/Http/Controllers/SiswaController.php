@@ -1,21 +1,24 @@
 <?php
+
 namespace Bantenprov\Siswa\Http\Controllers;
+
 /* Require */
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Bantenprov\Siswa\Facades\SiswaFacade;
+
 /* Models */
 use Bantenprov\Siswa\Models\Bantenprov\Siswa\Siswa;
-use Bantenprov\Pendaftaran\Models\Bantenprov\Pendaftaran\Pendaftaran;
-use Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah;
-use App\User;
 use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\City;
 use Laravolt\Indonesia\Models\District;
 use Laravolt\Indonesia\Models\Village;
+use Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah;
+use App\User;
 
 /* Etc */
 use Validator;
+
 /**
  * The SiswaController class.
  *
@@ -24,24 +27,30 @@ use Validator;
  */
 class SiswaController extends Controller
 {
+    protected $siswa;
+    protected $province;
+    protected $city;
+    protected $district;
+    protected $village;
+    protected $sekolah;
+    protected $user;
+
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    protected $user;
-    protected $sekolah;
-
-    public function __construct(Siswa $siswa, User $user, Sekolah $sekolah)
+    public function __construct()
     {
-        $this->siswa    = $siswa;
-        $this->sekolah  = $sekolah;
-        $this->user     = $user;
+        $this->siswa    = new Siswa;
         $this->province = new Province;
         $this->city     = new City;
         $this->district = new District;
         $this->village  = new Village;
+        $this->sekolah  = new Sekolah;
+        $this->user     = new User;
     }
+
     /**
      * Display a listing of the resource.
      *
@@ -51,28 +60,30 @@ class SiswaController extends Controller
     {
         if (request()->has('sort')) {
             list($sortCol, $sortDir) = explode('|', request()->sort);
+
             $query = $this->siswa->orderBy($sortCol, $sortDir);
         } else {
             $query = $this->siswa->orderBy('id', 'asc');
         }
+
         if ($request->exists('filter')) {
             $query->where(function($q) use($request) {
                 $value = "%{$request->filter}%";
-                $q->where('nik', 'like', $value)
+
+                $q->where('nomor_un', 'like', $value)
+                    ->orWhere('nik', 'like', $value)
                     ->orWhere('nama_siswa', 'like', $value);
             });
         }
-        $perPage = request()->has('per_page') ? (int) request()->per_page : null;
-        $response = $query->with('user')->with('sekolah')->paginate($perPage);
 
-        /*foreach($response as $user){
-            array_set($response->data, 'user', $user->user->name);
-        }*/
+        $perPage    = request()->has('per_page') ? (int) request()->per_page : null;
+        $response   = $query->with('user')->with('sekolah')->paginate($perPage);
 
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')
             ->header('Access-Control-Allow-Methods', 'GET');
     }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -228,6 +239,7 @@ class SiswaController extends Controller
         $response['status'] = true;
         return response()->json($response);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -254,6 +266,7 @@ class SiswaController extends Controller
 
 
     }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -270,6 +283,7 @@ class SiswaController extends Controller
         $response['status'] = true;
         return response()->json($response);
     }
+
     /**
      * Update the specified resource in storage.
      *
@@ -354,6 +368,7 @@ class SiswaController extends Controller
         $response['status'] = true;
         return response()->json($response);
     }
+
     /**
      * Remove the specified resource from storage.
      *
@@ -363,11 +378,16 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = $this->siswa->findOrFail($id);
+
         if ($siswa->delete()) {
-            $response['status'] = true;
+            $response['message']    = 'Success';
+            $response['success']    = true;
+            $response['status']     = true;
         } else {
-            $response['status'] = false;
+            $response['success']    = false;
+            $response['status']     = false;
         }
+
         return json_encode($response);
     }
 }

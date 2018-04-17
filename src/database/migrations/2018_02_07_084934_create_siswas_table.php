@@ -14,10 +14,10 @@ class CreateSiswasTable extends Migration
 	{
 		Schema::create('siswas', function (Blueprint $table) {
 			$table->increments('id');
-			$table->bigInteger('nomor_un');
-			$table->bigInteger('nik');
+			$table->string('nomor_un');
+			$table->string('nik');
 			$table->string('nama_siswa');
-			$table->bigInteger('no_kk');
+			$table->string('no_kk');
 			$table->text('alamat_kk');
 			$table->string('province_id')->nullable();
 			$table->string('city_id')->nullable();
@@ -27,7 +27,7 @@ class CreateSiswasTable extends Migration
 			$table->date('tgl_lahir');
 			$table->string('jenis_kelamin');
 			$table->string('agama');
-			$table->bigInteger('nisn');
+			$table->string('nisn');
 			$table->string('tahun_lulus');
 			$table->integer('sekolah_id')->nullable();
 			$table->integer('user_id');

@@ -99,18 +99,6 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'nik',
-          title: 'NIK',
-          sortField: 'nik',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'nisn',
-          title: 'NISN',
-          sortField: 'nisn',
-          titleClass: 'center aligned'
-        },
-        {
           name: 'nama_siswa',
           title: 'Nama Siswa',
           sortField: 'nama_siswa',
@@ -120,12 +108,6 @@ export default {
           name: 'sekolah.label',
           title: 'Sekolah Tujuan',
           sortField: 'sekolah_id',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'user.name',
-          title: 'Username',
-          sortField: 'user_id',
           titleClass: 'center aligned'
         },
         {

@@ -72,12 +72,14 @@ class SiswaController extends Controller
 
                 $q->where('nomor_un', 'like', $value)
                     ->orWhere('nik', 'like', $value)
-                    ->orWhere('nama_siswa', 'like', $value);
+                    ->orWhere('nama_siswa', 'like', $value)
+                    ->orWhere('no_kk', 'like', $value)
+                    ->orWhere('nisn', 'like', $value);
             });
         }
 
         $perPage    = request()->has('per_page') ? (int) request()->per_page : null;
-        $response   = $query->with('user')->with('sekolah')->paginate($perPage);
+        $response   = $query->with('user')->with(['sekolah', 'province', 'city', 'district', 'village'])->paginate($perPage);
 
         return response()->json($response)
             ->header('Access-Control-Allow-Origin', '*')

@@ -46,8 +46,9 @@ $ git clone https://github.com/bantenprov/siswa.git
     Illuminate\Cache\CacheServiceProvider::class,
     Illuminate\Foundation\Providers\ConsoleSupportServiceProvider::class,
     Illuminate\Cookie\CookieServiceProvider::class,
-    //....
+    //...
     Bantenprov\Siswa\SiswaServiceProvider::class,
+    //...
 ```
 
 #### Lakukan migrate :
@@ -56,10 +57,10 @@ $ git clone https://github.com/bantenprov/siswa.git
 $ php artisan migrate
 ```
 
-#### Publish database seeder :
+#### Lakukan publish semua komponen :
 
 ```bash
-$ php artisan vendor:publish --tag=siswa-seeds
+$ php artisan vendor:publish --tag=siswa-publish
 ```
 
 #### Lakukan auto dump :
@@ -74,12 +75,6 @@ $ composer dump-autoload
 $ php artisan db:seed --class=BantenprovSiswaSeeder
 ```
 
-#### Lakukan publish component vue :
-
-```bash
-$ php artisan vendor:publish --tag=siswa-assets
-$ php artisan vendor:publish --tag=siswa-public
-```
 #### Tambahkan route di dalam file : `resources/assets/js/routes.js` :
 
 ```javascript
@@ -88,19 +83,19 @@ $ php artisan vendor:publish --tag=siswa-public
     redirect: '/dashboard/home',
     component: layout('Default'),
     children: [
-        //== ...
+        //...
         {
-         path: '/dashboard/siswa',
-         components: {
-            main: resolve => require(['./components/views/bantenprov/siswa/DashboardSiswa.vue'], resolve),
-            navbar: resolve => require(['./components/Navbar.vue'], resolve),
-            sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-          },
-          meta: {
-            title: "Siswa"
-           }
-       },
-        //== ...
+            path: '/dashboard/siswa',
+            components: {
+                main: resolve => require(['./components/views/bantenprov/siswa/DashboardSiswa.vue'], resolve),
+                navbar: resolve => require(['./components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
+            },
+            meta: {
+                title: "Siswa"
+            }
+        },
+        //...
     ]
 },
 ```
@@ -111,7 +106,7 @@ $ php artisan vendor:publish --tag=siswa-public
     redirect: '/admin/dashboard/home',
     component: layout('Default'),
     children: [
-        //== ...
+        //...
         {
             path: '/admin/siswa',
             components: {
@@ -156,7 +151,7 @@ $ php artisan vendor:publish --tag=siswa-public
                 title: "Edit Siswa"
             }
         },
-        //== ...
+        //...
     ]
 },
 ```
@@ -168,13 +163,13 @@ $ php artisan vendor:publish --tag=siswa-public
     icon: 'fa fa-dashboard',
     childType: 'collapse',
     childItem: [
-        //== ...
+        //...
         {
-        name: 'Siswa',
-        link: '/dashboard/siswa',
-        icon: 'fa fa-angle-double-right'
+            name: 'Siswa',
+            link: '/dashboard/siswa',
+            icon: 'fa fa-angle-double-right'
         },
-        //== ...
+        //...
     ]
 },
 ```
@@ -185,13 +180,13 @@ $ php artisan vendor:publish --tag=siswa-public
     icon: 'fa fa-lock',
     childType: 'collapse',
     childItem: [
-        //== ...
+        //...
         {
-        name: 'Siswa',
-        link: '/admin/siswa',
-        icon: 'fa fa-angle-double-right'
+            name: 'Siswa',
+            link: '/admin/siswa',
+            icon: 'fa fa-angle-double-right'
         },
-        //== ...
+        //...
     ]
 },
 ```
@@ -199,7 +194,7 @@ $ php artisan vendor:publish --tag=siswa-public
 #### Tambahkan components `resources/assets/js/components.js` :
 
 ```javascript
-//== Siswa
+//... Siswa ...//
 
 import Siswa from './components/bantenprov/siswa/Siswa.chart.vue';
 Vue.component('echarts-siswa', Siswa);
@@ -213,7 +208,7 @@ Vue.component('echarts-siswa-tahun', SiswaTahun);
 import SiswaAdminShow from './components/bantenprov/siswa/SiswaAdmin.show.vue';
 Vue.component('admin-view-siswa-tahun', SiswaAdminShow);
 
-//== Echarts Group Egoverment
+//... Echarts Siswa ...//
 
 import SiswaBar01 from './components/views/bantenprov/siswa/SiswaBar01.vue';
 Vue.component('siswa-bar-01', SiswaBar01);
@@ -221,7 +216,7 @@ Vue.component('siswa-bar-01', SiswaBar01);
 import SiswaBar02 from './components/views/bantenprov/siswa/SiswaBar02.vue';
 Vue.component('siswa-bar-02', SiswaBar02);
 
-//== mini bar charts
+//... mini bar charts ...//
 import SiswaBar03 from './components/views/bantenprov/siswa/SiswaBar03.vue';
 Vue.component('siswa-bar-03', SiswaBar03);
 
@@ -231,11 +226,8 @@ Vue.component('siswa-pie-01', SiswaPie01);
 import SiswaPie02 from './components/views/bantenprov/siswa/SiswaPie02.vue';
 Vue.component('siswa-pie-02', SiswaPie02);
 
-//== mini pie charts
-
+//... Mini Pie Charts ...//
 
 import SiswaPie03 from './components/views/bantenprov/siswa/SiswaPie03.vue';
 Vue.component('siswa-pie-03', SiswaPie03);
-
 ```
-

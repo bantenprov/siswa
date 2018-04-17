@@ -178,22 +178,22 @@ export default {
                 app.$refs.vuetable.reload();
 
                 swal(
-                  'Deleted!',
-                  'Your data been deleted.',
+                  'Deleted',
+                  'Yeah!!! Your data has been deleted.',
                   'success'
                 );
               } else {
                 swal(
                   'Failed',
-                  'Failed to delete data.',
+                  'Oops... Failed to delete data.',
                   'error'
                 );
               }
             })
             .catch(function(response) {
               swal(
-                'Break',
-                'Your page request is break.',
+                'Not Found',
+                'Oops... Your page is not found.',
                 'error'
               );
             });

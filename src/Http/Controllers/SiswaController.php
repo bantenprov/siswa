@@ -250,23 +250,13 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->findOrFail($id);
 
-        $siswa = $this->siswa->findOrFail($id);
-
-
-        array_set($siswa, 'user', $siswa->user->name);
-        array_set($siswa, 'sekolah', $siswa->sekolah->label);
-
-
-        $response['siswa'] = $siswa;
-        $response['sekolah'] = $siswa;
-        $response['status'] = true;
-
-
+        $response['siswa']      = $siswa;
+        $response['message']    = 'Loaded';
+        $response['status']     = true;
 
         return response()->json($response);
-
-
     }
 
     /**

@@ -32,11 +32,11 @@ class Siswa extends Model
         'nisn',
         'tahun_lulus',
         'sekolah_id',
-        'user_id'  
-        
+        'user_id'
+
     ];
 
-       public function user()
+    public function user()
     {
         return $this->belongsTo('App\User','user_id');
     }

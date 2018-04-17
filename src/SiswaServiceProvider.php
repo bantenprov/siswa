@@ -200,7 +200,7 @@ class SiswaServiceProvider extends ServiceProvider
         $this->langHandle($publish);
         $this->viewHandle($publish);
         $this->assetHandle($publish);
-        $this->migrationHandle($publish);
+        // $this->migrationHandle($publish);
         $this->publicHandle($publish);
         $this->seedHandle($publish);
     }

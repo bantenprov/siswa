@@ -155,6 +155,7 @@ $ php artisan db:seed --class=BantenprovSiswaSeeder
     ]
 },
 ```
+
 #### Edit menu `resources/assets/js/menu.js`
 
 ```javascript

@@ -95,57 +95,23 @@ class SiswaController extends Controller
      */
     public function create(Request $request)
     {
-        $response = [];
-
-        $sekolahs       = $this->sekolah->all();
+        $user_id        = isset(Auth::User()->id) ? Auth::User()->id : null;
+        $siswas         = $this->siswa->getAttributes();
         $provinces      = $this->province->getAttributes();
-        $citys          = $this->city->getAttributes();
+        $cities         = $this->city->getAttributes();
         $districts      = $this->district->getAttributes();
         $villages       = $this->village->getAttributes();
+        $sekolahs       = $this->sekolah->all();
+        $users          = $this->user->getAttributes();
         $users_special  = $this->user->all();
-        $users_standar  = $this->user->find(\Auth::User()->id);
-        $current_user   = \Auth::User();
-
-        if ($request->has('no_kk') && strlen($request->input('no_kk')) == 16) {
-            $no_kk          = '3602142003170013';
-            $province_id    = substr($no_kk, 0, 2);
-            $city_id        = substr($no_kk, 2, 2);
-            $district_id    = substr($no_kk, 4, 2);
-            $village_id     = substr($no_kk, 6, 3);
-
-            $provinces      = \Indonesia::findProvince($province_id);
-            $citys          = \Indonesia::findCity($city_id);
-            $districts      = \Indonesia::findDistrict($district_id);
-            $villages       = \Indonesia::findVillage($village_id);
-        }
-
-        $role_check = \Auth::User()->hasRole(['superadministrator','administrator']);
-
-        if($role_check){
-            $response['user_special'] = true;
-            foreach($users_special as $user){
-                array_set($user, 'label', $user->name);
-            }
-            $response['user'] = $users_special;
-        }else{
-            $response['user_special'] = false;
-            array_set($users_standar, 'label', $users_standar->name);
-            $response['user'] = $users_standar;
-        }
-
-        array_set($current_user, 'label', $current_user->name);
-
-        $response['current_user'] = $current_user;
-
-        foreach($sekolahs as $sekolah){
-            array_set($sekolah, 'sekolah', $sekolah->label);
-        }
+        $users_standar  = $this->user->findOrFail($user_id);
+        $current_user   = Auth::User();
 
         foreach($provinces as $province){
             array_set($province, 'label', $province->name);
         }
 
-        foreach($citys as $city){
+        foreach($cities as $city){
             array_set($city, 'label', $city->name);
         }
 
@@ -157,12 +123,38 @@ class SiswaController extends Controller
             array_set($village, 'label', $village->name);
         }
 
-        $response['sekolah']    = $sekolahs;
-        $response['province']   = $provinces;
-        $response['city']       = $citys;
-        $response['district']   = $districts;
-        $response['village']    = $villages;
-        $response['status']     = true;
+        $role_check = Auth::User()->hasRole(['superadministrator','administrator']);
+
+        if($role_check){
+            $user_special = true;
+
+            foreach($users_special as $user){
+                array_set($user, 'label', $user->name);
+            }
+
+            $users = $users_special;
+        }else{
+            $user_special = false;
+
+            array_set($users_standar, 'label', $users_standar->name);
+
+            $users = $users_standar;
+        }
+
+        array_set($current_user, 'label', $current_user->name);
+
+        $response['siswa']          = $siswas;
+        $response['provinces']      = $provinces;
+        $response['cities']         = $cities;
+        $response['districts']      = $districts;
+        $response['villages']       = $villages;
+        $response['sekolahs']       = $sekolahs;
+        $response['users']          = $users;
+        $response['user_special']   = $user_special;
+        $response['current_user']   = $current_user;
+        $response['message']        = 'Loaded';
+        $response['status']         = true;
+
         return response()->json($response);
     }
 
@@ -176,28 +168,29 @@ class SiswaController extends Controller
     {
         $siswa = $this->siswa;
         $validator = Validator::make($request->all(), [
-            'user_id'       => 'required|unique:siswas,user_id',
-            'nomor_un'      => 'required|unique:siswas,nomor_un',
+            'nomor_un'      => 'required|max:255|unique:group_egovernments,label,NULL,id,deleted_at,NULL',
             'nik'           => 'required|unique:siswas,nik',
-            'nama_siswa'    => 'required',
+            'nama_siswa'    => 'required|max:255',
             'no_kk'         => 'required|unique:siswas,no_kk',
-            'alamat_kk'     => 'required',
+            'alamat_kk'     => 'required|max:255',
             'province_id'   => 'required',
             'city_id'       => 'required',
             'district_id'   => 'required',
             'village_id'    => 'required',
-            'tempat_lahir'  => 'required',
+            'tempat_lahir'  => 'required|max:255',
             'tgl_lahir'     => 'required',
             'jenis_kelamin' => 'required',
             'agama'         => 'required',
-            'nisn'          => 'required',
-            'sekolah_id'    => 'required',
+            'nisn'          => 'required|max:255',
             'tahun_lulus'   => 'required',
+            'sekolah_id'    => 'required',
+            'user_id'       => 'required|unique:siswas,user_id',
         ]);
         if($validator->fails()){
-            $check = $siswa->where('user_id',$request->user_id)->orWhere('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->orWhere('no_kk', $request->no_kk)->whereNull('deleted_at')->count();
+            $check = $siswa->where('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->orWhere('no_kk', $request->no_kk)->whereNull('deleted_at')->count();
             if ($check > 0) {
-                $response['message'] = 'Failed, Username, nomor un, nik, no kk  already exists';
+                $response['error']      = true;
+                $response['message']    = 'Failed, Username, nomor un, nik, no kk  already exists';
             } else {
                 $siswa->user_id         = $request->input('user_id');
                 $siswa->nomor_un        = $request->input('nomor_un');
@@ -217,7 +210,8 @@ class SiswaController extends Controller
                 $siswa->sekolah_id      = $request->input('sekolah_id');
                 $siswa->tahun_lulus     = $request->input('tahun_lulus');
                 $siswa->save();
-                $response['message'] = 'success';
+                $response['error']      = false;
+                $response['message']    = 'success';
             }
         } else {
                 $siswa->user_id         = $request->input('user_id');
@@ -238,7 +232,8 @@ class SiswaController extends Controller
                 $siswa->sekolah_id      = $request->input('sekolah_id');
                 $siswa->tahun_lulus     = $request->input('tahun_lulus');
                 $siswa->save();
-                $response['message'] = 'success';
+                $response['error']      = false;
+                $response['message']    = 'success';
         }
         $response['status'] = true;
         return response()->json($response);

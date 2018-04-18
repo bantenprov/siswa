@@ -167,76 +167,58 @@ class SiswaController extends Controller
      */
     public function store(Request $request)
     {
-        $siswa = $this->siswa;
-        $validator = Validator::make($request->all(), [
-            'nomor_un'      => 'required|max:255|unique:group_egovernments,label,NULL,id,deleted_at,NULL',
-            'nik'           => 'required|unique:siswas,nik',
+        $siswa      = $this->siswa;
+        $validator  = Validator::make($request->all(), [
+            'nomor_un'      => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,NULL,id,deleted_at,NULL",
+            'nik'           => "required|max:255|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
             'nama_siswa'    => 'required|max:255',
-            'no_kk'         => 'required|unique:siswas,no_kk',
+            'no_kk'         => "required|max:255|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
             'alamat_kk'     => 'required|max:255',
-            'province_id'   => 'required',
-            'city_id'       => 'required',
-            'district_id'   => 'required',
-            'village_id'    => 'required',
+            'province_id'   => "required|exists:{$this->province->getTable()},id",
+            'city_id'       => "required|exists:{$this->city->getTable()},id",
+            'district_id'   => "required|exists:{$this->district->getTable()},id",
+            'village_id'    => "required|exists:{$this->village->getTable()},id",
             'tempat_lahir'  => 'required|max:255',
-            'tgl_lahir'     => 'required',
+            'tgl_lahir'     => 'required|date',
             'jenis_kelamin' => 'required',
             'agama'         => 'required',
             'nisn'          => 'required|max:255',
-            'tahun_lulus'   => 'required',
-            'sekolah_id'    => 'required',
-            'user_id'       => 'required|unique:siswas,user_id',
+            'tahun_lulus'   => 'required|date_format:Y',
+            'sekolah_id'    => "required|exists:{$this->sekolah->getTable()},id",
+            'user_id'       => "required|exists:{$this->user->getTable()},id",
         ]);
-        if($validator->fails()){
-            $check = $siswa->where('nomor_un', $request->nomor_un)->orWhere('nik', $request->nik)->orWhere('no_kk', $request->no_kk)->whereNull('deleted_at')->count();
-            if ($check > 0) {
-                $response['error']      = true;
-                $response['message']    = 'Failed, Username, nomor un, nik, no kk  already exists';
-            } else {
-                $siswa->user_id         = $request->input('user_id');
-                $siswa->nomor_un        = $request->input('nomor_un');
-                $siswa->nik             = $request->input('nik');
-                $siswa->nama_siswa      = $request->input('nama_siswa');
-                $siswa->no_kk           = $request->input('no_kk');
-                $siswa->alamat_kk       = $request->input('alamat_kk');
-                $siswa->province_id     = $request->input('province_id');
-                $siswa->city_id         = $request->input('city_id');
-                $siswa->district_id     = $request->input('district_id');
-                $siswa->village_id      = $request->input('village_id');
-                $siswa->tempat_lahir    = $request->input('tempat_lahir');
-                $siswa->tgl_lahir       = $request->input('tgl_lahir');
-                $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
-                $siswa->agama           = $request->input('agama');
-                $siswa->nisn            = $request->input('nisn');
-                $siswa->sekolah_id      = $request->input('sekolah_id');
-                $siswa->tahun_lulus     = $request->input('tahun_lulus');
-                $siswa->save();
-                $response['error']      = false;
-                $response['message']    = 'success';
-            }
+
+        if ($validator->fails()) {
+            $error      = true;
+            $message    = $validator->errors()->first();
         } else {
-                $siswa->user_id         = $request->input('user_id');
-                $siswa->nomor_un        = $request->input('nomor_un');
-                $siswa->nik             = $request->input('nik');
-                $siswa->nama_siswa      = $request->input('nama_siswa');
-                $siswa->no_kk           = $request->input('no_kk');
-                $siswa->alamat_kk       = $request->input('alamat_kk');
-                $siswa->province_id     = $request->input('province_id');
-                $siswa->city_id         = $request->input('city_id');
-                $siswa->district_id     = $request->input('district_id');
-                $siswa->village_id      = $request->input('village_id');
-                $siswa->tempat_lahir    = $request->input('tempat_lahir');
-                $siswa->tgl_lahir       = $request->input('tgl_lahir');
-                $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
-                $siswa->agama           = $request->input('agama');
-                $siswa->nisn            = $request->input('nisn');
-                $siswa->sekolah_id      = $request->input('sekolah_id');
-                $siswa->tahun_lulus     = $request->input('tahun_lulus');
-                $siswa->save();
-                $response['error']      = false;
-                $response['message']    = 'success';
+            $siswa->user_id         = $request->input('user_id');
+            $siswa->nomor_un        = $request->input('nomor_un');
+            $siswa->nik             = $request->input('nik');
+            $siswa->nama_siswa      = $request->input('nama_siswa');
+            $siswa->no_kk           = $request->input('no_kk');
+            $siswa->alamat_kk       = $request->input('alamat_kk');
+            $siswa->province_id     = $request->input('province_id');
+            $siswa->city_id         = $request->input('city_id');
+            $siswa->district_id     = $request->input('district_id');
+            $siswa->village_id      = $request->input('village_id');
+            $siswa->tempat_lahir    = $request->input('tempat_lahir');
+            $siswa->tgl_lahir       = $request->input('tgl_lahir');
+            $siswa->jenis_kelamin   = $request->input('jenis_kelamin');
+            $siswa->agama           = $request->input('agama');
+            $siswa->nisn            = $request->input('nisn');
+            $siswa->sekolah_id      = $request->input('sekolah_id');
+            $siswa->tahun_lulus     = $request->input('tahun_lulus');
+            $siswa->save();
+
+            $error      = false;
+            $message    = 'Success';
         }
-        $response['status'] = true;
+
+        $response['error']      = $error;
+        $response['message']    = $message;
+        $response['status']     = true;
+
         return response()->json($response);
     }
 

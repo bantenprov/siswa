@@ -17,6 +17,7 @@
         <div class="form-row">
           <div class="col-md">
             <validate tag="div">
+              <label for="nomor_un">Nomor UN</label>
               <input class="form-control" v-model="model.nomor_un" required autofocus name="nomor_un" type="text" placeholder="Nomor UN">
 
               <field-messages name="nomor_un" show="$invalid && $submitted" class="text-danger">
@@ -30,6 +31,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="nik">NIK</label>
               <input class="form-control" v-model="model.nik" required autofocus name="nik" type="text" placeholder="NIK">
 
               <field-messages name="nik" show="$invalid && $submitted" class="text-danger">
@@ -43,6 +45,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="nama_siswa">Nama Siswa</label>
               <input class="form-control" v-model="model.nama_siswa" required autofocus name="nama_siswa" type="text" placeholder="Nama Siswa">
 
               <field-messages name="nama_siswa" show="$invalid && $submitted" class="text-danger">
@@ -56,6 +59,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="nomor_kk">No KK</label>
               <input class="form-control" v-model="model.no_kk" required autofocus name="no_kk" type="text" placeholder="Nomor KK">
 
               <field-messages name="nomor_kk" show="$invalid && $submitted" class="text-danger">
@@ -69,6 +73,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="alamat_kk">Alamat KK</label>
               <input class="form-control" v-model="model.alamat_kk" required autofocus name="alamat_kk" type="text" placeholder="Alamat KK">
 
               <field-messages name="alamat_kk" show="$invalid && $submitted" class="text-danger">
@@ -82,6 +87,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="tempat_lahir">Tempat Lahir</label>
               <input class="form-control" v-model="model.tempat_lahir" required autofocus name="tempat_lahir" type="text" placeholder="Tempat Lahir">
 
               <field-messages name="tempat_lahir" show="$invalid && $submitted" class="text-danger">
@@ -95,6 +101,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="tgl_lahir">Tanggal Lahir</label>
               <input class="form-control" v-model="model.tgl_lahir" required autofocus name="tgl_lahir" type="text" placeholder="Tanggal Lahir">
 
               <field-messages name="tgl_lahir" show="$invalid && $submitted" class="text-danger">
@@ -108,6 +115,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="jenis_kelamin">Jenis Kelamin</label>
               <input class="form-control" v-model="model.jenis_kelamin" required autofocus name="jenis_kelamin" type="text" placeholder="Jenis Kelamin">
 
               <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
@@ -121,6 +129,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="agama">Agama</label>
               <input class="form-control" v-model="model.agama" required autofocus name="agama" type="text" placeholder="Agama">
 
               <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
@@ -134,6 +143,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="nisn">NISN</label>
               <input class="form-control" v-model="model.nisn" required autofocus name="nisn" type="text" placeholder="NISN">
 
               <field-messages name="nisn" show="$invalid && $submitted" class="text-danger">
@@ -147,6 +157,7 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="tahun_lulus">Tahun Lulus</label>
               <input class="form-control" v-model="model.tahun_lulus" required autofocus name="tahun_lulus" type="text" placeholder="Tahun Lulus">
 
               <field-messages name="tahun_lulus" show="$invalid && $submitted" class="text-danger">

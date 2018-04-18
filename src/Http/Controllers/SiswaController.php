@@ -152,7 +152,8 @@ class SiswaController extends Controller
         $response['users']          = $users;
         $response['user_special']   = $user_special;
         $response['current_user']   = $current_user;
-        $response['message']        = 'Loaded';
+        $response['error']          = false;
+        $response['message']        = 'Success';
         $response['status']         = true;
 
         return response()->json($response);
@@ -250,7 +251,8 @@ class SiswaController extends Controller
         $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->findOrFail($id);
 
         $response['siswa']      = $siswa;
-        $response['message']    = 'Loaded';
+        $response['error']      = false;
+        $response['message']    = 'Success';
         $response['status']     = true;
 
         return response()->json($response);

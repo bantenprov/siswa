@@ -301,7 +301,7 @@ export default {
 
     axios.get('api/siswa/create')
       .then(response => {
-        if (response.data.status == true) {
+        if (response.data.status == true && response.data.error == false) {
           this.model.user = response.data.current_user;
           this.sekolah = response.data.sekolahs;
 
@@ -332,7 +332,7 @@ export default {
 
     axios.get('api/wilayah-indonesia/province/get')
       .then(response => {
-        if (response.data.status == true) {
+        if (response.data.status == true && response.data.error == false) {
           this.province = response.data.provinces;
         } else {
           swal(
@@ -382,7 +382,7 @@ export default {
           })
           .then(response => {
             if (response.data.status == true) {
-              if(response.data.success == true){
+              if(response.data.error == false){
                 swal(
                   'Created',
                   'Yeah!!! Your data has been created.',
@@ -426,7 +426,7 @@ export default {
 
         axios.get('api/wilayah-indonesia/city/get/by-province/'+this.model.province.id)
           .then(response => {
-            if (response.data.status == true) {
+            if (response.data.status == true && response.data.error == false) {
               this.city = response.data.cities;
             }
           });
@@ -440,7 +440,7 @@ export default {
 
         axios.get('api/wilayah-indonesia/district/get/by-city/'+this.model.city.id)
           .then(response => {
-            if (response.data.status == true) {
+            if (response.data.status == true && response.data.error == false) {
               this.district = response.data.districts;
             }
           });
@@ -454,7 +454,7 @@ export default {
 
         axios.get('api/wilayah-indonesia/village/get/by-district/'+this.model.district.id)
           .then(response => {
-            if (response.data.status == true) {
+            if (response.data.status == true && response.data.error == false) {
               this.village = response.data.villages;
             }
           });

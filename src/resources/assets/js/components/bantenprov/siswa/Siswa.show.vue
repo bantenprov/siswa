@@ -124,7 +124,7 @@ export default {
 
     axios.get('api/siswa/'+this.$route.params.id)
       .then(response => {
-        if (response.data.status == true) {
+        if (response.data.status == true && response.data.error == false) {
           this.model.nomor_un       = response.data.siswa.nomor_un;
           this.model.nik            = response.data.siswa.nik;
           this.model.nama_siswa     = response.data.siswa.nama_siswa;

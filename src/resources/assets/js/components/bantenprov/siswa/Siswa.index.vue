@@ -1,12 +1,12 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <i class="fa fa-table" aria-hidden="true"></i> Siswa
+      <i class="fa fa-table" aria-hidden="true"></i> {{ title }}
 
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
           <button class="btn btn-primary btn-sm" role="button" @click="createRow">
-          	<i class="fa fa-plus" aria-hidden="true"></i>
+            <i class="fa fa-plus" aria-hidden="true"></i>
           </button>
         </li>
       </ul>
@@ -31,7 +31,7 @@
           :sort-order="sortOrder"
           :css="css.table"
           pagination-path=""
-          :per-page="5"
+          :per-page="10"
           :append-params="moreParams"
           @vuetable:pagination-data="onPaginationData"
           @vuetable:loading="onLoading"
@@ -53,8 +53,7 @@
       </div>
 
       <div class="d-flex justify-content-between align-items-center">
-        <vuetable-pagination-info ref="paginationInfo"
-        ></vuetable-pagination-info>
+        <vuetable-pagination-info ref="paginationInfo"></vuetable-pagination-info>
         <vuetable-pagination ref="pagination"
           :css="css.pagination"
           @vuetable-pagination:change-page="onChangePage">
@@ -75,6 +74,7 @@
 </style>
 
 <script>
+import swal from 'sweetalert2';
 import VuetablePaginationInfo from 'vuetable-2/src/components/VuetablePaginationInfo';
 
 export default {
@@ -84,6 +84,7 @@ export default {
   data() {
     return {
       loading: true,
+      title: 'Siswa',
       fields: [
         {
           name: '__sequence',
@@ -98,18 +99,6 @@ export default {
           titleClass: 'center aligned'
         },
         {
-          name: 'nik',
-          title: 'NIK',
-          sortField: 'nik',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'nisn',
-          title: 'NISN',
-          sortField: 'nisn',
-          titleClass: 'center aligned'
-        },
-        {
           name: 'nama_siswa',
           title: 'Nama Siswa',
           sortField: 'nama_siswa',
@@ -117,14 +106,8 @@ export default {
         },
         {
           name: 'sekolah.label',
-          title: 'sekolah Tujuan',
+          title: 'Sekolah Tujuan',
           sortField: 'sekolah_id',
-          titleClass: 'center aligned'
-        },
-        {
-          name: 'user.name',
-          title: 'Username',
-          sortField: 'user_id',
           titleClass: 'center aligned'
         },
         {
@@ -135,7 +118,7 @@ export default {
         },
       ],
       sortOrder: [{
-        field: 'nomor_un',
+        field: 'nama_siswa',
         direction: 'asc'
       }],
       moreParams: {},
@@ -166,27 +149,62 @@ export default {
       window.location = '#/admin/siswa/create';
     },
     viewRow(rowData) {
-      window.location = '#/admin/siswa/' + rowData.id;
+      window.location = '#/admin/siswa/'+rowData.id;
     },
     editRow(rowData) {
-      window.location = '#/admin/siswa/' + rowData.id + '/edit';
+      window.location = '#/admin/siswa/'+rowData.id+'/edit';
     },
     deleteRow(rowData) {
       let app = this;
 
-      if (confirm('Do you really want to delete it?')) {
-        axios.delete('/api/siswa/' + rowData.id)
-          .then(function(response) {
-            if (response.data.status == true) {
-              app.$refs.vuetable.reload()
-            } else {
-              alert('Failed');
-            }
-          })
-          .catch(function(response) {
-            alert('Break');
-          });
-      }
+      swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!',
+        cancelButtonText: 'No, cancel!',
+        confirmButtonClass: 'btn btn-success',
+        cancelButtonClass: 'btn btn-danger',
+        buttonsStyling: false,
+        reverseButtons: true
+      }).then((result) => {
+        if (result.value) {
+          axios.delete('/api/siswa/'+rowData.id)
+            .then(function(response) {
+              if (response.data.status == true) {
+                app.$refs.vuetable.reload();
+
+                swal(
+                  'Deleted',
+                  'Yeah!!! Your data has been deleted.',
+                  'success'
+                );
+              } else {
+                swal(
+                  'Failed',
+                  'Oops... Failed to delete data.',
+                  'error'
+                );
+              }
+            })
+            .catch(function(response) {
+              swal(
+                'Not Found',
+                'Oops... Your page is not found.',
+                'error'
+              );
+            });
+        } else if (result.dismiss === swal.DismissReason.cancel) {
+          swal(
+            'Cancelled',
+            'Your data is safe.',
+            'error'
+          );
+        }
+      });
     },
     onPaginationData(paginationData) {
       this.$refs.pagination.setPaginationData(paginationData);

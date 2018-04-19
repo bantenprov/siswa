@@ -36,7 +36,6 @@ $ git clone https://github.com/bantenprov/siswa.git
 
 ```php
 'providers' => [
-
     /*
     * Laravel Framework Service Providers...
     */
@@ -75,87 +74,6 @@ $ composer dump-autoload
 $ php artisan db:seed --class=BantenprovSiswaSeeder
 ```
 
-#### Tambahkan route di dalam file : `resources/assets/js/routes.js` :
-
-```javascript
-{
-    path: '/dashboard',
-    redirect: '/dashboard/home',
-    component: layout('Default'),
-    children: [
-        //...
-        {
-            path: '/dashboard/siswa',
-            components: {
-                main: resolve => require(['./components/views/bantenprov/siswa/DashboardSiswa.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-            },
-            meta: {
-                title: "Siswa"
-            }
-        },
-        //...
-    ]
-},
-```
-
-```javascript
-{
-    path: '/admin',
-    redirect: '/admin/dashboard/home',
-    component: layout('Default'),
-    children: [
-        //...
-        {
-            path: '/admin/siswa',
-            components: {
-                main: resolve => require(['./components/bantenprov/siswa/Siswa.index.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-            },
-            meta: {
-                title: "Siswa"
-            }
-        },
-        {
-            path: '/admin/siswa/create',
-            components: {
-                main: resolve => require(['./components/bantenprov/siswa/Siswa.add.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-            },
-            meta: {
-                title: "Add Siswa"
-            }
-        },
-        {
-            path: '/admin/siswa/:id',
-            components: {
-                main: resolve => require(['./components/bantenprov/siswa/Siswa.show.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-            },
-            meta: {
-                title: "View Siswa"
-            }
-        },
-        {
-            path: '/admin/siswa/:id/edit',
-            components: {
-                main: resolve => require(['./components/bantenprov/siswa/Siswa.edit.vue'], resolve),
-                navbar: resolve => require(['./components/Navbar.vue'], resolve),
-                sidebar: resolve => require(['./components/Sidebar.vue'], resolve)
-            },
-            meta: {
-                title: "Edit Siswa"
-            }
-        },
-        //...
-    ]
-},
-```
-
 #### Edit menu `resources/assets/js/menu.js`
 
 ```javascript
@@ -165,6 +83,7 @@ $ php artisan db:seed --class=BantenprovSiswaSeeder
     childType: 'collapse',
     childItem: [
         //...
+        // Siswa
         {
             name: 'Siswa',
             link: '/dashboard/siswa',
@@ -182,6 +101,7 @@ $ php artisan db:seed --class=BantenprovSiswaSeeder
     childType: 'collapse',
     childItem: [
         //...
+        // Siswa
         {
             name: 'Siswa',
             link: '/admin/siswa',
@@ -197,38 +117,122 @@ $ php artisan db:seed --class=BantenprovSiswaSeeder
 ```javascript
 //... Siswa ...//
 
-import Siswa from './components/bantenprov/siswa/Siswa.chart.vue';
-Vue.component('echarts-siswa', Siswa);
-
-import SiswaKota from './components/bantenprov/siswa/SiswaKota.chart.vue';
-Vue.component('echarts-siswa-kota', SiswaKota);
-
-import SiswaTahun from './components/bantenprov/siswa/SiswaTahun.chart.vue';
-Vue.component('echarts-siswa-tahun', SiswaTahun);
-
-import SiswaAdminShow from './components/bantenprov/siswa/SiswaAdmin.show.vue';
-Vue.component('admin-view-siswa-tahun', SiswaAdminShow);
+import SiswaAdminShow from '~/components/bantenprov/siswa/SiswaAdmin.show.vue';
+Vue.component('siswa-admin', SiswaAdminShow);
 
 //... Echarts Siswa ...//
 
-import SiswaBar01 from './components/views/bantenprov/siswa/SiswaBar01.vue';
+import Siswa from '~/components/bantenprov/siswa/Siswa.chart.vue';
+Vue.component('siswa-echarts', Siswa);
+
+import SiswaKota from '~/components/bantenprov/siswa/SiswaKota.chart.vue';
+Vue.component('siswa-echarts-kota', SiswaKota);
+
+import SiswaTahun from '~/components/bantenprov/siswa/SiswaTahun.chart.vue';
+Vue.component('siswa-echarts-tahun', SiswaTahun);
+
+//... Mini Bar Charts Siswa ...//
+
+import SiswaBar01 from '~/components/views/bantenprov/siswa/SiswaBar01.vue';
 Vue.component('siswa-bar-01', SiswaBar01);
 
-import SiswaBar02 from './components/views/bantenprov/siswa/SiswaBar02.vue';
+import SiswaBar02 from '~/components/views/bantenprov/siswa/SiswaBar02.vue';
 Vue.component('siswa-bar-02', SiswaBar02);
 
-//... mini bar charts ...//
-import SiswaBar03 from './components/views/bantenprov/siswa/SiswaBar03.vue';
+import SiswaBar03 from '~/components/views/bantenprov/siswa/SiswaBar03.vue';
 Vue.component('siswa-bar-03', SiswaBar03);
 
-import SiswaPie01 from './components/views/bantenprov/siswa/SiswaPie01.vue';
+//... Mini Pie Charts Siswa ...//
+
+import SiswaPie01 from '~/components/views/bantenprov/siswa/SiswaPie01.vue';
 Vue.component('siswa-pie-01', SiswaPie01);
 
-import SiswaPie02 from './components/views/bantenprov/siswa/SiswaPie02.vue';
+import SiswaPie02 from '~/components/views/bantenprov/siswa/SiswaPie02.vue';
 Vue.component('siswa-pie-02', SiswaPie02);
 
-//... Mini Pie Charts ...//
-
-import SiswaPie03 from './components/views/bantenprov/siswa/SiswaPie03.vue';
+import SiswaPie03 from '~/components/views/bantenprov/siswa/SiswaPie03.vue';
 Vue.component('siswa-pie-03', SiswaPie03);
+```
+
+#### Tambahkan route di dalam file : `resources/assets/js/routes.js` :
+
+```javascript
+{
+    path: '/dashboard',
+    redirect: '/dashboard/home',
+    component: layout('Default'),
+    children: [
+        //...
+        // Siswa
+        {
+            path: '/dashboard/siswa',
+            components: {
+                main: resolve => require(['~/components/views/bantenprov/siswa/DashboardSiswa.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
+            },
+            meta: {
+                title: "Siswa"
+            }
+        },
+        //...
+    ]
+},
+```
+
+```javascript
+{
+    path: '/admin',
+    redirect: '/admin/dashboard/home',
+    component: layout('Default'),
+    children: [
+        //...
+        // Siswa
+        {
+            path: '/admin/siswa',
+            components: {
+                main: resolve => require(['~/components/bantenprov/siswa/Siswa.index.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
+            },
+            meta: {
+                title: "Siswa"
+            }
+        },
+        {
+            path: '/admin/siswa/create',
+            components: {
+                main: resolve => require(['~/components/bantenprov/siswa/Siswa.add.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
+            },
+            meta: {
+                title: "Add Siswa"
+            }
+        },
+        {
+            path: '/admin/siswa/:id',
+            components: {
+                main: resolve => require(['~/components/bantenprov/siswa/Siswa.show.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
+            },
+            meta: {
+                title: "View Siswa"
+            }
+        },
+        {
+            path: '/admin/siswa/:id/edit',
+            components: {
+                main: resolve => require(['~/components/bantenprov/siswa/Siswa.edit.vue'], resolve),
+                navbar: resolve => require(['~/components/Navbar.vue'], resolve),
+                sidebar: resolve => require(['~/components/Sidebar.vue'], resolve)
+            },
+            meta: {
+                title: "Edit Siswa"
+            }
+        },
+        //...
+    ]
+},
 ```

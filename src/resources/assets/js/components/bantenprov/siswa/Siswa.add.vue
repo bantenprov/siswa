@@ -18,7 +18,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="nomor_un">Nomor UN</label>
-              <input class="form-control" v-model="model.nomor_un" required autofocus name="nomor_un" type="text" placeholder="Nomor UN">
+              <input type="text" class="form-control" name="nomor_un" v-model="model.nomor_un" placeholder="Nomor UN" required autofocus>
 
               <field-messages name="nomor_un" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -32,7 +32,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="nik">NIK</label>
-              <input class="form-control" v-model="model.nik" required autofocus name="nik" type="text" placeholder="NIK">
+              <input type="text" class="form-control" name="nik" v-model="model.nik" placeholder="NIK" required>
 
               <field-messages name="nik" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -46,7 +46,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="nama_siswa">Nama Siswa</label>
-              <input class="form-control" v-model="model.nama_siswa" required autofocus name="nama_siswa" type="text" placeholder="Nama Siswa">
+              <input type="text" class="form-control" name="nama_siswa" v-model="model.nama_siswa" placeholder="Nama Siswa" required>
 
               <field-messages name="nama_siswa" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -60,7 +60,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="nomor_kk">No KK</label>
-              <input class="form-control" v-model="model.no_kk" required autofocus name="no_kk" type="text" placeholder="Nomor KK">
+              <input type="text" class="form-control" name="no_kk" v-model="model.no_kk" placeholder="Nomor KK" required>
 
               <field-messages name="nomor_kk" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -74,7 +74,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="alamat_kk">Alamat KK</label>
-              <input class="form-control" v-model="model.alamat_kk" required autofocus name="alamat_kk" type="text" placeholder="Alamat KK">
+              <input type="text" class="form-control" name="alamat_kk" v-model="model.alamat_kk" placeholder="Alamat KK" required>
 
               <field-messages name="alamat_kk" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -88,7 +88,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="tempat_lahir">Tempat Lahir</label>
-              <input class="form-control" v-model="model.tempat_lahir" required autofocus name="tempat_lahir" type="text" placeholder="Tempat Lahir">
+              <input type="text" class="form-control" name="tempat_lahir" v-model="model.tempat_lahir" placeholder="Tempat Lahir" required>
 
               <field-messages name="tempat_lahir" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -102,7 +102,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="tgl_lahir">Tanggal Lahir</label>
-              <input class="form-control" v-model="model.tgl_lahir" required autofocus name="tgl_lahir" type="text" placeholder="Tanggal Lahir">
+              <input type="text" class="form-control" name="tgl_lahir" v-model="model.tgl_lahir" placeholder="Tanggal Lahir" required>
 
               <field-messages name="tgl_lahir" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -116,7 +116,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="jenis_kelamin">Jenis Kelamin</label>
-              <input class="form-control" v-model="model.jenis_kelamin" required autofocus name="jenis_kelamin" type="text" placeholder="Jenis Kelamin">
+              <input type="text" class="form-control" name="jenis_kelamin" v-model="model.jenis_kelamin" placeholder="Jenis Kelamin" required>
 
               <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -130,7 +130,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="agama">Agama</label>
-              <input class="form-control" v-model="model.agama" required autofocus name="agama" type="text" placeholder="Agama">
+              <input type="text" class="form-control" name="agama" v-model="model.agama" placeholder="Agama" required>
 
               <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -144,7 +144,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="nisn">NISN</label>
-              <input class="form-control" v-model="model.nisn" required autofocus name="nisn" type="text" placeholder="NISN">
+              <input type="text" class="form-control" name="nisn" v-model="model.nisn" placeholder="NISN" required>
 
               <field-messages name="nisn" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -158,7 +158,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="tahun_lulus">Tahun Lulus</label>
-              <input class="form-control" v-model="model.tahun_lulus" required autofocus name="tahun_lulus" type="text" placeholder="Tahun Lulus">
+              <input type="text" class="form-control" name="tahun_lulus" v-model="model.tahun_lulus" placeholder="Tahun Lulus" required>
 
               <field-messages name="tahun_lulus" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -172,7 +172,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="sekolah_id">Sekolah Tujuan</label>
-              <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" class="mb-4"></v-select>
+              <v-select class="mb-4" name="sekolah_id" v-model="model.sekolah" :options="sekolah" placeholder="Sekolah Tujuan" required></v-select>
 
               <field-messages name="sekolah_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -186,7 +186,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="province_id">Provinsi</label>
-              <v-select name="province_id" v-model="model.province" :options="province" @input="changeProvince" class="mb-4"></v-select>
+              <v-select class="mb-4" name="province_id" v-model="model.province" :options="province" @input="changeProvince" placeholder="Provinsi" required></v-select>
 
               <field-messages name="province_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -199,8 +199,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="city_id">Kabupaten</label>
-              <v-select name="city_id" v-model="model.city" :options="city" @input="changeCity" class="mb-4"></v-select>
+              <label for="city_id">Kabupaten/Kota</label>
+              <v-select class="mb-4" name="city_id" v-model="model.city" :options="city" @input="changeCity" placeholder="Kabupaten/Kota" required></v-select>
 
               <field-messages name="city_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -213,8 +213,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="district_id">Kota</label>
-              <v-select name="district_id" v-model="model.district" :options="district" @input="changeDistrict" class="mb-4"></v-select>
+              <label for="district_id">Kecamatan</label>
+              <v-select class="mb-4" name="district_id" v-model="model.district" :options="district" @input="changeDistrict" placeholder="Kecamatan" required></v-select>
 
                 <field-messages name="district_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -227,8 +227,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="village_id">Desa</label>
-              <v-select name="village_id" v-model="model.village" :options="village" class="mb-4"></v-select>
+              <label for="village_id">Kelurahan/Desa</label>
+              <v-select class="mb-4" name="village_id" v-model="model.village" :options="village" placeholder="Kelurahan/Desa" required></v-select>
 
               <field-messages name="village_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -242,7 +242,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="user_id">Username</label>
-              <v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
+              <v-select class="mb-4" name="user_id" v-model="model.user" :options="user" placeholder="Username" required></v-select>
 
               <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -273,38 +273,38 @@ export default {
       state: {},
       title: 'Add Siswa',
       model: {
-        nomor_un: "",
-        nik: "",
-        nama_siswa: "",
-        alamat_kk: "",
-        province_id: "",
-        city_id: "",
-        district_id: "",
-        village_id: "",
-        tempat_lahir: "",
-        tgl_lahir: "",
-        jenis_kelamin: "",
-        agama: "",
-        nisn: "",
-        tahun_lulus: "",
-        sekolah_id: "",
-        user_id: "",
-        created_at: "",
-        updated_at: "",
+        nomor_un      : "",
+        nik           : "",
+        nama_siswa    : "",
+        alamat_kk     : "",
+        province_id   : "",
+        city_id       : "",
+        district_id   : "",
+        village_id    : "",
+        tempat_lahir  : "",
+        tgl_lahir     : "",
+        jenis_kelamin : "",
+        agama         : "",
+        nisn          : "",
+        tahun_lulus   : "",
+        sekolah_id    : "",
+        user_id       : "",
+        created_at    : "",
+        updated_at    : "",
 
-        province: "",
-        city: "",
-        district: "",
-        village: "",
-        sekolah: "",
-        user: "",
+        province      : "",
+        city          : "",
+        district      : "",
+        village       : "",
+        sekolah       : "",
+        user          : "",
       },
-      province: [],
-      city: [],
-      district: [],
-      village: [],
-      sekolah: [],
-      user: [],
+      province  : [],
+      city      : [],
+      district  : [],
+      village   : [],
+      sekolah   : [],
+      user      : [],
     }
   },
   mounted(){
@@ -495,7 +495,33 @@ export default {
       }
     },
     reset() {
-      this.model = data().model;
+      this.model = {
+        nomor_un      : "",
+        nik           : "",
+        nama_siswa    : "",
+        alamat_kk     : "",
+        province_id   : "",
+        city_id       : "",
+        district_id   : "",
+        village_id    : "",
+        tempat_lahir  : "",
+        tgl_lahir     : "",
+        jenis_kelamin : "",
+        agama         : "",
+        nisn          : "",
+        tahun_lulus   : "",
+        sekolah_id    : "",
+        user_id       : "",
+        created_at    : "",
+        updated_at    : "",
+
+        province      : "",
+        city          : "",
+        district      : "",
+        village       : "",
+        sekolah       : "",
+        user          : "",
+      };
     },
     back() {
       window.location = '#/admin/siswa';

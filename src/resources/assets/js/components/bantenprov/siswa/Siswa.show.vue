@@ -32,13 +32,13 @@
           <dt class="col-4">Provinsi</dt>
           <dd class="col-8">{{ model.province.name }}</dd>
 
-          <dt class="col-4">Kota</dt>
+          <dt class="col-4">Kabupaten/Kota</dt>
           <dd class="col-8">{{ model.city.name }}</dd>
 
           <dt class="col-4">Kecamatan</dt>
           <dd class="col-8">{{ model.district.name }}</dd>
 
-          <dt class="col-4">Desa</dt>
+          <dt class="col-4">Kelurahan/Desa</dt>
           <dd class="col-8">{{ model.village.name }}</dd>
 
           <dt class="col-4">Tempat Lahir</dt>
@@ -189,7 +189,7 @@ export default {
         );
 
         app.back();
-      })
+      });
   },
   methods: {
     back() {

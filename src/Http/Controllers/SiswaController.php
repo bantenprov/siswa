@@ -96,7 +96,7 @@ class SiswaController extends Controller
     public function create(Request $request)
     {
         $user_id        = isset(Auth::User()->id) ? Auth::User()->id : null;
-        $siswas         = $this->siswa->getAttributes();
+        $siswa          = $this->siswa->getAttributes();
         $provinces      = $this->province->getAttributes();
         $cities         = $this->city->getAttributes();
         $districts      = $this->district->getAttributes();
@@ -147,7 +147,7 @@ class SiswaController extends Controller
 
         array_set($current_user, 'label', $current_user->name);
 
-        $response['siswa']          = $siswas;
+        $response['siswa']          = $siswa;
         $response['provinces']      = $provinces;
         $response['cities']         = $cities;
         $response['districts']      = $districts;

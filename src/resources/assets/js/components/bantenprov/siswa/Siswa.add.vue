@@ -172,7 +172,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="sekolah_id">Sekolah Tujuan</label>
-              <v-select class="mb-4" name="sekolah_id" v-model="model.sekolah" :options="sekolah" placeholder="Sekolah Tujuan" required></v-select>
+              <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" placeholder="Sekolah Tujuan" required></v-select>
 
               <field-messages name="sekolah_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -186,7 +186,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="province_id">Provinsi</label>
-              <v-select class="mb-4" name="province_id" v-model="model.province" :options="province" @input="changeProvince" placeholder="Provinsi" required></v-select>
+              <v-select name="province_id" v-model="model.province" :options="province" @input="changeProvince" placeholder="Provinsi" required></v-select>
 
               <field-messages name="province_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -200,7 +200,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="city_id">Kabupaten/Kota</label>
-              <v-select class="mb-4" name="city_id" v-model="model.city" :options="city" @input="changeCity" placeholder="Kabupaten/Kota" required></v-select>
+              <v-select name="city_id" v-model="model.city" :options="city" @input="changeCity" placeholder="Kabupaten/Kota" required></v-select>
 
               <field-messages name="city_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -214,7 +214,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="district_id">Kecamatan</label>
-              <v-select class="mb-4" name="district_id" v-model="model.district" :options="district" @input="changeDistrict" placeholder="Kecamatan" required></v-select>
+              <v-select name="district_id" v-model="model.district" :options="district" @input="changeDistrict" placeholder="Kecamatan" required></v-select>
 
                 <field-messages name="district_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -228,7 +228,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="village_id">Kelurahan/Desa</label>
-              <v-select class="mb-4" name="village_id" v-model="model.village" :options="village" placeholder="Kelurahan/Desa" required></v-select>
+              <v-select name="village_id" v-model="model.village" :options="village" placeholder="Kelurahan/Desa" required></v-select>
 
               <field-messages name="village_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -242,7 +242,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="user_id">Username</label>
-              <v-select class="mb-4" name="user_id" v-model="model.user" :options="user" placeholder="Username" required></v-select>
+              <v-select name="user_id" v-model="model.user" :options="user" placeholder="Username" required></v-select>
 
               <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>

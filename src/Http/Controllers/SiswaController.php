@@ -101,7 +101,7 @@ class SiswaController extends Controller
         $cities         = $this->city->getAttributes();
         $districts      = $this->district->getAttributes();
         $villages       = $this->village->getAttributes();
-        $sekolahs       = $this->sekolah->all();
+        $sekolahs       = $this->sekolah->getAttributes();
         $users          = $this->user->getAttributes();
         $users_special  = $this->user->all();
         $users_standar  = $this->user->findOrFail($user_id);

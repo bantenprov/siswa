@@ -314,7 +314,6 @@ export default {
       .then(response => {
         if (response.data.status == true && response.data.error == false) {
           this.model.user = response.data.current_user;
-          this.sekolah = response.data.sekolahs;
 
           if(response.data.user_special == true){
             this.user = response.data.users;
@@ -345,6 +344,30 @@ export default {
       .then(response => {
         if (response.data.status == true && response.data.error == false) {
           this.province = response.data.provinces;
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
+      })
+      .catch(function(response) {
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
+
+    axios.get('api/sekolah/get')
+      .then(response => {
+        if (response.data.status == true && response.data.error == false) {
+          this.sekolah = response.data.sekolahs;
         } else {
           swal(
             'Failed',

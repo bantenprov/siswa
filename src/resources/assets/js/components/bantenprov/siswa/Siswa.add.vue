@@ -60,7 +60,7 @@
           <div class="col-md">
             <validate tag="div">
               <label for="nomor_kk">No KK</label>
-              <input type="text" class="form-control" name="no_kk" v-model="model.no_kk" placeholder="Nomor KK" required>
+              <input type="text" class="form-control" name="no_kk" v-model="model.no_kk" placeholder="No KK" required>
 
               <field-messages name="nomor_kk" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -396,23 +396,23 @@ export default {
         return;
       } else {
         axios.post('api/siswa', {
-            nomor_un:       this.model.nomor_un,
-            nik:            this.model.nik,
-            nama_siswa:     this.model.nama_siswa,
-            no_kk:          this.model.no_kk,
-            alamat_kk:      this.model.alamat_kk,
-            province_id:    this.model.province.id,
-            city_id:        this.model.city.id,
-            district_id:    this.model.district.id,
-            village_id:     this.model.village.id,
-            tempat_lahir:   this.model.tempat_lahir,
-            tgl_lahir:      this.model.tgl_lahir,
-            jenis_kelamin:  this.model.jenis_kelamin,
-            agama:          this.model.agama,
-            nisn:           this.model.nisn,
-            tahun_lulus:    this.model.tahun_lulus,
-            sekolah_id:     this.model.sekolah.id,
-            user_id:        this.model.user.id,
+            nomor_un      : this.model.nomor_un,
+            nik           : this.model.nik,
+            nama_siswa    : this.model.nama_siswa,
+            no_kk         : this.model.no_kk,
+            alamat_kk     : this.model.alamat_kk,
+            province_id   : this.model.province.id,
+            city_id       : this.model.city.id,
+            district_id   : this.model.district.id,
+            village_id    : this.model.village.id,
+            tempat_lahir  : this.model.tempat_lahir,
+            tgl_lahir     : this.model.tgl_lahir,
+            jenis_kelamin : this.model.jenis_kelamin,
+            agama         : this.model.agama,
+            nisn          : this.model.nisn,
+            tahun_lulus   : this.model.tahun_lulus,
+            sekolah_id    : this.model.sekolah.id,
+            user_id       : this.model.user.id,
           })
           .then(response => {
             if (response.data.status == true) {

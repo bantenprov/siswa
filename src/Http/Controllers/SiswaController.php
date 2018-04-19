@@ -123,6 +123,10 @@ class SiswaController extends Controller
             array_set($village, 'label', $village->name);
         }
 
+        foreach($sekolahs as $sekolah){
+            array_set($sekolah, 'label', $sekolah->nama);
+        }
+
         $role_check = Auth::User()->hasRole(['superadministrator','administrator']);
 
         if($role_check){

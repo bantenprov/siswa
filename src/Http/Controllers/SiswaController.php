@@ -164,9 +164,9 @@ class SiswaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  \App\Siswa  $siswa
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -227,9 +227,9 @@ class SiswaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
     public function show($id)

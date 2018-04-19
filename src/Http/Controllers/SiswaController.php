@@ -357,6 +357,7 @@ class SiswaController extends Controller
             $response['success']    = true;
             $response['status']     = true;
         } else {
+            $response['message']    = 'Failed';
             $response['success']    = false;
             $response['status']     = false;
         }

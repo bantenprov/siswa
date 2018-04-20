@@ -219,6 +219,7 @@ class SiswaController extends Controller
             $message    = 'Success';
         }
 
+        $response['siswa']      = $siswa;
         $response['error']      = $error;
         $response['message']    = $message;
         $response['status']     = true;
@@ -252,12 +253,12 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = $this->siswa->findOrFail($id);
-        array_set($siswa->user, 'label', $siswa->user->name);
-        $response['siswa'] = $siswa;
-        $response['user'] = $siswa->user;
-        $response['status'] = true;
-        return response()->json($response);
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->findOrFail($id);
+
+        $response['siswa']      = $siswa;
+        $response['error']      = false;
+        $response['message']    = 'Success';
+        $response['status']     = true;
     }
 
     /**

@@ -226,7 +226,7 @@ class SiswaController extends Controller
             'tgl_lahir'         => 'required|date',
             'jenis_kelamin'     => 'required|max:255',
             'agama'             => 'required|max:255',
-            'nisn'              => 'required|digits:255',
+            'nisn'              => 'required|numeric|max:255',
             'tahun_lulus'       => 'required|date_format:Y',
             'sekolah_id'        => "required|exists:{$this->sekolah->getTable()},id",
             'prodi_sekolah_id'  => "required|exists:{$this->prodi_sekolah->getTable()},id",

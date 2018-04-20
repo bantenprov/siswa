@@ -61,6 +61,9 @@
 
           <dt class="col-4">Sekolah Tujuan:</dt>
           <dd class="col-8">{{ model.sekolah.nama }}</dd>
+
+          <dt class="col-4">Prodi Sekolah:</dt>
+          <dd class="col-8">{{ model.prodi_sekolah.program_keahlian.label }}</dd>
       </dl>
     </div>
 
@@ -84,49 +87,36 @@ import swal from 'sweetalert2';
 export default {
   data() {
     return {
-      jenis_kelamin: [
-        {id: 1, label: 'Laki-laki'},
-        {id: 2, label: 'Perempuan'}
-      ],
-      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
-
-      agama: [
-        {id: 1, label: 'Islam'},
-        {id: 2, label: 'Kristen Protestan'},
-        {id: 3, label: 'Kristen Katolik'},
-        {id: 4, label: 'Hindu'},
-        {id: 5, label: 'Buddha'},
-        {id: 6, label: 'Khonghucu'}
-      ],
-      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
       state: {},
       title: 'View Siswa',
       model: {
-        nomor_un      : "",
-        nik           : "",
-        nama_siswa    : "",
-        alamat_kk     : "",
-        province_id   : "",
-        city_id       : "",
-        district_id   : "",
-        village_id    : "",
-        tempat_lahir  : "",
-        tgl_lahir     : "",
-        jenis_kelamin : "",
-        agama         : "",
-        nisn          : "",
-        tahun_lulus   : "",
-        sekolah_id    : "",
-        user_id       : "",
-        created_at    : "",
-        updated_at    : "",
+        nomor_un          : "",
+        nik               : "",
+        nama_siswa        : "",
+        alamat_kk         : "",
+        province_id       : "",
+        city_id           : "",
+        district_id       : "",
+        village_id        : "",
+        tempat_lahir      : "",
+        tgl_lahir         : "",
+        jenis_kelamin     : "",
+        agama             : "",
+        nisn              : "",
+        tahun_lulus       : "",
+        sekolah_id        : "",
+        prodi_sekolah_id  : "",
+        user_id           : "",
+        created_at        : "",
+        updated_at        : "",
 
-        province      : [],
-        city          : [],
-        district      : [],
-        village       : [],
-        sekolah       : [],
-        user          : [],
+        province          : [],
+        city              : [],
+        district          : [],
+        village           : [],
+        sekolah           : [],
+        prodi_sekolah     : [],
+        user              : [],
       },
     }
   },
@@ -136,57 +126,66 @@ export default {
     axios.get('api/siswa/'+this.$route.params.id)
       .then(response => {
         if (response.data.status == true && response.data.error == false) {
-          this.model.nomor_un       = response.data.siswa.nomor_un;
-          this.model.nik            = response.data.siswa.nik;
-          this.model.nama_siswa     = response.data.siswa.nama_siswa;
-          this.model.no_kk          = response.data.siswa.no_kk;
-          this.model.alamat_kk      = response.data.siswa.alamat_kk;
-          this.model.province_id    = response.data.siswa.province_id;
-          this.model.city_id        = response.data.siswa.city_id;
-          this.model.district_id    = response.data.siswa.district_id;
-          this.model.village_id     = response.data.siswa.village_id;
-          this.model.tempat_lahir   = response.data.siswa.tempat_lahir;
-          this.model.tgl_lahir      = response.data.siswa.tgl_lahir;
-          this.model.jenis_kelamin  = response.data.siswa.jenis_kelamin;
-          this.model.agama          = response.data.siswa.agama;
-          this.model.nisn           = response.data.siswa.nisn;
-          this.model.tahun_lulus    = response.data.siswa.tahun_lulus;
-          this.model.sekolah_id     = response.data.siswa.sekolah_id;
-          this.model.user_id        = response.data.siswa.user_id;
-          this.model.created_at     = response.data.siswa.created_at;
-          this.model.updated_at     = response.data.siswa.updated_at;
+          this.model.nomor_un         = response.data.siswa.nomor_un;
+          this.model.nik              = response.data.siswa.nik;
+          this.model.nama_siswa       = response.data.siswa.nama_siswa;
+          this.model.no_kk            = response.data.siswa.no_kk;
+          this.model.alamat_kk        = response.data.siswa.alamat_kk;
+          this.model.province_id      = response.data.siswa.province_id;
+          this.model.city_id          = response.data.siswa.city_id;
+          this.model.district_id      = response.data.siswa.district_id;
+          this.model.village_id       = response.data.siswa.village_id;
+          this.model.tempat_lahir     = response.data.siswa.tempat_lahir;
+          this.model.tgl_lahir        = response.data.siswa.tgl_lahir;
+          this.model.jenis_kelamin    = response.data.siswa.jenis_kelamin;
+          this.model.agama            = response.data.siswa.agama;
+          this.model.nisn             = response.data.siswa.nisn;
+          this.model.tahun_lulus      = response.data.siswa.tahun_lulus;
+          this.model.sekolah_id       = response.data.siswa.sekolah_id;
+          this.model.prodi_sekolah_id = response.data.siswa.prodi_sekolah_id;
+          this.model.user_id          = response.data.siswa.user_id;
+          this.model.created_at       = response.data.siswa.created_at;
+          this.model.updated_at       = response.data.siswa.updated_at;
 
-          this.model.province       = response.data.siswa.province;
-          this.model.city           = response.data.siswa.city;
-          this.model.district       = response.data.siswa.district;
-          this.model.village        = response.data.siswa.village;
-          this.model.sekolah        = response.data.siswa.sekolah;
-          this.model.user           = response.data.siswa.user;
+          this.model.province         = response.data.siswa.province;
+          this.model.city             = response.data.siswa.city;
+          this.model.district         = response.data.siswa.district;
+          this.model.village          = response.data.siswa.village;
+          this.model.sekolah          = response.data.siswa.sekolah;
+          this.model.prodi_sekolah    = response.data.siswa.prodi_sekolah;
+          this.model.user             = response.data.siswa.user;
 
           if (this.model.province === null) {
-            this.model.province = {"id": this.model.province_id,"name":""};
+            this.model.province = {"id":this.model.province_id, "name":""};
           }
 
           if (this.model.city === null) {
-            this.model.city = {"id": this.model.city_id,"name":""};
+            this.model.city = {"id":this.model.city_id, "name":""};
           }
 
           if (this.model.district === null) {
-            this.model.district = {"id": this.model.district_id,"name":""};
+            this.model.district = {"id":this.model.district_id, "name":""};
           }
 
           if (this.model.village === null) {
-            this.model.village = {"id": this.model.village_id,"name":""};
+            this.model.village = {"id":this.model.village_id, "name":""};
           }
 
           if (this.model.sekolah === null) {
-            this.model.sekolah = {"id": this.model.sekolah_id,"nama":""};
+            this.model.sekolah = {"id":this.model.sekolah_id, "nama":""};
+          }
+
+          if (this.model.prodi_sekolah === null) {
+            this.model.prodi_sekolah.program_keahlian = {"id":this.model.prodi_sekolah_id, "label":""};
+          } else {
+            if (typeof this.model.prodi_sekolah.program_keahlian.id === 'undefined') {
+              this.model.prodi_sekolah.program_keahlian = {"id":this.model.prodi_sekolah.program_keahlian_id, "label":"Keterangan : "+this.model.prodi_sekolah.keterangan};
+            }
           }
 
           if (this.model.user === null) {
-            this.model.user = {"id": this.model.user_id,"name":""};
+            this.model.user = {"id":this.model.user_id,"name":""};
           }
-
         } else {
           swal(
             'Failed',

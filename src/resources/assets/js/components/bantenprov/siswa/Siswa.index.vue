@@ -84,6 +84,7 @@ export default {
   data() {
     return {
       loading: true,
+
       jenis_kelamin: [
         {id: 1, label: 'Laki-laki'},
         {id: 2, label: 'Perempuan'}
@@ -99,6 +100,7 @@ export default {
         {id: 6, label: 'Khonghucu'}
       ],
       selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
+
       title: 'Siswa',
       fields: [
         {
@@ -118,13 +120,6 @@ export default {
           title: 'Nama Siswa',
           sortField: 'nama_siswa',
           titleClass: 'center aligned'
-        },
-        {
-          name: 'jenis_kelamin',
-          title: 'Jenis Kelamin',
-          sortField: 'jenis_kelamin',
-          titleClass: 'center aligned',
-          callback: 'getJenisKelaminById'
         },
         {
           name: 'sekolah.nama',

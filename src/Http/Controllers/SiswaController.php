@@ -219,6 +219,7 @@ class SiswaController extends Controller
             $message    = 'Success';
         }
 
+        $response['siswa']      = $siswa;
         $response['error']      = $error;
         $response['message']    = $message;
         $response['status']     = true;

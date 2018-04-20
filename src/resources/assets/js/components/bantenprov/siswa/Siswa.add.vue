@@ -1,7 +1,7 @@
 <template>
   <div class="card">
     <div class="card-header">
-      <i class="fa fa-table" aria-hidden="true"></i> Add Siswa
+      <i class="fa fa-table" aria-hidden="true"></i> {{ title }}
 
       <ul class="nav nav-pills card-header-pills pull-right">
         <li class="nav-item">
@@ -17,7 +17,8 @@
         <div class="form-row">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.nomor_un" required autofocus name="nomor_un" type="text" placeholder="Nomor UN">
+              <label for="nomor_un">Nomor UN</label>
+              <input type="text" class="form-control" name="nomor_un" v-model="model.nomor_un" placeholder="Nomor UN" required autofocus>
 
               <field-messages name="nomor_un" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -30,7 +31,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.nik" required autofocus name="nik" type="text" placeholder="NIK">
+              <label for="nik">NIK</label>
+              <input type="text" class="form-control" name="nik" v-model="model.nik" placeholder="NIK" required>
 
               <field-messages name="nik" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -43,7 +45,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.nama_siswa" required autofocus name="nama_siswa" type="text" placeholder="Nama Siswa">
+              <label for="nama_siswa">Nama Siswa</label>
+              <input type="text" class="form-control" name="nama_siswa" v-model="model.nama_siswa" placeholder="Nama Siswa" required>
 
               <field-messages name="nama_siswa" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -56,7 +59,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.no_kk" required autofocus name="no_kk" type="text" placeholder="Nomor KK">
+              <label for="nomor_kk">No KK</label>
+              <input type="text" class="form-control" name="no_kk" v-model="model.no_kk" placeholder="No KK" required>
 
               <field-messages name="nomor_kk" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -69,7 +73,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.alamat_kk" required autofocus name="alamat_kk" type="text" placeholder="Alamat KK">
+              <label for="alamat_kk">Alamat KK</label>
+              <input type="text" class="form-control" name="alamat_kk" v-model="model.alamat_kk" placeholder="Alamat KK" required>
 
               <field-messages name="alamat_kk" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -82,7 +87,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.tempat_lahir" required autofocus name="tempat_lahir" type="text" placeholder="Tempat Lahir">
+              <label for="tempat_lahir">Tempat Lahir</label>
+              <input type="text" class="form-control" name="tempat_lahir" v-model="model.tempat_lahir" placeholder="Tempat Lahir" required>
 
               <field-messages name="tempat_lahir" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -95,7 +101,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.tgl_lahir" required autofocus name="tgl_lahir" type="text" placeholder="Tanggal Lahir">
+              <label for="tgl_lahir">Tanggal Lahir</label>
+              <input type="text" class="form-control" name="tgl_lahir" v-model="model.tgl_lahir" placeholder="Tanggal Lahir" required>
 
               <field-messages name="tgl_lahir" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -105,15 +112,17 @@
           </div>
         </div>
 
+
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.jenis_kelamin" required autofocus name="jenis_kelamin" type="text" placeholder="Jenis Kelamin">
+            <label for="jenis_kelamin">Jenis Kelamin</label>
+            <v-select v-model="model.jenis_kelamin" :options="jenis_kelamin" class="mb-4"></v-select>
 
-              <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
-              </field-messages>
+            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Jenis Kelamin is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -121,12 +130,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.agama" required autofocus name="agama" type="text" placeholder="Agama">
+            <label for="jenis_kelamin">Agama</label>
+            <v-select v-model="model.agama" :options="agama" class="mb-4"></v-select>
 
-              <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
-              </field-messages>
+            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Agama Kelamin is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -134,7 +144,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.nisn" required autofocus name="nisn" type="text" placeholder="NISN">
+              <label for="nisn">NISN</label>
+              <input type="text" class="form-control" name="nisn" v-model="model.nisn" placeholder="NISN" required>
 
               <field-messages name="nisn" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -147,7 +158,8 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <input class="form-control" v-model="model.tahun_lulus" required autofocus name="tahun_lulus" type="text" placeholder="Tahun Lulus">
+              <label for="tahun_lulus">Tahun Lulus</label>
+              <input type="text" class="form-control" name="tahun_lulus" v-model="model.tahun_lulus" placeholder="Tahun Lulus" required>
 
               <field-messages name="tahun_lulus" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
@@ -160,13 +172,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="sekolah_id">Sekolah Tujuan</label>
-            <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" class="mb-4"></v-select>
+              <label for="sekolah_id">Sekolah Tujuan</label>
+              <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" placeholder="Sekolah Tujuan" required></v-select>
 
-            <field-messages name="sekolah_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">Sekolah tujuan is a required field</small>
-            </field-messages>
+              <field-messages name="sekolah_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Sekolah tujuan is a required field</small>
+              </field-messages>
             </validate>
           </div>
         </div>
@@ -174,13 +186,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="province_id">Provinsi</label>
-            <v-select name="province_id" v-model="model.province" :options="province" class="mb-4"></v-select>
+              <label for="province_id">Provinsi</label>
+              <v-select name="province_id" v-model="model.province" :options="province" @input="changeProvince" placeholder="Provinsi" required></v-select>
 
-            <field-messages name="province_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">provinsi is a required field</small>
-            </field-messages>
+              <field-messages name="province_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">provinsi is a required field</small>
+              </field-messages>
             </validate>
           </div>
         </div>
@@ -188,13 +200,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="city_id">Kabupaten</label>
-            <v-select name="city_id" v-model="model.city" :options="city" class="mb-4"></v-select>
+              <label for="city_id">Kabupaten/Kota</label>
+              <v-select name="city_id" v-model="model.city" :options="city" @input="changeCity" placeholder="Kabupaten/Kota" required></v-select>
 
-            <field-messages name="city_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">Kabupaten is a required field</small>
-            </field-messages>
+              <field-messages name="city_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Kabupaten is a required field</small>
+              </field-messages>
             </validate>
           </div>
         </div>
@@ -202,13 +214,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="district_id">Kota</label>
-            <v-select name="district_id" v-model="model.district" :options="district" class="mb-4"></v-select>
+              <label for="district_id">Kecamatan</label>
+              <v-select name="district_id" v-model="model.district" :options="district" @input="changeDistrict" placeholder="Kecamatan" required></v-select>
 
-              <field-messages name="district_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">Kota is a required field</small>
-            </field-messages>
+                <field-messages name="district_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Kota is a required field</small>
+              </field-messages>
             </validate>
           </div>
         </div>
@@ -216,13 +228,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="village_id">Desa</label>
-            <v-select name="village_id" v-model="model.village" :options="village" class="mb-4"></v-select>
+              <label for="village_id">Kelurahan/Desa</label>
+              <v-select name="village_id" v-model="model.village" :options="village" placeholder="Kelurahan/Desa" required></v-select>
 
-            <field-messages name="village_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">Desa is a required field</small>
-            </field-messages>
+              <field-messages name="village_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Desa is a required field</small>
+              </field-messages>
             </validate>
           </div>
         </div>
@@ -230,13 +242,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="user_id">Username</label>
-            <v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
+              <label for="user_id">Username</label>
+              <v-select name="user_id" v-model="model.user" :options="user" placeholder="Username" required></v-select>
 
-            <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
-              <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">User is a required field</small>
-            </field-messages>
+              <field-messages name="user_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">User is a required field</small>
+              </field-messages>
             </validate>
           </div>
         </div>
@@ -244,7 +256,6 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <button type="submit" class="btn btn-primary">Submit</button>
-
             <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>
           </div>
         </div>
@@ -255,95 +266,144 @@
 </template>
 
 <script>
-export default {
-  mounted(){
-    axios.get('api/siswa/create')
-    .then(response => {
-      if (response.data.status == true) {
-        this.model.user = response.data.current_user;
+import swal from 'sweetalert2';
 
-        response.data.sekolah.forEach(element => {
-          this.sekolah.push(element);
-        });
-        response.data.province.forEach(element => {
-          this.province.push(element);
-        });
-        response.data.city.forEach(element => {
-          this.city.push(element);
-        });
-        response.data.district.forEach(element => {
-          this.district.push(element);
-        });
-        response.data.village.forEach(element => {
-          this.village.push(element);
-        });
-        if(response.data.user_special == true){
-          response.data.user.forEach(user_element => {
-            this.user.push(user_element);
-          });
-        }else{
-          this.user.push(response.data.user);
-        }
-      } else {
-        alert('Failed');
-      }
-    })
-    .catch(function(response) {
-      alert('Break');
-      window.location = '#/admin/siswa';
-    });
-  },
+export default {
   data() {
     return {
       state: {},
+      title: 'Add Siswa',
       model: {
-        nomor_un: "",
-        nik: "",
-        nama_siswa: "",
-        no_kk: "",
-        alamat_kk: "",
-        tempat_lahir: "",
-        tgl_lahir: "",
-        jenis_kelamin: "",
-        agama: "",
-        nisn: "",
-        tahun_lulus: "",
-        sekolah: "",
-        user: "",
-        province: "",
-        city: "",
-        district: "",
-        village: "",
+        nomor_un      : "",
+        nik           : "",
+        nama_siswa    : "",
+        alamat_kk     : "",
+        province_id   : "",
+        city_id       : "",
+        district_id   : "",
+        village_id    : "",
+        tempat_lahir  : "",
+        tgl_lahir     : "",
+        jenis_kelamin : "",
+        agama         : "",
+        nisn          : "",
+        tahun_lulus   : "",
+        sekolah_id    : "",
+        user_id       : "",
+        created_at    : "",
+        updated_at    : "",
 
-
+        province      : "",
+        city          : "",
+        district      : "",
+        village       : "",
+        sekolah       : "",
+        user          : "",
       },
-      user: [],
-      sekolah: [],
-      province:[],
-      city: [],
-      district: [],
-      village: [],
+      province  : [],
+      city      : [],
+      district  : [],
+      village   : [],
+      sekolah   : [],
+      user      : [],
+
+      jenis_kelamin: [
+        {id: 1, label: 'Laki-laki'},
+        {id: 2, label: 'Perempuan'}
+      ],
+      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
+
+      agama: [
+        {id: 1, label: 'Islam'},
+        {id: 2, label: 'Kristen Protestan'},
+        {id: 3, label: 'Kristen Katolik'},
+        {id: 4, label: 'Hindu'},
+        {id: 5, label: 'Buddha'},
+        {id: 6, label: 'Khonghucu'}
+      ],
+      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
     }
   },
-    onChange() {
-    this.province = [];
-    this.city = [];
-    this.district = [];
-    this.village = [];
-    axios.get('api/siswa/create/'+this.model.province.id+'/state')
-    .then(response => {
-      response.data.forEach(element => {
-        //console.log(this.model.workflow.id);
-        this.province.push(element);
-        this.city.push(element);
-        this.district.push(element);
-        this.village.push(element);
-      });
-    })
-    .catch(function(response) {
-      alert('Break');
-    });
+  mounted(){
+    let app = this;
 
+    axios.get('api/siswa/create')
+      .then(response => {
+        if (response.data.status == true && response.data.error == false) {
+          this.model.user = response.data.current_user;
+
+          if(response.data.user_special == true){
+            this.user = response.data.users;
+          }else{
+            this.user.push(response.data.users);
+          }
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
+      })
+      .catch(function(response) {
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
+
+    axios.get('api/wilayah-indonesia/province/get')
+      .then(response => {
+        if (response.data.status == true && response.data.error == false) {
+          this.province = response.data.provinces;
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
+      })
+      .catch(function(response) {
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
+
+    axios.get('api/sekolah/get')
+      .then(response => {
+        if (response.data.status == true && response.data.error == false) {
+          this.sekolah = response.data.sekolahs;
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
+      })
+      .catch(function(response) {
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
   },
   methods: {
     onSubmit: function() {
@@ -353,55 +413,131 @@ export default {
         return;
       } else {
         axios.post('api/siswa', {
-            user_id:          this.model.user.id,
-            nomor_un:         this.model.nomor_un,
-            nik:              this.model.nik,
-            nama_siswa:       this.model.nama_siswa,
-            no_kk:            this.model.no_kk,
-            alamat_kk:        this.model.alamat_kk,
-            tempat_lahir:     this.model.tempat_lahir,
-            tgl_lahir:        this.model.tgl_lahir,
-            jenis_kelamin:    this.model.jenis_kelamin,
-            agama:            this.model.agama,
-            nisn:             this.model.nisn,
-            tahun_lulus:      this.model.tahun_lulus,
-            sekolah_id:       this.model.sekolah.id,
-            province_id:         this.model.province.id,
-            city_id:             this.model.city.id,
-            district_id:         this.model.district.id,
-            village_id:          this.model.village.id,
-
+            nomor_un      : this.model.nomor_un,
+            nik           : this.model.nik,
+            nama_siswa    : this.model.nama_siswa,
+            no_kk         : this.model.no_kk,
+            alamat_kk     : this.model.alamat_kk,
+            province_id   : this.model.province.id,
+            city_id       : this.model.city.id,
+            district_id   : this.model.district.id,
+            village_id    : this.model.village.id,
+            tempat_lahir  : this.model.tempat_lahir,
+            tgl_lahir     : this.model.tgl_lahir,
+            jenis_kelamin : this.model.jenis_kelamin.id,
+            agama         : this.model.agama.id,
+            nisn          : this.model.nisn,
+            tahun_lulus   : this.model.tahun_lulus,
+            sekolah_id    : this.model.sekolah.id,
+            user_id       : this.model.user.id,
           })
           .then(response => {
             if (response.data.status == true) {
-              if(response.data.message == 'success'){
-                alert(response.data.message);
+              if(response.data.error == false){
+                swal(
+                  'Created',
+                  'Yeah!!! Your data has been created.',
+                  'success'
+                );
+
                 app.back();
               }else{
-                alert(response.data.message);
+                swal(
+                  'Failed',
+                  'Oops... '+response.data.message,
+                  'error'
+                );
               }
             } else {
-              alert(response.data.message);
+              swal(
+                'Failed',
+                'Oops... '+response.data.message,
+                'error'
+              );
+
+              app.back();
             }
           })
           .catch(function(response) {
-            alert('Break ' + response.data.message);
+            swal(
+              'Not Found',
+              'Oops... Your page is not found.',
+              'error'
+            );
+
+            app.back();
+          });
+      }
+    },
+    changeProvince() {
+      if (typeof this.model.province.id === 'undefined') {
+        this.model.city = "";
+      } else {
+        this.model.city = "";
+
+        axios.get('api/wilayah-indonesia/city/get/by-province/'+this.model.province.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.city = response.data.cities;
+            }
+          });
+      }
+    },
+    changeCity() {
+      if (typeof this.model.city.id === 'undefined') {
+        this.model.district = "";
+      } else {
+        this.model.district = "";
+
+        axios.get('api/wilayah-indonesia/district/get/by-city/'+this.model.city.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.district = response.data.districts;
+            }
+          });
+      }
+    },
+    changeDistrict() {
+      if (typeof this.model.district.id === 'undefined') {
+        this.model.village = "";
+      } else {
+        this.model.village = "";
+
+        axios.get('api/wilayah-indonesia/village/get/by-district/'+this.model.district.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.village = response.data.villages;
+            }
           });
       }
     },
     reset() {
       this.model = {
-          user: "",
-          nomor_un: "",
-          nik: "",
-          nama_siswa: "",
-          alamat_kk: "",
-          tempat_lahir: "",
-          tgl_lahir: "",
-          jenis_kelamin: "",
-          agama: "",
-          nisn: "",
-          tahun_lulus: "",
+        nomor_un      : "",
+        nik           : "",
+        nama_siswa    : "",
+        alamat_kk     : "",
+        province_id   : "",
+        city_id       : "",
+        district_id   : "",
+        village_id    : "",
+        tempat_lahir  : "",
+        tgl_lahir     : "",
+        jenis_kelamin : "",
+        agama         : "",
+        nisn          : "",
+        tahun_lulus   : "",
+        sekolah_id    : "",
+        user_id       : "",
+        created_at    : "",
+        updated_at    : "",
+
+        province      : "",
+        city          : "",
+        district      : "",
+        village       : "",
+        sekolah       : "",
+        user          : "",
       };
     },
     back() {

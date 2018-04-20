@@ -61,6 +61,11 @@ class Siswa extends Model
         return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah','sekolah_id');
     }
 
+    public function prodi_sekolah()
+    {
+        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\ProdiSekolah','prodi_sekolah_id');
+    }
+
     public function user()
     {
         return $this->belongsTo('App\User','user_id');

@@ -174,9 +174,9 @@ class SiswaController extends Controller
         $siswa      = $this->siswa;
         $validator  = Validator::make($request->all(), [
             'nomor_un'      => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,NULL,id,deleted_at,NULL",
-            'nik'           => "required|max:255|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
+            'nik'           => "required|numeric|max:16|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
             'nama_siswa'    => 'required|max:255',
-            'no_kk'         => "required|max:255|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
+            'no_kk'         => "required|numeric|max:16|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
             'alamat_kk'     => 'required|max:255',
             'province_id'   => "required|exists:{$this->province->getTable()},id",
             'city_id'       => "required|exists:{$this->city->getTable()},id",
@@ -186,7 +186,7 @@ class SiswaController extends Controller
             'tgl_lahir'     => 'required|date',
             'jenis_kelamin' => 'required|max:255',
             'agama'         => 'required|max:255',
-            'nisn'          => 'required|max:255',
+            'nisn'          => 'required|numeric|max:255',
             'tahun_lulus'   => 'required|date_format:Y',
             'sekolah_id'    => "required|exists:{$this->sekolah->getTable()},id",
             'user_id'       => "required|exists:{$this->user->getTable()},id",
@@ -219,6 +219,7 @@ class SiswaController extends Controller
             $message    = 'Success';
         }
 
+        $response['siswa']      = $siswa;
         $response['error']      = $error;
         $response['message']    = $message;
         $response['status']     = true;
@@ -252,12 +253,13 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = $this->siswa->findOrFail($id);
-        array_set($siswa->user, 'label', $siswa->user->name);
-        //dd($siswa->user);
-        $response['siswa'] = $siswa;
-        $response['user'] = $siswa->user;
-        $response['status'] = true;
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->findOrFail($id);
+
+        $response['siswa']      = $siswa;
+        $response['error']      = false;
+        $response['message']    = 'Success';
+        $response['status']     = true;
+
         return response()->json($response);
     }
 

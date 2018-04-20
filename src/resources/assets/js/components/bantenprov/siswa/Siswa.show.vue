@@ -13,59 +13,55 @@
     </div>
 
     <div class="card-body">
-      <vue-form class="form-horizontal form-validation" :state="state" @submit.prevent="onSubmit">
-        <div class="card-body">
-          <dl class="row">
-              <dt class="col-2">Nomor UN</dt>
-              <dd class="col-10">{{ model.nomor_un }}</dd>
+      <dl class="row">
+          <dt class="col-4">Nomor UN</dt>
+          <dd class="col-8">{{ model.nomor_un }}</dd>
 
-              <dt class="col-2">NIK</dt>
-              <dd class="col-10">{{ model.nik }}</dd>
+          <dt class="col-4">NIK</dt>
+          <dd class="col-8">{{ model.nik }}</dd>
 
-              <dt class="col-2">Nama Siswa</dt>
-              <dd class="col-10">{{ model.nama_siswa }}</dd>
+          <dt class="col-4">Nama Siswa</dt>
+          <dd class="col-8">{{ model.nama_siswa }}</dd>
 
-              <dt class="col-2">Nomor KK</dt>
-              <dd class="col-10">{{ model.no_kk }}</dd>
+          <dt class="col-4">Nomor KK</dt>
+          <dd class="col-8">{{ model.no_kk }}</dd>
 
-              <dt class="col-2">Alamat KK</dt>
-              <dd class="col-10">{{ model.alamat_kk }}</dd>
+          <dt class="col-4">Alamat KK</dt>
+          <dd class="col-8">{{ model.alamat_kk }}</dd>
 
-              <dt class="col-2">Provinsi</dt>
-              <dd class="col-10">{{ model.province.name }}</dd>
+          <dt class="col-4">Provinsi</dt>
+          <dd class="col-8">{{ model.province.name }}</dd>
 
-              <dt class="col-2">Kota</dt>
-              <dd class="col-10">{{ model.city.name }}</dd>
+          <dt class="col-4">Kabupaten/Kota</dt>
+          <dd class="col-8">{{ model.city.name }}</dd>
 
-              <dt class="col-2">Kecamatan</dt>
-              <dd class="col-10">{{ model.district.name }}</dd>
+          <dt class="col-4">Kecamatan</dt>
+          <dd class="col-8">{{ model.district.name }}</dd>
 
-              <dt class="col-2">Desa</dt>
-              <dd class="col-10">{{ model.village.name }}</dd>
+          <dt class="col-4">Kelurahan/Desa</dt>
+          <dd class="col-8">{{ model.village.name }}</dd>
 
-              <dt class="col-2">Tempat Lahir</dt>
-              <dd class="col-10">{{ model.tempat_lahir }}</dd>
+          <dt class="col-4">Tempat Lahir</dt>
+          <dd class="col-8">{{ model.tempat_lahir }}</dd>
 
-              <dt class="col-2">Tanggal Lahir</dt>
-              <dd class="col-10">{{ model.tgl_lahir }}</dd>
+          <dt class="col-4">Tanggal Lahir</dt>
+          <dd class="col-8">{{ model.tgl_lahir }}</dd>
 
-              <dt class="col-2">Jenis Kelamin</dt>
-              <dd class="col-10">{{ model.jenis_kelamin }}</dd>
+          <dt class="col-4">Jenis Kelamin</dt>
+          <dd class="col-8">{{ model.jenis_kelamin }}</dd>
 
-              <dt class="col-2">Agama</dt>
-              <dd class="col-10">{{ model.agama }}</dd>
+          <dt class="col-4">Agama</dt>
+          <dd class="col-8">{{ model.agama }}</dd>
 
-              <dt class="col-2">NISN</dt>
-              <dd class="col-10">{{ model.nisn }}</dd>
+          <dt class="col-4">NISN</dt>
+          <dd class="col-8">{{ model.nisn }}</dd>
 
-              <dt class="col-2">Tahun Lulus</dt>
-              <dd class="col-10">{{ model.tahun_lulus }}</dd>
+          <dt class="col-4">Tahun Lulus</dt>
+          <dd class="col-8">{{ model.tahun_lulus }}</dd>
 
-              <dt class="col-2">Sekolah Tujuan:</dt>
-              <dd class="col-10">{{ model.sekolah.label }}</dd>
-          </dl>
-        </div>
-      </vue-form>
+          <dt class="col-4">Sekolah Tujuan:</dt>
+          <dd class="col-8">{{ model.sekolah.nama }}</dd>
+      </dl>
     </div>
 
     <div class="card-footer text-muted">
@@ -91,31 +87,31 @@ export default {
       state: {},
       title: 'View Siswa',
       model: {
-        nomor_un: "",
-        nik: "",
-        nama_siswa: "",
-        alamat_kk: "",
-        province_id: "",
-        city_id: "",
-        district_id: "",
-        village_id: "",
-        tempat_lahir: "",
-        tgl_lahir: "",
-        jenis_kelamin: "",
-        agama: "",
-        nisn: "",
-        tahun_lulus: "",
-        sekolah_id: "",
-        user_id: "",
-        created_at: "",
-        updated_at: "",
+        nomor_un      : "",
+        nik           : "",
+        nama_siswa    : "",
+        alamat_kk     : "",
+        province_id   : "",
+        city_id       : "",
+        district_id   : "",
+        village_id    : "",
+        tempat_lahir  : "",
+        tgl_lahir     : "",
+        jenis_kelamin : "",
+        agama         : "",
+        nisn          : "",
+        tahun_lulus   : "",
+        sekolah_id    : "",
+        user_id       : "",
+        created_at    : "",
+        updated_at    : "",
 
-        province: [],
-        city: [],
-        district: [],
-        village: [],
-        sekolah: [],
-        user: [],
+        province      : [],
+        city          : [],
+        district      : [],
+        village       : [],
+        sekolah       : [],
+        user          : [],
       },
     }
   },
@@ -144,6 +140,7 @@ export default {
           this.model.user_id        = response.data.siswa.user_id;
           this.model.created_at     = response.data.siswa.created_at;
           this.model.updated_at     = response.data.siswa.updated_at;
+
           this.model.province       = response.data.siswa.province;
           this.model.city           = response.data.siswa.city;
           this.model.district       = response.data.siswa.district;
@@ -168,7 +165,7 @@ export default {
           }
 
           if (this.model.sekolah === null) {
-            this.model.sekolah = {"id": this.model.sekolah_id,"name":""};
+            this.model.sekolah = {"id": this.model.sekolah_id,"nama":""};
           }
 
           if (this.model.user === null) {
@@ -192,7 +189,7 @@ export default {
         );
 
         app.back();
-      })
+      });
   },
   methods: {
     back() {

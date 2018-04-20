@@ -30,7 +30,8 @@ class CreateSiswasTable extends Migration
 			$table->string('nisn');
 			$table->string('tahun_lulus');
 			$table->integer('sekolah_id')->nullable();
-			$table->integer('user_id');
+			$table->integer('prodi_sekolah_id')->nullable();
+			$table->integer('user_id')->nullable();
 			$table->timestamps();
 			$table->softDeletes();
 		});

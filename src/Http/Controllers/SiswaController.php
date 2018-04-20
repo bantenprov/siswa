@@ -96,12 +96,12 @@ class SiswaController extends Controller
     public function create(Request $request)
     {
         $user_id        = isset(Auth::User()->id) ? Auth::User()->id : null;
-        $siswas         = $this->siswa->getAttributes();
+        $siswa          = $this->siswa->getAttributes();
         $provinces      = $this->province->getAttributes();
         $cities         = $this->city->getAttributes();
         $districts      = $this->district->getAttributes();
         $villages       = $this->village->getAttributes();
-        $sekolahs       = $this->sekolah->all();
+        $sekolahs       = $this->sekolah->getAttributes();
         $users          = $this->user->getAttributes();
         $users_special  = $this->user->all();
         $users_standar  = $this->user->findOrFail($user_id);
@@ -121,6 +121,10 @@ class SiswaController extends Controller
 
         foreach($villages as $village){
             array_set($village, 'label', $village->name);
+        }
+
+        foreach($sekolahs as $sekolah){
+            array_set($sekolah, 'label', $sekolah->nama);
         }
 
         $role_check = Auth::User()->hasRole(['superadministrator','administrator']);
@@ -143,7 +147,7 @@ class SiswaController extends Controller
 
         array_set($current_user, 'label', $current_user->name);
 
-        $response['siswa']          = $siswas;
+        $response['siswa']          = $siswa;
         $response['provinces']      = $provinces;
         $response['cities']         = $cities;
         $response['districts']      = $districts;
@@ -160,9 +164,9 @@ class SiswaController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Store a newly created resource in storage.
      *
-     * @param  \App\Siswa  $siswa
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -180,8 +184,8 @@ class SiswaController extends Controller
             'village_id'    => "required|exists:{$this->village->getTable()},id",
             'tempat_lahir'  => 'required|max:255',
             'tgl_lahir'     => 'required|date',
-            'jenis_kelamin' => 'required',
-            'agama'         => 'required',
+            'jenis_kelamin' => 'required|max:255',
+            'agama'         => 'required|max:255',
             'nisn'          => 'required|max:255',
             'tahun_lulus'   => 'required|date_format:Y',
             'sekolah_id'    => "required|exists:{$this->sekolah->getTable()},id",
@@ -223,9 +227,9 @@ class SiswaController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Display the specified resource.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Siswa  $siswa
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -357,6 +361,7 @@ class SiswaController extends Controller
             $response['success']    = true;
             $response['status']     = true;
         } else {
+            $response['message']    = 'Failed';
             $response['success']    = false;
             $response['status']     = false;
         }

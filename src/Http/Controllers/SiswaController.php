@@ -252,12 +252,13 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = $this->siswa->findOrFail($id);
-        array_set($siswa->user, 'label', $siswa->user->name);
-        //dd($siswa->user);
-        $response['siswa'] = $siswa;
-        $response['user'] = $siswa->user;
-        $response['status'] = true;
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->findOrFail($id);
+
+        $response['siswa']      = $siswa;
+        $response['error']      = false;
+        $response['message']    = 'Success';
+        $response['status']     = true;
+
         return response()->json($response);
     }
 

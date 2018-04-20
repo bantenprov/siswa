@@ -122,6 +122,13 @@ export default {
           titleClass: 'center aligned'
         },
         {
+          name: 'jenis_kelamin',
+          title: 'Jenis Kelamin',
+          sortField: 'jenis_kelamin',
+          titleClass: 'center aligned',
+          callback: 'getJenisKelaminById'
+        },
+        {
           name: 'sekolah.nama',
           title: 'Sekolah Tujuan',
           sortField: 'sekolah_id',

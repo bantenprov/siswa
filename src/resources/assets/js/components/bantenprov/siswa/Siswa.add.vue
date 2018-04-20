@@ -115,13 +115,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="jenis_kelamin">Jenis Kelamin</label>
-              <input type="text" class="form-control" name="jenis_kelamin" v-model="model.jenis_kelamin" placeholder="Jenis Kelamin" required>
+            <label for="jenis_kelamin">Jenis Kelamin</label>
+            <v-select v-model="model.jenis_kelamin" :options="jenis_kelamin" class="mb-4"></v-select>
 
-              <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
-              </field-messages>
+            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Jenis Kelamin is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -129,13 +129,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="agama">Agama</label>
-              <input type="text" class="form-control" name="agama" v-model="model.agama" placeholder="Agama" required>
+            <label for="jenis_kelamin">Agama</label>
+            <v-select v-model="model.agama" :options="agama" class="mb-4"></v-select>
 
-              <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
-              </field-messages>
+            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Agama Kelamin is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -322,6 +322,22 @@ export default {
       sekolah       : [],
       prodi_sekolah : [],
       user          : [],
+
+      jenis_kelamin: [
+        {id: 1, label: 'Laki-laki'},
+        {id: 2, label: 'Perempuan'}
+      ],
+      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
+
+      agama: [
+        {id: 1, label: 'Islam'},
+        {id: 2, label: 'Kristen Protestan'},
+        {id: 3, label: 'Kristen Katolik'},
+        {id: 4, label: 'Hindu'},
+        {id: 5, label: 'Buddha'},
+        {id: 6, label: 'Khonghucu'}
+      ],
+      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
     }
   },
   mounted(){
@@ -424,8 +440,8 @@ export default {
             village_id        : this.model.village.id,
             tempat_lahir      : this.model.tempat_lahir,
             tgl_lahir         : this.model.tgl_lahir,
-            jenis_kelamin     : this.model.jenis_kelamin,
-            agama             : this.model.agama,
+            jenis_kelamin     : this.model.jenis_kelamin.id,
+            agama             : this.model.agama.id,
             nisn              : this.model.nisn,
             tahun_lulus       : this.model.tahun_lulus,
             sekolah_id        : this.model.sekolah.id,

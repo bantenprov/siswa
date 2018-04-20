@@ -172,9 +172,23 @@
           <div class="col-md">
             <validate tag="div">
               <label for="sekolah_id">Sekolah Tujuan</label>
-              <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" placeholder="Sekolah Tujuan" required></v-select>
+              <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" @input="changeSekolah" placeholder="Sekolah Tujuan" required></v-select>
 
               <field-messages name="sekolah_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Sekolah tujuan is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="prodi_sekolah_id">Prodi Sekolah</label>
+              <v-select name="prodi_sekolah_id" v-model="model.prodi_sekolah" :options="prodi_sekolah" placeholder="Prodi Sekolah" required></v-select>
+
+              <field-messages name="prodi_sekolah_id" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
                 <small class="form-text text-danger" slot="required">Sekolah tujuan is a required field</small>
               </field-messages>
@@ -273,38 +287,41 @@ export default {
       state: {},
       title: 'Add Siswa',
       model: {
-        nomor_un      : "",
-        nik           : "",
-        nama_siswa    : "",
-        alamat_kk     : "",
-        province_id   : "",
-        city_id       : "",
-        district_id   : "",
-        village_id    : "",
-        tempat_lahir  : "",
-        tgl_lahir     : "",
-        jenis_kelamin : "",
-        agama         : "",
-        nisn          : "",
-        tahun_lulus   : "",
-        sekolah_id    : "",
-        user_id       : "",
-        created_at    : "",
-        updated_at    : "",
+        nomor_un          : "",
+        nik               : "",
+        nama_siswa        : "",
+        alamat_kk         : "",
+        province_id       : "",
+        city_id           : "",
+        district_id       : "",
+        village_id        : "",
+        tempat_lahir      : "",
+        tgl_lahir         : "",
+        jenis_kelamin     : "",
+        agama             : "",
+        nisn              : "",
+        tahun_lulus       : "",
+        sekolah_id        : "",
+        prodi_sekolah_id  : "",
+        user_id           : "",
+        created_at        : "",
+        updated_at        : "",
 
-        province      : "",
-        city          : "",
-        district      : "",
-        village       : "",
-        sekolah       : "",
-        user          : "",
+        province          : "",
+        city              : "",
+        district          : "",
+        village           : "",
+        sekolah           : "",
+        prodi_sekolah     : "",
+        user              : "",
       },
-      province  : [],
-      city      : [],
-      district  : [],
-      village   : [],
-      sekolah   : [],
-      user      : [],
+      province      : [],
+      city          : [],
+      district      : [],
+      village       : [],
+      sekolah       : [],
+      prodi_sekolah : [],
+      user          : [],
     }
   },
   mounted(){
@@ -396,23 +413,24 @@ export default {
         return;
       } else {
         axios.post('api/siswa', {
-            nomor_un      : this.model.nomor_un,
-            nik           : this.model.nik,
-            nama_siswa    : this.model.nama_siswa,
-            no_kk         : this.model.no_kk,
-            alamat_kk     : this.model.alamat_kk,
-            province_id   : this.model.province.id,
-            city_id       : this.model.city.id,
-            district_id   : this.model.district.id,
-            village_id    : this.model.village.id,
-            tempat_lahir  : this.model.tempat_lahir,
-            tgl_lahir     : this.model.tgl_lahir,
-            jenis_kelamin : this.model.jenis_kelamin,
-            agama         : this.model.agama,
-            nisn          : this.model.nisn,
-            tahun_lulus   : this.model.tahun_lulus,
-            sekolah_id    : this.model.sekolah.id,
-            user_id       : this.model.user.id,
+            nomor_un          : this.model.nomor_un,
+            nik               : this.model.nik,
+            nama_siswa        : this.model.nama_siswa,
+            no_kk             : this.model.no_kk,
+            alamat_kk         : this.model.alamat_kk,
+            province_id       : this.model.province.id,
+            city_id           : this.model.city.id,
+            district_id       : this.model.district.id,
+            village_id        : this.model.village.id,
+            tempat_lahir      : this.model.tempat_lahir,
+            tgl_lahir         : this.model.tgl_lahir,
+            jenis_kelamin     : this.model.jenis_kelamin,
+            agama             : this.model.agama,
+            nisn              : this.model.nisn,
+            tahun_lulus       : this.model.tahun_lulus,
+            sekolah_id        : this.model.sekolah.id,
+            prodi_sekolah_id  : this.model.prodi_sekolah.id,
+            user_id           : this.model.user.id,
           })
           .then(response => {
             if (response.data.status == true) {
@@ -452,12 +470,22 @@ export default {
           });
       }
     },
-    changeProvince() {
-      if (typeof this.model.province.id === 'undefined') {
-        this.model.city = "";
-      } else {
-        this.model.city = "";
+    changeSekolah() {
+      this.model.prodi_sekolah = '';
 
+      if (typeof this.model.sekolah.id !== "undefined") {
+        axios.get('api/prodi-sekolah/get/by-sekolah/'+this.model.sekolah.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.prodi_sekolah = response.data.prodi_sekolahs;
+            }
+          });
+      }
+    },
+    changeProvince() {
+      this.model.city = '';
+
+      if (typeof this.model.province.id !== 'undefined') {
         axios.get('api/wilayah-indonesia/city/get/by-province/'+this.model.province.id)
           .then(response => {
             if (response.data.status == true && response.data.error == false) {
@@ -467,11 +495,9 @@ export default {
       }
     },
     changeCity() {
-      if (typeof this.model.city.id === 'undefined') {
-        this.model.district = "";
-      } else {
-        this.model.district = "";
+      this.model.district = '';
 
+      if (typeof this.model.city.id !== 'undefined') {
         axios.get('api/wilayah-indonesia/district/get/by-city/'+this.model.city.id)
           .then(response => {
             if (response.data.status == true && response.data.error == false) {
@@ -481,11 +507,9 @@ export default {
       }
     },
     changeDistrict() {
-      if (typeof this.model.district.id === 'undefined') {
-        this.model.village = "";
-      } else {
-        this.model.village = "";
+      this.model.village = '';
 
+      if (typeof this.model.district.id !== 'undefined') {
         axios.get('api/wilayah-indonesia/village/get/by-district/'+this.model.district.id)
           .then(response => {
             if (response.data.status == true && response.data.error == false) {
@@ -496,31 +520,33 @@ export default {
     },
     reset() {
       this.model = {
-        nomor_un      : "",
-        nik           : "",
-        nama_siswa    : "",
-        alamat_kk     : "",
-        province_id   : "",
-        city_id       : "",
-        district_id   : "",
-        village_id    : "",
-        tempat_lahir  : "",
-        tgl_lahir     : "",
-        jenis_kelamin : "",
-        agama         : "",
-        nisn          : "",
-        tahun_lulus   : "",
-        sekolah_id    : "",
-        user_id       : "",
-        created_at    : "",
-        updated_at    : "",
+        nomor_un          : "",
+        nik               : "",
+        nama_siswa        : "",
+        alamat_kk         : "",
+        province_id       : "",
+        city_id           : "",
+        district_id       : "",
+        village_id        : "",
+        tempat_lahir      : "",
+        tgl_lahir         : "",
+        jenis_kelamin     : "",
+        agama             : "",
+        nisn              : "",
+        tahun_lulus       : "",
+        sekolah_id        : "",
+        prodi_sekolah_id  : "",
+        user_id           : "",
+        created_at        : "",
+        updated_at        : "",
 
-        province      : "",
-        city          : "",
-        district      : "",
-        village       : "",
-        sekolah       : "",
-        user          : "",
+        province          : "",
+        city              : "",
+        district          : "",
+        village           : "",
+        sekolah           : "",
+        prodi_sekolah     : "",
+        user              : "",
       };
     },
     back() {

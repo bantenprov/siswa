@@ -178,9 +178,9 @@ class SiswaController extends Controller
         $siswa      = $this->siswa;
         $validator  = Validator::make($request->all(), [
             'nomor_un'          => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,NULL,id,deleted_at,NULL",
-            'nik'               => "required|numeric|max:16|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
+            'nik'               => "required|digits:16|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
             'nama_siswa'        => 'required|max:255',
-            'no_kk'             => "required|numeric|max:16|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
+            'no_kk'             => "required|digits:16|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
             'alamat_kk'         => 'required|max:255',
             'province_id'       => "required|exists:{$this->province->getTable()},id",
             'city_id'           => "required|exists:{$this->city->getTable()},id",

@@ -259,6 +259,8 @@ class SiswaController extends Controller
         $response['error']      = false;
         $response['message']    = 'Success';
         $response['status']     = true;
+
+        return response()->json($response);
     }
 
     /**
@@ -355,6 +357,7 @@ class SiswaController extends Controller
             $response['success']    = true;
             $response['status']     = true;
         } else {
+            $response['message']    = 'Failed';
             $response['success']    = false;
             $response['status']     = false;
         }

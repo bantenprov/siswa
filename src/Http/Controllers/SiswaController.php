@@ -324,8 +324,6 @@ class SiswaController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'user_id'       => 'required|unique:siswas,user_id,'.$id,
-                'label'         => 'required',
-                'description'   => 'required',
                 'nomor_un'      => 'required|unique:siswas,nomor_un,'.$id,
                 'nik'           => 'required|unique:siswas,nik,'.$id,
                 'nama_siswa'    => 'required',
@@ -356,9 +354,7 @@ class SiswaController extends Controller
                         $response['message'] = implode("\n",$message);
 
                     }else{
-                         $siswa->user_id = $request->input('user_id');
-                        $siswa->label = $request->input('label');
-                        $siswa->description = $request->input('description');
+                        $siswa->user_id = $request->input('user_id');
                         $siswa->nomor_un = $request->input('nomor_un');
                         $siswa->nik = $request->input('nik');
                         $siswa->nama_siswa = $request->input('nama_siswa');
@@ -374,8 +370,6 @@ class SiswaController extends Controller
                     }
              }else{
                     $siswa->user_id = $request->input('user_id');
-                    $siswa->label = $request->input('label');
-                    $siswa->description = $request->input('description');
                     $siswa->nomor_un = $request->input('nomor_un');
                     $siswa->nik = $request->input('nik');
                     $siswa->nama_siswa = $request->input('nama_siswa');

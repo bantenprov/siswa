@@ -84,6 +84,21 @@ import swal from 'sweetalert2';
 export default {
   data() {
     return {
+      jenis_kelamin: [
+        {id: 1, label: 'Laki-laki'},
+        {id: 2, label: 'Perempuan'}
+      ],
+      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
+
+      agama: [
+        {id: 1, label: 'Islam'},
+        {id: 2, label: 'Kristen Protestan'},
+        {id: 3, label: 'Kristen Katolik'},
+        {id: 4, label: 'Hindu'},
+        {id: 5, label: 'Buddha'},
+        {id: 6, label: 'Khonghucu'}
+      ],
+      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
       state: {},
       title: 'View Siswa',
       model: {
@@ -171,6 +186,7 @@ export default {
           if (this.model.user === null) {
             this.model.user = {"id": this.model.user_id,"name":""};
           }
+
         } else {
           swal(
             'Failed',

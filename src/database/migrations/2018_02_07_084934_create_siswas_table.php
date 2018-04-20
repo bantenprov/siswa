@@ -25,8 +25,8 @@ class CreateSiswasTable extends Migration
 			$table->string('village_id')->nullable();
 			$table->string('tempat_lahir');
 			$table->date('tgl_lahir');
-			$table->string('jenis_kelamin');
-			$table->string('agama');
+			$table->integer('jenis_kelamin');
+			$table->integer('agama');
 			$table->string('nisn');
 			$table->string('tahun_lulus');
 			$table->integer('sekolah_id')->nullable();

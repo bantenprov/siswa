@@ -174,9 +174,9 @@ class SiswaController extends Controller
         $siswa      = $this->siswa;
         $validator  = Validator::make($request->all(), [
             'nomor_un'      => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,NULL,id,deleted_at,NULL",
-            'nik'           => "required|numeric|max:16|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
+            'nik'           => "required|string|max:16|unique:{$this->siswa->getTable()},nik,NULL,id,deleted_at,NULL",
             'nama_siswa'    => 'required|max:255',
-            'no_kk'         => "required|numeric|max:16|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
+            'no_kk'         => "required|string|max:16|unique:{$this->siswa->getTable()},no_kk,NULL,id,deleted_at,NULL",
             'alamat_kk'     => 'required|max:255',
             'province_id'   => "required|exists:{$this->province->getTable()},id",
             'city_id'       => "required|exists:{$this->city->getTable()},id",
@@ -184,9 +184,9 @@ class SiswaController extends Controller
             'village_id'    => "required|exists:{$this->village->getTable()},id",
             'tempat_lahir'  => 'required|max:255',
             'tgl_lahir'     => 'required|date',
-            'jenis_kelamin' => 'required|max:255',
-            'agama'         => 'required|max:255',
-            'nisn'          => 'required|numeric|max:255',
+            'jenis_kelamin' => 'required',
+            'agama'         => 'required',
+            'nisn'          => 'required|string|max:255',
             'tahun_lulus'   => 'required|date_format:Y',
             'sekolah_id'    => "required|exists:{$this->sekolah->getTable()},id",
             'user_id'       => "required|exists:{$this->user->getTable()},id",
@@ -278,8 +278,6 @@ class SiswaController extends Controller
 
             $validator = Validator::make($request->all(), [
                 'user_id'       => 'required|unique:siswas,user_id,'.$id,
-                'label'         => 'required',
-                'description'   => 'required',
                 'nomor_un'      => 'required|unique:siswas,nomor_un,'.$id,
                 'nik'           => 'required|unique:siswas,nik,'.$id,
                 'nama_siswa'    => 'required',
@@ -311,8 +309,6 @@ class SiswaController extends Controller
 
                     }else{
                          $siswa->user_id = $request->input('user_id');
-                        $siswa->label = $request->input('label');
-                        $siswa->description = $request->input('description');
                         $siswa->nomor_un = $request->input('nomor_un');
                         $siswa->nik = $request->input('nik');
                         $siswa->nama_siswa = $request->input('nama_siswa');
@@ -328,8 +324,6 @@ class SiswaController extends Controller
                     }
              }else{
                     $siswa->user_id = $request->input('user_id');
-                    $siswa->label = $request->input('label');
-                    $siswa->description = $request->input('description');
                     $siswa->nomor_un = $request->input('nomor_un');
                     $siswa->nik = $request->input('nik');
                     $siswa->nama_siswa = $request->input('nama_siswa');

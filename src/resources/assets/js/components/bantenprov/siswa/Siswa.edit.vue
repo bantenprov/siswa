@@ -14,32 +14,6 @@
 
     <div class="card-body">
       <vue-form class="form-horizontal form-validation" :state="state" @submit.prevent="onSubmit">
-        <div class="form-row">
-          <div class="col-md">
-            <validate tag="div">
-              <label for="label">label</label>
-              <input class="form-control" v-model="model.label" required autofocus name="label" type="text" placeholder="Label">
-
-              <field-messages name="label" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
-              </field-messages>
-            </validate>
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <validate tag="div">
-              <label for="description">description</label>
-              <input class="form-control" v-model="model.description" name="description" type="text" placeholder="Description">
-
-              <field-messages name="description" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-              </field-messages>
-            </validate>
-          </div>
-        </div>
 
         <div class="form-row mt-4">
           <div class="col-md">
@@ -122,12 +96,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="jenis_kelamin">Jenis Kelamin</label>
-              <input class="form-control" v-model="model.jenis_kelamin" name="jenis_kelamin" type="text" placeholder="Jenis Kelamin">
+            <label for="jenis_kelamin">Jenis Kelamin</label>
+            <v-select v-model="model.jenis_kelamin" :options="jenis_kelamin" class="mb-4"></v-select>
 
-              <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-              </field-messages>
+            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Jenis Kelamin is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -135,12 +110,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="agama">Agama</label>
-              <input class="form-control" v-model="model.agama" name="agama" type="text" placeholder="Agama">
+            <label for="agama">Agama</label>
+            <v-select v-model="model.agama" :options="agama" class="mb-4"></v-select>
 
-              <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-              </field-messages>
+            <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Agama is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -204,8 +180,6 @@ export default {
     axios.get('api/siswa/' + this.$route.params.id + '/edit')
       .then(response => {
         if (response.data.status == true) {
-          this.model.label            = response.data.siswa.label;
-          this.model.description      = response.data.siswa.description;
           this.model.old_user_id      = response.data.siswa.user_id;
           this.model.user             = response.data.user;
           this.model.nomor_un         = response.data.siswa.nomor_un;
@@ -246,6 +220,21 @@ export default {
   },
   data() {
     return {
+      jenis_kelamin: [
+        {id: 1, label: 'Laki-laki'},
+        {id: 2, label: 'Perempuan'}
+      ],
+      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
+
+      agama: [
+        {id: 1, label: 'Islam'},
+        {id: 2, label: 'Kristen Protestan'},
+        {id: 3, label: 'Kristen Katolik'},
+        {id: 4, label: 'Hindu'},
+        {id: 5, label: 'Buddha'},
+        {id: 6, label: 'Khonghucu'}
+      ],
+      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
       state: {},
       model: {
         label: "",
@@ -277,8 +266,6 @@ export default {
         return;
       } else {
         axios.put('api/siswa/' + this.$route.params.id, {
-            label:          this.model.label,
-            description:    this.model.description,
             user_id:        this.model.user.id,
             old_user_id:    this.model.old_user_id,
             nomor_un:       this.model.nomor_un,
@@ -289,8 +276,8 @@ export default {
             alamat_kk:      this.model.alamat_kk,
             tempat_lahir:   this.model.tempat_lahir,
             tgl_lahir:      this.model.tgl_lahir,
-            jenis_kelamin:  this.model.jenis_kelamin,
-            agama:          this.model.agama,
+            jenis_kelamin:  this.model.jenis_kelamin.id,
+            agama:          this.model.agama.id,
             nisn:           this.model.nisn,
             tahun_lulus:    this.model.tahun_lulus,
 

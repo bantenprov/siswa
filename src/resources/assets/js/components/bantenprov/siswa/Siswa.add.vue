@@ -129,12 +129,12 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-            <label for="jenis_kelamin">Agama</label>
+            <label for="agama">Agama</label>
             <v-select v-model="model.agama" :options="agama" class="mb-4"></v-select>
 
-            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+            <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
               <small class="form-text text-success">Looks good!</small>
-              <small class="form-text text-danger" slot="required">Agama Kelamin is a required field</small>
+              <small class="form-text text-danger" slot="required">Agama is a required field</small>
             </field-messages>
             </validate>
           </div>

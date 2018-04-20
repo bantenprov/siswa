@@ -5,6 +5,7 @@ Route::group(['prefix' => 'api/siswa', 'middleware' => ['web']], function() {
     $name           = 'siswa';
     $controllers    = (object) [
         'index'     => $class.'@index',
+        'get'       => $class.'@get',
         'create'    => $class.'@create',
         'show'      => $class.'@show',
         'store'     => $class.'@store',
@@ -14,6 +15,7 @@ Route::group(['prefix' => 'api/siswa', 'middleware' => ['web']], function() {
     ];
 
     Route::get('/',             $controllers->index)->name($name.'.index');
+    Route::get('/get',          $controllers->get)->name($name.'.get');
     Route::get('/create',       $controllers->create)->name($name.'.create');
     Route::get('/{id}',         $controllers->show)->name($name.'.show');
     Route::post('/',            $controllers->store)->name($name.'.store');

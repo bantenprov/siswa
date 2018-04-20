@@ -89,6 +89,27 @@ class SiswaController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get()
+    {
+        $siswas = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'user'])->get();
+
+        foreach($siswas as $siswa){
+            array_set($siswa, 'label', $siswa->nama);
+        }
+
+        $response['siswas']   = $siswas;
+        $response['error']      = false;
+        $response['message']    = 'Success';
+        $response['status']     = true;
+
+        return response()->json($response);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

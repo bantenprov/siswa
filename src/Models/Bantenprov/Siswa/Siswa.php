@@ -32,13 +32,28 @@ class Siswa extends Model
         'nisn',
         'tahun_lulus',
         'sekolah_id',
-        'user_id'  
-        
+        'user_id'
+
     ];
 
-       public function user()
+    public function province()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\Province','province_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\City','city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\District','district_id');
+    }
+
+    public function village()
+    {
+        return $this->belongsTo('Laravolt\Indonesia\Models\Village','village_id');
     }
 
     public function sekolah()
@@ -46,4 +61,8 @@ class Siswa extends Model
         return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah','sekolah_id');
     }
 
+    public function user()
+    {
+        return $this->belongsTo('App\User','user_id');
+    }
 }

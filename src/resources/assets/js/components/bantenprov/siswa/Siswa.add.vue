@@ -289,6 +289,7 @@ export default {
       model: {
         nomor_un          : "",
         nik               : "",
+        no_kk             : "",
         nama_siswa        : "",
         alamat_kk         : "",
         province_id       : "",

@@ -84,23 +84,6 @@ export default {
   data() {
     return {
       loading: true,
-
-      jenis_kelamin: [
-        {id: 1, label: 'Laki-laki'},
-        {id: 2, label: 'Perempuan'}
-      ],
-      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
-
-      agama: [
-        {id: 1, label: 'Islam'},
-        {id: 2, label: 'Kristen Protestan'},
-        {id: 3, label: 'Kristen Katolik'},
-        {id: 4, label: 'Hindu'},
-        {id: 5, label: 'Buddha'},
-        {id: 6, label: 'Khonghucu'}
-      ],
-      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
-
       title: 'Siswa',
       fields: [
         {
@@ -125,8 +108,7 @@ export default {
           name: 'jenis_kelamin',
           title: 'Jenis Kelamin',
           sortField: 'jenis_kelamin',
-          titleClass: 'center aligned',
-          callback: 'getJenisKelaminById'
+          titleClass: 'center aligned'
         },
         {
           name: 'sekolah.nama',
@@ -169,20 +151,6 @@ export default {
     }
   },
   methods: {
-    getJenisKelaminById(value){
-      var found = this.jenis_kelamin.find((e) => {
-        return e.id == value
-      })
-      
-      return found.label
-    }, 
-    getAgamaById(value){
-      var found = this.agama.find((e) => {
-        return e.id == value
-      })
-      
-      return found.label
-    },
     createRow() {
       window.location = '#/admin/siswa/create';
     },

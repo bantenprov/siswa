@@ -289,6 +289,7 @@ export default {
       model: {
         nomor_un          : "",
         nik               : "",
+        no_kk             : "",
         nama_siswa        : "",
         alamat_kk         : "",
         province_id       : "",
@@ -440,8 +441,8 @@ export default {
             village_id        : this.model.village.id,
             tempat_lahir      : this.model.tempat_lahir,
             tgl_lahir         : this.model.tgl_lahir,
-            jenis_kelamin     : this.model.jenis_kelamin.id,
-            agama             : this.model.agama.id,
+            jenis_kelamin     : this.model.jenis_kelamin.label,
+            agama             : this.model.agama.label,
             nisn              : this.model.nisn,
             tahun_lulus       : this.model.tahun_lulus,
             sekolah_id        : this.model.sekolah.id,

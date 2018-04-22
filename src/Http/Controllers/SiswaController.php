@@ -107,7 +107,7 @@ class SiswaController extends Controller
         $siswas = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->get();
 
         foreach($siswas as $siswa){
-            array_set($siswa, 'label', $siswa->nama);
+            array_set($siswa, 'label', $siswa->nama_siswa);
 
             if (isset($siswa->prodi_sekolah->program_keahlian)) {
                 $siswa->prodi_sekolah->program_keahlian;

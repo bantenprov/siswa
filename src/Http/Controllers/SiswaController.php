@@ -313,7 +313,9 @@ class SiswaController extends Controller
 
         $response['siswa']['sekolah'] = array_add($siswa->sekolah, 'label', $siswa->sekolah->nama);
 
-        $response['siswa']['prodi_sekolah'] = array_add($siswa->prodi_sekolah, 'label', $siswa->prodi_sekolah->keterangan);
+        $response['siswa']['prodi_sekolah'] = array_add($siswa->prodi_sekolah, 'label', $siswa->prodi_sekolah->program_keahlian->label);
+
+        // dd($response['siswa']['prodi_sekolah']);
 
 
 

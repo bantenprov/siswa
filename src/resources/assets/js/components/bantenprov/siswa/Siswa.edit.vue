@@ -314,7 +314,6 @@ export default {
               
                 this.prodi_sekolah.push(response.data.prodi_sekolahs);
             
-                console.log(this.prodi_sekolah);
 
             if(response.data.user_special == true){
               this.user = response.data.users;

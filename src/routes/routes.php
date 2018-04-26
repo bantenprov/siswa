@@ -1,21 +1,25 @@
 <?php
 
 Route::group(['prefix' => 'api/siswa', 'middleware' => ['web']], function() {
-    $controllers = (object) [
-        'index'     => 'Bantenprov\Siswa\Http\Controllers\SiswaController@index',
-        'create'    => 'Bantenprov\Siswa\Http\Controllers\SiswaController@create',
-        'show'      => 'Bantenprov\Siswa\Http\Controllers\SiswaController@show',
-        'store'     => 'Bantenprov\Siswa\Http\Controllers\SiswaController@store',
-        'edit'      => 'Bantenprov\Siswa\Http\Controllers\SiswaController@edit',
-        'update'    => 'Bantenprov\Siswa\Http\Controllers\SiswaController@update',
-        'destroy'   => 'Bantenprov\Siswa\Http\Controllers\SiswaController@destroy',
+    $class          = 'Bantenprov\Siswa\Http\Controllers\SiswaController';
+    $name           = 'siswa';
+    $controllers    = (object) [
+        'index'     => $class.'@index',
+        'get'       => $class.'@get',
+        'create'    => $class.'@create',
+        'show'      => $class.'@show',
+        'store'     => $class.'@store',
+        'edit'      => $class.'@edit',
+        'update'    => $class.'@update',
+        'destroy'   => $class.'@destroy',
     ];
 
-    Route::get('/',             $controllers->index)->name('siswa.index');
-    Route::get('/create',       $controllers->create)->name('siswa.create');
-    Route::get('/{id}',         $controllers->show)->name('siswa.show');
-    Route::post('/',            $controllers->store)->name('siswa.store');
-    Route::get('/{id}/edit',    $controllers->edit)->name('siswa.edit');
-    Route::put('/{id}',         $controllers->update)->name('siswa.update');
-    Route::delete('/{id}',      $controllers->destroy)->name('siswa.destroy');
+    Route::get('/',             $controllers->index)->name($name.'.index');
+    Route::get('/get',          $controllers->get)->name($name.'.get');
+    Route::get('/create',       $controllers->create)->name($name.'.create');
+    Route::get('/{id}',         $controllers->show)->name($name.'.show');
+    Route::post('/',            $controllers->store)->name($name.'.store');
+    Route::get('/{id}/edit',    $controllers->edit)->name($name.'.edit');
+    Route::put('/{id}',         $controllers->update)->name($name.'.update');
+    Route::delete('/{id}',      $controllers->destroy)->name($name.'.destroy');
 });

@@ -17,33 +17,6 @@
         <div class="form-row">
           <div class="col-md">
             <validate tag="div">
-              <label for="label">label</label>
-              <input class="form-control" v-model="model.label" required autofocus name="label" type="text" placeholder="Label">
-
-              <field-messages name="label" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-                <small class="form-text text-danger" slot="required">Label is a required field</small>
-              </field-messages>
-            </validate>
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <validate tag="div">
-              <label for="description">description</label>
-              <input class="form-control" v-model="model.description" name="description" type="text" placeholder="Description">
-
-              <field-messages name="description" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-              </field-messages>
-            </validate>
-          </div>
-        </div>
-
-        <div class="form-row mt-4">
-          <div class="col-md">
-            <validate tag="div">
               <label for="nomor_un">Nomor UN</label>
               <input class="form-control" v-model="model.nomor_un" name="nomor_un" type="text" placeholder="Nomor UN">
 
@@ -74,6 +47,19 @@
               <input class="form-control" v-model="model.nama_siswa" name="nama_siswa" type="text" placeholder="Nama Siswa">
 
               <field-messages name="nama_siswa" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="no_kk">No KK</label>
+              <input class="form-control" v-model="model.no_kk" name="no_kk" type="text" placeholder="Alamat KK">
+
+              <field-messages name="no_kk" show="$invalid && $submitted" class="text-danger">
                 <small class="form-text text-success">Looks good!</small>
               </field-messages>
             </validate>
@@ -122,12 +108,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="jenis_kelamin">Jenis Kelamin</label>
-              <input class="form-control" v-model="model.jenis_kelamin" name="jenis_kelamin" type="text" placeholder="Jenis Kelamin">
+            <label for="jenis_kelamin">Jenis Kelamin</label>
+            <v-select v-model="model.jenis_kelamin" :options="jenis_kelamin" class="mb-4"></v-select>
 
-              <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-              </field-messages>
+            <field-messages name="jenis_kelamin" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Jenis Kelamin is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -135,12 +122,13 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
-              <label for="agama">Agama</label>
-              <input class="form-control" v-model="model.agama" name="agama" type="text" placeholder="Agama">
+            <label for="agama">Agama</label>
+            <v-select v-model="model.agama" :options="agama" class="mb-4"></v-select>
 
-              <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
-                <small class="form-text text-success">Looks good!</small>
-              </field-messages>
+            <field-messages name="agama" show="$invalid && $submitted" class="text-danger">
+              <small class="form-text text-success">Looks good!</small>
+              <small class="form-text text-danger" slot="required">Agama is a required field</small>
+            </field-messages>
             </validate>
           </div>
         </div>
@@ -174,6 +162,90 @@
         <div class="form-row mt-4">
           <div class="col-md">
             <validate tag="div">
+              <label for="sekolah_id">Sekolah Tujuan</label>
+              <v-select name="sekolah_id" v-model="model.sekolah" :options="sekolah" @input="changeSekolah" placeholder="Sekolah Tujuan" required></v-select>
+
+              <field-messages name="sekolah_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Sekolah tujuan is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="prodi_sekolah_id">Prodi Sekolah</label>
+              <v-select name="prodi_sekolah_id" v-model="model.prodi_sekolah" :options="prodi_sekolah" placeholder="Prodi Sekolah" required></v-select>
+
+              <field-messages name="prodi_sekolah_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Sekolah tujuan is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="province_id">Provinsi</label>
+              <v-select name="province_id" v-model="model.province" :options="province" @input="changeProvince" placeholder="Provinsi" required></v-select>
+
+              <field-messages name="province_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">provinsi is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="city_id">Kabupaten/Kota</label>
+              <v-select name="city_id" v-model="model.city" :options="city" @input="changeCity" placeholder="Kabupaten/Kota" required></v-select>
+
+              <field-messages name="city_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Kabupaten is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="district_id">Kecamatan</label>
+              <v-select name="district_id" v-model="model.district" :options="district" @input="changeDistrict" placeholder="Kecamatan" required></v-select>
+
+                <field-messages name="district_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Kota is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
+              <label for="village_id">Kelurahan/Desa</label>
+              <v-select name="village_id" v-model="model.village" :options="village" placeholder="Kelurahan/Desa" required></v-select>
+
+              <field-messages name="village_id" show="$invalid && $submitted" class="text-danger">
+                <small class="form-text text-success">Looks good!</small>
+                <small class="form-text text-danger" slot="required">Desa is a required field</small>
+              </field-messages>
+            </validate>
+          </div>
+        </div>
+
+        <div class="form-row mt-4">
+          <div class="col-md">
+            <validate tag="div">
             <label for="user_id">Username</label>
             <v-select name="user_id" v-model="model.user" :options="user" class="mb-4"></v-select>
 
@@ -186,13 +258,13 @@
         </div>
 
         <div class="form-row mt-4">
-          <div class="col-md">            
+          <div class="col-md">
             <button type="submit" class="btn btn-primary">Submit</button>
 
-            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>            
+            <button type="reset" class="btn btn-secondary" @click="reset">Reset</button>
           </div>
         </div>
-        
+
       </vue-form>
     </div>
   </div>
@@ -204,8 +276,6 @@ export default {
     axios.get('api/siswa/' + this.$route.params.id + '/edit')
       .then(response => {
         if (response.data.status == true) {
-          this.model.label            = response.data.siswa.label;
-          this.model.description      = response.data.siswa.description;
           this.model.old_user_id      = response.data.siswa.user_id;
           this.model.user             = response.data.user;
           this.model.nomor_un         = response.data.siswa.nomor_un;
@@ -213,6 +283,7 @@ export default {
           this.model.nik              = response.data.siswa.nik;
           this.model.old_nik          = response.data.siswa.nik;
           this.model.nama_siswa       = response.data.siswa.nama_siswa;
+          this.model.no_kk              = response.data.siswa.no_kk;
           this.model.alamat_kk        = response.data.siswa.alamat_kk;
           this.model.tempat_lahir     = response.data.siswa.tempat_lahir;
           this.model.tgl_lahir        = response.data.siswa.tgl_lahir;
@@ -230,38 +301,75 @@ export default {
       }),
 
       axios.get('api/siswa/create')
-      .then(response => {           
-          response.data.user.forEach(element => {
-            this.user.push(element);
-          });
+      .then(response => {
+          if(response.data.user_special == true){
+            response.data.user.forEach(user_element => {
+              this.user.push(user_element);
+            });
+          }else{
+            this.user.push(response.data.user);
+          }
       })
       .catch(function(response) {
         alert('Break');
+        window.location = '#/admin/siswa';
       })
   },
   data() {
     return {
       state: {},
       model: {
-        label: "",
-        description: "",
-        user: "",
-        nomor_un: "",
-        nik: "",
-        nama_siswa: "",
-        alamat_kk: "",
-        tempat_lahir: "",
-        tgl_lahir: "",
-        jenis_kelamin: "",
-        agama: "",
-        nisn: "",
-        tahun_lulus: "",
-        old_user_id: "",
-        old_nomor_un: "",
-        old_nik: "",
-        old_nisn: "",
+        nomor_un          : "",
+        nik               : "",
+        nama_siswa        : "",
+        alamat_kk         : "",
+        province_id       : "",
+        city_id           : "",
+        district_id       : "",
+        village_id        : "",
+        tempat_lahir      : "",
+        tgl_lahir         : "",
+        jenis_kelamin     : "",
+        agama             : "",
+        nisn              : "",
+        tahun_lulus       : "",
+        sekolah_id        : "",
+        prodi_sekolah_id  : "",
+        user_id           : "",
+        created_at        : "",
+        updated_at        : "",
+
+        province          : "",
+        city              : "",
+        district          : "",
+        village           : "",
+        sekolah           : "",
+        prodi_sekolah     : "",
+        user              : "",
       },
-      user: []
+      province      : [],
+      city          : [],
+      district      : [],
+      village       : [],
+      sekolah       : [],
+      prodi_sekolah : [],
+      user          : [],
+
+      jenis_kelamin: [
+        {id: 1, label: 'Laki-laki'},
+        {id: 2, label: 'Perempuan'}
+      ],
+      selectedJenisKelamin: {id: "-", label: 'Pilih Salah Satu'},
+
+      agama: [
+        {id: 1, label: 'Islam'},
+        {id: 2, label: 'Kristen Protestan'},
+        {id: 3, label: 'Kristen Katolik'},
+        {id: 4, label: 'Hindu'},
+        {id: 5, label: 'Buddha'},
+        {id: 6, label: 'Khonghucu'}
+      ],
+      selectedAgama: {id: "-", label: 'Pilih Salah Satu'},
     }
   },
   methods: {
@@ -272,22 +380,24 @@ export default {
         return;
       } else {
         axios.put('api/siswa/' + this.$route.params.id, {
-            label:          this.model.label,
-            description:    this.model.description,
-            user_id:        this.model.user.id,
-            old_user_id:    this.model.old_user_id,
-            nomor_un:       this.model.nomor_un,
-            old_nomor_un:   this.model.old_nomor_un,
-            nik:            this.model.nik,
-            old_nik:        this.model.old_nik,
-            nama_siswa:     this.model.nama_siswa,
-            alamat_kk:      this.model.alamat_kk,
-            tempat_lahir:   this.model.tempat_lahir,
-            tgl_lahir:      this.model.tgl_lahir,
-            jenis_kelamin:  this.model.jenis_kelamin,
-            agama:          this.model.agama,
-            nisn:           this.model.nisn,
-            tahun_lulus:    this.model.tahun_lulus,
+            nomor_un          : this.model.nomor_un,
+            nik               : this.model.nik,
+            nama_siswa        : this.model.nama_siswa,
+            no_kk             : this.model.no_kk,
+            alamat_kk         : this.model.alamat_kk,
+            province_id       : this.model.province.id,
+            city_id           : this.model.city.id,
+            district_id       : this.model.district.id,
+            village_id        : this.model.village.id,
+            tempat_lahir      : this.model.tempat_lahir,
+            tgl_lahir         : this.model.tgl_lahir,
+            jenis_kelamin     : this.model.jenis_kelamin.label,
+            agama             : this.model.agama.label,
+            nisn              : this.model.nisn,
+            tahun_lulus       : this.model.tahun_lulus,
+            sekolah_id        : this.model.sekolah.id,
+            prodi_sekolah_id  : this.model.prodi_sekolah.id,
+            user_id           : this.model.user.id,
 
 
           })

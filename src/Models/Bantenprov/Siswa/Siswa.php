@@ -47,36 +47,36 @@ class Siswa extends Model
 
     public function province()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\Province','province_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\Province', 'province_id');
     }
 
     public function city()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\City','city_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\City', 'city_id');
     }
 
     public function district()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\District','district_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\District', 'district_id');
     }
 
     public function village()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\Village','village_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\Village', 'village_id');
     }
 
     public function sekolah()
     {
-        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah','sekolah_id');
+        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah', 'sekolah_id');
     }
 
     public function prodi_sekolah()
     {
-        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\ProdiSekolah','prodi_sekolah_id');
+        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\ProdiSekolah', 'prodi_sekolah_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
 }

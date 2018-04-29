@@ -12,9 +12,6 @@ class Siswa extends Model
     public $timestamps = true;
 
     protected $table = 'siswas';
-    protected $dates = [
-        'deleted_at'
-    ];
     protected $fillable = [
         'nomor_un',
         'nik',
@@ -32,9 +29,21 @@ class Siswa extends Model
         'nisn',
         'tahun_lulus',
         'sekolah_id',
-        'user_id'
-
+        'user_id',
     ];
+    protected $hidden = [
+    ];
+    protected $appends = [
+        'label',
+    ];
+    protected $dates = [
+        'deleted_at',
+    ];
+
+    public function getLabelAttribute()
+    {
+        return $this->nomor_un.' - '.$this->nama_siswa;
+    }
 
     public function province()
     {

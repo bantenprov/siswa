@@ -29,6 +29,7 @@ class Siswa extends Model
         'nisn',
         'tahun_lulus',
         'sekolah_id',
+        'kegiatan_id',
         'user_id',
     ];
     protected $hidden = [
@@ -73,6 +74,11 @@ class Siswa extends Model
     public function prodi_sekolah()
     {
         return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\ProdiSekolah', 'prodi_sekolah_id');
+    }
+
+    public function kegiatan()
+    {
+        return $this->belongsTo('Bantenprov\Kegiatan\Models\Bantenprov\Kegiatan\Kegiatan', 'kegiatan_id');
     }
 
     public function user()

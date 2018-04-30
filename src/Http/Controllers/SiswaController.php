@@ -84,7 +84,7 @@ class SiswaController extends Controller
 
         $perPage    = request()->has('per_page') ? (int) request()->per_page : null;
 
-        $response   = $query->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->paginate($perPage);
+        $response   = $query->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->paginate($perPage);
 
         foreach($response as $siswa){
             if (isset($siswa->prodi_sekolah->program_keahlian)) {
@@ -104,7 +104,7 @@ class SiswaController extends Controller
      */
     public function get()
     {
-        $siswas = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->get();
+        $siswas = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->get();
 
         $response['siswas']     = $siswas;
         $response['error']      = false;
@@ -257,7 +257,7 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->findOrFail($id);
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->findOrFail($id);
 
         $response['siswa']      = $siswa;
         $response['error']      = false;
@@ -275,7 +275,7 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->findOrFail($id);
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->findOrFail($id);
 
         $response['siswa']['province']      = array_add($siswa->province, 'label', $siswa->province->name);
         $response['siswa']['city']          = array_add($siswa->city, 'label', $siswa->city->name);
@@ -300,7 +300,7 @@ class SiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->findOrFail($id);
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->findOrFail($id);
 
         $validator = Validator::make($request->all(), [
             'nomor_un'          => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,{$id},id,deleted_at,NULL",

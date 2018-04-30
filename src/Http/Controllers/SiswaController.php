@@ -84,7 +84,7 @@ class SiswaController extends Controller
 
         $perPage    = request()->has('per_page') ? (int) request()->per_page : null;
 
-        $response   = $query->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->paginate($perPage);
+        $response   = $query->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->paginate($perPage);
 
         foreach($response as $siswa){
             if (isset($siswa->prodi_sekolah->program_keahlian)) {
@@ -104,17 +104,9 @@ class SiswaController extends Controller
      */
     public function get()
     {
-        $siswas = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->get();
+        $siswas = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->get();
 
-        foreach($siswas as $siswa){
-            array_set($siswa, 'label', $siswa->nama_siswa);
-
-            if (isset($siswa->prodi_sekolah->program_keahlian)) {
-                $siswa->prodi_sekolah->program_keahlian;
-            }
-        }
-
-        $response['siswas']   = $siswas;
+        $response['siswas']     = $siswas;
         $response['error']      = false;
         $response['message']    = 'Success';
         $response['status']     = true;
@@ -135,14 +127,10 @@ class SiswaController extends Controller
         $cities         = $this->city->getAttributes();
         $districts      = $this->district->getAttributes();
         $villages       = $this->village->getAttributes();
-        $sekolahs       = $this->sekolah->get();
-        $prodi_sekolahs = $this->prodi_sekolah->get();
         $users          = $this->user->getAttributes();
         $users_special  = $this->user->all();
         $users_standar  = $this->user->findOrFail($user_id);
         $current_user   = Auth::User();
-
-        // dd($prodi_sekolahs);
 
         foreach($provinces as $province){
             array_set($province, 'label', $province->name);
@@ -158,14 +146,6 @@ class SiswaController extends Controller
 
         foreach($villages as $village){
             array_set($village, 'label', $village->name);
-        }
-
-        foreach($sekolahs as $sekolah){
-            array_set($sekolah, 'label', $sekolah->nama);
-        }
-
-        foreach($prodi_sekolahs as $prodi_sekolah){
-            array_set($prodi_sekolah, 'label', $prodi_sekolah->keterangan);
         }
 
         $role_check = Auth::User()->hasRole(['superadministrator','administrator']);
@@ -193,8 +173,6 @@ class SiswaController extends Controller
         $response['cities']         = $cities;
         $response['districts']      = $districts;
         $response['villages']       = $villages;
-        $response['sekolahs']       = $sekolahs;
-        $response['prodi_sekolahs'] = $prodi_sekolahs;
         $response['users']          = $users;
         $response['user_special']   = $user_special;
         $response['current_user']   = $current_user;
@@ -279,11 +257,7 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->findOrFail($id);
-
-        if (isset($siswa->prodi_sekolah->program_keahlian)) {
-            $siswa->prodi_sekolah->program_keahlian;
-        }
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->findOrFail($id);
 
         $response['siswa']      = $siswa;
         $response['error']      = false;
@@ -301,28 +275,18 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->findOrFail($id);
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->findOrFail($id);
 
-        $response['siswa']['province'] = array_add($siswa->province, 'label', $siswa->province->name);
-
-        $response['siswa']['city'] = array_add($siswa->city, 'label', $siswa->city->name);
-
-        $response['siswa']['district'] = array_add($siswa->district, 'label', $siswa->district->name);
-
-        $response['siswa']['village'] = array_add($siswa->village, 'label', $siswa->village->name);
-
-        $response['siswa']['sekolah'] = array_add($siswa->sekolah, 'label', $siswa->sekolah->nama);
-
+        $response['siswa']['province']      = array_add($siswa->province, 'label', $siswa->province->name);
+        $response['siswa']['city']          = array_add($siswa->city, 'label', $siswa->city->name);
+        $response['siswa']['district']      = array_add($siswa->district, 'label', $siswa->district->name);
+        $response['siswa']['village']       = array_add($siswa->village, 'label', $siswa->village->name);
+        $response['siswa']['sekolah']       = array_add($siswa->sekolah, 'label', $siswa->sekolah->nama);
         $response['siswa']['prodi_sekolah'] = array_add($siswa->prodi_sekolah, 'label', $siswa->prodi_sekolah->program_keahlian->label);
-
-        // dd($response['siswa']['prodi_sekolah']);
-
-
-
-        $response['siswa']      = $siswa;
-        $response['error']      = false;
-        $response['message']    = 'Success';
-        $response['status']     = true;
+        $response['siswa']                  = $siswa;
+        $response['error']                  = false;
+        $response['message']                = 'Success';
+        $response['status']                 = true;
 
         return response()->json($response);
     }
@@ -336,58 +300,56 @@ class SiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user'])->findOrFail($id);
+        $siswa = $this->siswa->with(['province', 'city', 'district', 'village', 'sekolah', 'prodi_sekolah', 'user', 'kegiatan'])->findOrFail($id);
 
-            $validator = Validator::make($request->all(), [
-                'nomor_un'          => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,{$id},id,deleted_at,NULL",
-                'nik'               => "required|digits:16|unique:{$this->siswa->getTable()},nik,{$id},id,deleted_at,NULL",
-                'nama_siswa'        => 'required|max:255',
-                'no_kk'             => "required|digits:16|unique:{$this->siswa->getTable()},no_kk,{$id},id,deleted_at,NULL",
-                'alamat_kk'         => 'required|max:255',
-                'province_id'       => "required|exists:{$this->province->getTable()},id",
-                'city_id'           => "required|exists:{$this->city->getTable()},id",
-                'district_id'       => "required|exists:{$this->district->getTable()},id",
-                'village_id'        => "required|exists:{$this->village->getTable()},id",
-                'tempat_lahir'      => 'required|max:255',
-                'tgl_lahir'         => 'required|date',
-                'jenis_kelamin'     => 'required|max:255',
-                'agama'             => 'required|max:255',
-                'nisn'              => "required|between:4,17|unique:{$this->siswa->getTable()},nisn,{$id},id,deleted_at,NULL",
-                'tahun_lulus'       => 'required|date_format:Y',
-                'sekolah_id'        => "required|exists:{$this->sekolah->getTable()},id",
-                'prodi_sekolah_id'  => "required|exists:{$this->prodi_sekolah->getTable()},id",
-                'user_id'           => "required|exists:{$this->user->getTable()},id",
+        $validator = Validator::make($request->all(), [
+            'nomor_un'          => "required|max:255|unique:{$this->siswa->getTable()},nomor_un,{$id},id,deleted_at,NULL",
+            'nik'               => "required|digits:16|unique:{$this->siswa->getTable()},nik,{$id},id,deleted_at,NULL",
+            'nama_siswa'        => 'required|max:255',
+            'no_kk'             => "required|digits:16|unique:{$this->siswa->getTable()},no_kk,{$id},id,deleted_at,NULL",
+            'alamat_kk'         => 'required|max:255',
+            'province_id'       => "required|exists:{$this->province->getTable()},id",
+            'city_id'           => "required|exists:{$this->city->getTable()},id",
+            'district_id'       => "required|exists:{$this->district->getTable()},id",
+            'village_id'        => "required|exists:{$this->village->getTable()},id",
+            'tempat_lahir'      => 'required|max:255',
+            'tgl_lahir'         => 'required|date',
+            'jenis_kelamin'     => 'required|max:255',
+            'agama'             => 'required|max:255',
+            'nisn'              => "required|between:4,17|unique:{$this->siswa->getTable()},nisn,{$id},id,deleted_at,NULL",
+            'tahun_lulus'       => 'required|date_format:Y',
+            'sekolah_id'        => "required|exists:{$this->sekolah->getTable()},id",
+            'prodi_sekolah_id'  => "required|exists:{$this->prodi_sekolah->getTable()},id",
+            'user_id'           => "required|exists:{$this->user->getTable()},id",
+        ]);
 
-                ]);
-
-            if ($validator->fails()) {
+        if ($validator->fails()) {
             $error      = true;
             $message    = $validator->errors()->first();
+        } else {
+            $siswa->user_id             = $request->input('user_id');
+            $siswa->nomor_un            = $request->input('nomor_un');
+            $siswa->nik                 = $request->input('nik');
+            $siswa->nama_siswa          = $request->input('nama_siswa');
+            $siswa->no_kk               = $request->input('no_kk');
+            $siswa->alamat_kk           = $request->input('alamat_kk');
+            $siswa->province_id         = $request->input('province_id');
+            $siswa->city_id             = $request->input('city_id');
+            $siswa->district_id         = $request->input('district_id');
+            $siswa->village_id          = $request->input('village_id');
+            $siswa->tempat_lahir        = $request->input('tempat_lahir');
+            $siswa->tgl_lahir           = $request->input('tgl_lahir');
+            $siswa->jenis_kelamin       = $request->input('jenis_kelamin');
+            $siswa->agama               = $request->input('agama');
+            $siswa->nisn                = $request->input('nisn');
+            $siswa->sekolah_id          = $request->input('sekolah_id');
+            $siswa->prodi_sekolah_id    = $request->input('prodi_sekolah_id');
+            $siswa->tahun_lulus         = $request->input('tahun_lulus');
+            $siswa->save();
 
-            } else {
-                $siswa->user_id             = $request->input('user_id');
-                $siswa->nomor_un            = $request->input('nomor_un');
-                $siswa->nik                 = $request->input('nik');
-                $siswa->nama_siswa          = $request->input('nama_siswa');
-                $siswa->no_kk               = $request->input('no_kk');
-                $siswa->alamat_kk           = $request->input('alamat_kk');
-                $siswa->province_id         = $request->input('province_id');
-                $siswa->city_id             = $request->input('city_id');
-                $siswa->district_id         = $request->input('district_id');
-                $siswa->village_id          = $request->input('village_id');
-                $siswa->tempat_lahir        = $request->input('tempat_lahir');
-                $siswa->tgl_lahir           = $request->input('tgl_lahir');
-                $siswa->jenis_kelamin       = $request->input('jenis_kelamin');
-                $siswa->agama               = $request->input('agama');
-                $siswa->nisn                = $request->input('nisn');
-                $siswa->sekolah_id          = $request->input('sekolah_id');
-                $siswa->prodi_sekolah_id    = $request->input('prodi_sekolah_id');
-                $siswa->tahun_lulus         = $request->input('tahun_lulus');
-                $siswa->save();
-
-                $error      = false;
-                $message    = 'Success';
-            }
+            $error      = false;
+            $message    = 'Success';
+        }
 
         $response['error']      = $error;
         $response['message']    = $message;

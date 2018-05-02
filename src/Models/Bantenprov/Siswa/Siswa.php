@@ -85,4 +85,14 @@ class Siswa extends Model
     {
         return $this->belongsTo('App\User', 'user_id');
     }
+
+    public function akademik()
+    {
+        return $this->belongsTo('Bantenprov\Nilai\Models\Bantenprov\Nilai\Akademik', 'nomor_un', 'nomor_un');
+    }
+
+    public function nilai()
+    {
+        return $this->belongsTo('Bantenprov\Nilai\Models\Bantenprov\Nilai\Nilai', 'nomor_un', 'nomor_un');
+    }
 }

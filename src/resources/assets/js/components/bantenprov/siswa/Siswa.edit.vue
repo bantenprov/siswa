@@ -271,26 +271,32 @@
 </template>
 
 <script>
+import swal from 'sweetalert2';
 export default {
   mounted() {
     axios.get('api/siswa/' + this.$route.params.id + '/edit')
       .then(response => {
         if (response.data.status == true) {
           this.model.old_user_id      = response.data.siswa.user_id;
-          this.model.user             = response.data.user;
+          this.model.user             = response.data.siswa.user.name;
           this.model.nomor_un         = response.data.siswa.nomor_un;
-          this.model.old_nomor_un     = response.data.siswa.nomor_un;
           this.model.nik              = response.data.siswa.nik;
-          this.model.old_nik          = response.data.siswa.nik;
           this.model.nama_siswa       = response.data.siswa.nama_siswa;
-          this.model.no_kk              = response.data.siswa.no_kk;
+          this.model.no_kk            = response.data.siswa.no_kk;
           this.model.alamat_kk        = response.data.siswa.alamat_kk;
           this.model.tempat_lahir     = response.data.siswa.tempat_lahir;
           this.model.tgl_lahir        = response.data.siswa.tgl_lahir;
-          this.model.jenis_kelamin    = response.data.siswa.jenis_kelamin;
-          this.model.agama            = response.data.siswa.agama;
           this.model.nisn             = response.data.siswa.nisn;
           this.model.tahun_lulus      = response.data.siswa.tahun_lulus;
+          this.model.prodi_sekolah    = response.data.siswa.prodi_sekolah;
+          this.model.sekolah          = response.data.siswa.sekolah;
+          this.model.province         = response.data.siswa.province;
+          this.model.city             = response.data.siswa.city;
+          this.model.district         = response.data.siswa.district;
+          this.model.village          = response.data.siswa.village;
+          this.model.jenis_kelamin    = response.data.siswa.jenis_kelamin;
+          this.model.agama            = response.data.siswa.agama;
+
         } else {
           alert('Failed');
         }
@@ -302,18 +308,84 @@ export default {
 
       axios.get('api/siswa/create')
       .then(response => {
-          if(response.data.user_special == true){
-            response.data.user.forEach(user_element => {
-              this.user.push(user_element);
-            });
-          }else{
-            this.user.push(response.data.user);
-          }
+          if (response.data.status == true && response.data.error == false){
+              this.model.user           = response.data.current_user;
+              // this.model.prodi_sekolah    = response.data.prodi_sekolahs;
+              
+                this.prodi_sekolah.push(response.data.prodi_sekolahs);
+            
+
+            if(response.data.user_special == true){
+              this.user = response.data.users;
+            }else{
+              this.user.push(response.data.users);
+            }
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
       })
       .catch(function(response) {
-        alert('Break');
-        window.location = '#/admin/siswa';
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
+       axios.get('api/wilayah-indonesia/province/get')
+      .then(response => {
+        if (response.data.status == true && response.data.error == false) {
+          this.province = response.data.provinces;
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
       })
+      .catch(function(response) {
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
+
+       axios.get('api/sekolah/get')
+      .then(response => {
+        if (response.data.status == true && response.data.error == false) {
+          this.sekolah = response.data.sekolahs;
+        } else {
+          swal(
+            'Failed',
+            'Oops... '+response.data.message,
+            'error'
+          );
+
+          app.back();
+        }
+      })
+      .catch(function(response) {
+        swal(
+          'Not Found',
+          'Oops... Your page is not found.',
+          'error'
+        );
+
+        app.back();
+      });
   },
   data() {
     return {
@@ -375,6 +447,35 @@ export default {
   methods: {
     onSubmit: function() {
       let app = this;
+      let jenis_kelamin;
+      let agama;
+
+      console.log(this.model.jenis_kelamin);
+      if(this.model.jenis_kelamin == "Laki-laki"){
+        jenis_kelamin = "Laki-laki";
+        
+      }else if(this.model.jenis_kelamin == "Perempuan"){
+        jenis_kelamin = "Perempuan";
+      }else{
+        jenis_kelamin = this.model.jenis_kelamin.label;
+      }
+
+
+      if(this.model.agama == "Islam"){
+        agama = "Islam";
+      }else if(this.model.agama == "Kristen Protestan"){
+        agama = "Kristen Protestan";
+      }else if(this.model.agama == "Kristen Katolik"){
+        agama = "Kristen Katolik";
+      }else if(this.model.agama == "Hindu"){
+        agama = "Hindu";
+      }else if(this.model.agama == "Buddha"){
+        agama = "Buddha";
+      }else if(this.model.agama == "Khonghucu"){
+        agama = "Khonghucu";
+      }else{
+        agama = this.model.agama.label;
+      }
 
       if (this.state.$invalid) {
         return;
@@ -391,8 +492,8 @@ export default {
             village_id        : this.model.village.id,
             tempat_lahir      : this.model.tempat_lahir,
             tgl_lahir         : this.model.tgl_lahir,
-            jenis_kelamin     : this.model.jenis_kelamin.label,
-            agama             : this.model.agama.label,
+            jenis_kelamin     : jenis_kelamin,
+            agama             : agama,
             nisn              : this.model.nisn,
             tahun_lulus       : this.model.tahun_lulus,
             sekolah_id        : this.model.sekolah.id,
@@ -403,18 +504,94 @@ export default {
           })
           .then(response => {
             if (response.data.status == true) {
-              if(response.data.message == 'success'){
-                alert(response.data.message);
+              if(response.data.error == false){
+                swal(
+                  'Updated',
+                  'Yeah!!! Your data has been updated.',
+                  'success'
+                );
+
                 app.back();
               }else{
-                alert(response.data.message);
+                swal(
+                  'Failed',
+                  'Oops... '+response.data.message,
+                  'error'
+                );
               }
             } else {
-              alert(response.data.message);
+              swal(
+                'Failed',
+                'Oops... '+response.data.message,
+                'error'
+              );
+
+              app.back();
             }
           })
           .catch(function(response) {
-            alert('Break ' + response.data.message);
+            swal(
+              'Not Found',
+              'Oops... Your page is not found.',
+              'error'
+            );
+
+            app.back();
+          });
+      }
+    },
+
+    changeSekolah() {
+      // this.model.prodi_sekolah = '';
+      if (typeof this.model.sekolah.id !== "undefined") {
+        axios.get('api/prodi-sekolah/get/by-sekolah/'+this.model.sekolah.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.prodi_sekolah = response.data.prodi_sekolahs;
+            }
+          });
+      }
+    },
+
+    changeProvince() {
+      if (typeof this.model.province.id === 'undefined') {
+        this.model.city = "";
+      } else {
+        // this.model.city = "";
+
+        axios.get('api/wilayah-indonesia/city/get/by-province/'+this.model.province.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.city = response.data.cities;
+            }
+          });
+      }
+    },
+    changeCity() {
+      if (typeof this.model.city.id === 'undefined') {
+        this.model.district = "";
+      } else {
+        // this.model.district = "";
+
+        axios.get('api/wilayah-indonesia/district/get/by-city/'+this.model.city.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.district = response.data.districts;
+            }
+          });
+      }
+    },
+    changeDistrict() {
+      if (typeof this.model.district.id === 'undefined') {
+        this.model.village = "";
+      } else {
+        // this.model.village = "";
+
+        axios.get('api/wilayah-indonesia/village/get/by-district/'+this.model.district.id)
+          .then(response => {
+            if (response.data.status == true && response.data.error == false) {
+              this.village = response.data.villages;
+            }
           });
       }
     },

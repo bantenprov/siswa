@@ -12,9 +12,6 @@ class Siswa extends Model
     public $timestamps = true;
 
     protected $table = 'siswas';
-    protected $dates = [
-        'deleted_at'
-    ];
     protected $fillable = [
         'nomor_un',
         'nik',
@@ -32,42 +29,70 @@ class Siswa extends Model
         'nisn',
         'tahun_lulus',
         'sekolah_id',
-        'user_id'
-
+        'kegiatan_id',
+        'user_id',
     ];
+    protected $hidden = [
+    ];
+    protected $appends = [
+        'label',
+    ];
+    protected $dates = [
+        'deleted_at',
+    ];
+
+    public function getLabelAttribute()
+    {
+        return $this->nomor_un.' - '.$this->nama_siswa;
+    }
 
     public function province()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\Province','province_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\Province', 'province_id');
     }
 
     public function city()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\City','city_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\City', 'city_id');
     }
 
     public function district()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\District','district_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\District', 'district_id');
     }
 
     public function village()
     {
-        return $this->belongsTo('Laravolt\Indonesia\Models\Village','village_id');
+        return $this->belongsTo('Laravolt\Indonesia\Models\Village', 'village_id');
     }
 
     public function sekolah()
     {
-        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah','sekolah_id');
+        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\Sekolah', 'sekolah_id');
     }
 
     public function prodi_sekolah()
     {
-        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\ProdiSekolah','prodi_sekolah_id');
+        return $this->belongsTo('Bantenprov\Sekolah\Models\Bantenprov\Sekolah\ProdiSekolah', 'prodi_sekolah_id');
+    }
+
+    public function kegiatan()
+    {
+        return $this->belongsTo('Bantenprov\Kegiatan\Models\Bantenprov\Kegiatan\Kegiatan', 'kegiatan_id');
     }
 
     public function user()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\User', 'user_id');
+    }
+
+    public function akademik()
+    {
+        return $this->belongsTo('Bantenprov\Nilai\Models\Bantenprov\Nilai\Akademik', 'nomor_un', 'nomor_un');
+    }
+
+    public function nilai()
+    {
+        return $this->belongsTo('Bantenprov\Nilai\Models\Bantenprov\Nilai\Nilai', 'nomor_un', 'nomor_un');
     }
 }

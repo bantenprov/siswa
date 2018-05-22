@@ -42,7 +42,7 @@ class BantenprovSiswaSeeder extends Seeder
         /* silahkan di rubah sesuai kebutuhan */
         foreach($this->readCSV() as $data){
 
-            
+
         	$this->model->create([
             	'nomor_un' 	=> $data['nomor_un'],
 				'nik' 		=> $data['nik'],
@@ -60,10 +60,11 @@ class BantenprovSiswaSeeder extends Seeder
 				'nisn' => $data['nisn'],
 				'tahun_lulus' => $data['tahun_lulus'],
 				'sekolah_id' => $data['sekolah_id'],
+				'kegiatan_id' => $data['kegiatan_id'],
 				'user_id' => $data['user_id'],
 
         	]);
-        
+
 
         }
         $this->greenText('[ SEEDER DONE ]');
@@ -102,8 +103,9 @@ class BantenprovSiswaSeeder extends Seeder
                     'nisn' => $data[13],
                     'tahun_lulus' => $data[14],
                     'sekolah_id' => $data[15],
-                    'user_id' => $data[16]
-                    
+                    'kegiatan_id' => $data[16],
+                    'user_id' => $data[17],
+
                 ];
         }
         fclose($file);
